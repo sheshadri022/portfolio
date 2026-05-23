@@ -55,7 +55,7 @@ export default function Skills() {
                 </div>
                 <div className="h-1.5 rounded-full bg-muted overflow-hidden">
                   <motion.div
-                    className="h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-500"
+                    className="h-full rounded-full bg-gradient-to-r from-rose-600 to-pink-600"
                     initial={{ width: 0 }}
                     whileInView={{ width: `${skill.level}%` }}
                     viewport={{ once: true }}

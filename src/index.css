@@ -96,9 +96,9 @@
   --popover-foreground: 210 20% 96%;
   --popover-border: 220 10% 16%;
 
-  /* Electric cyan — pops against matte black beautifully */
-  --primary: 192 100% 50%;
-  --primary-foreground: 220 12% 6%;
+  /* Burgundy/wine — matches the maroon suit beautifully */
+  --primary: 345 70% 55%;
+  --primary-foreground: 0 0% 100%;
 
   --secondary: 220 10% 14%;
   --secondary-foreground: 210 20% 88%;
@@ -114,7 +114,7 @@
 
   --border: 220 10% 16%;
   --input: 220 10% 14%;
-  --ring: 192 100% 50%;
+  --ring: 345 70% 55%;
 }
 
 @layer base {

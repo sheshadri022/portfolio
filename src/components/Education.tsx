@@ -29,7 +29,7 @@ export default function Education() {
           className="max-w-2xl"
         >
           <div className="relative p-8 md:p-10 rounded-2xl bg-card border border-border hover:border-primary/40 transition-all shadow-sm group overflow-hidden">
-            <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-blue-500 to-purple-500 rounded-l-2xl" />
+            <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-rose-600 to-pink-700 rounded-l-2xl" />
             <div className="absolute -top-8 -right-8 w-32 h-32 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors duration-500" />
 
             <div className="flex items-start gap-6">

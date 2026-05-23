@@ -40,7 +40,7 @@ export default function Navbar() {
   return (
     <>
       <div 
-        className="fixed top-0 left-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 z-50 transition-all duration-150"
+        className="fixed top-0 left-0 h-1 bg-gradient-to-r from-rose-600 via-pink-600 to-rose-800 z-50 transition-all duration-150"
         style={{ width: `${scrollProgress}%` }}
       />
       <header

@@ -33,7 +33,7 @@ const projects: Project[] = [
       "Responsive UI",
     ],
     image: "/project-helpdesk.png",
-    gradient: "from-cyan-400 via-sky-500 to-blue-500",
+    gradient: "from-rose-500 via-pink-600 to-purple-700",
     featured: true,
     liveUrl: "#",
     githubUrl: "#",
@@ -125,10 +125,10 @@ export default function Projects() {
                         {project.tag}
                       </div>
                       {project.featured && (
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-400 border border-cyan-500/30 text-xs font-semibold">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-rose-600/20 to-pink-700/20 text-rose-400 border border-rose-600/30 text-xs font-semibold">
                           <span className="relative flex h-1.5 w-1.5">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-400"></span>
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-rose-400"></span>
                           </span>
                           Live
                         </div>

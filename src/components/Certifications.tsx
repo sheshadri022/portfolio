@@ -13,7 +13,7 @@ const certs = [
     verifyUrl: "https://ude.my/UC-8a9dbdc1-f6f2-49bb-9eed-65a562811cc7",
     image: "/cert-gworkspace.jpeg",
     description: "Comprehensive 32-hour course covering Google Workspace administration, user provisioning, security policies, and enterprise collaboration tools.",
-    glowColor: "bg-cyan-500/10",
+    glowColor: "bg-rose-700/10",
   },
   {
     title: "IT Asset Management (ITAM) Course with Certificate",
@@ -25,7 +25,7 @@ const certs = [
     verifyUrl: "https://ude.my/UC-ed9acd1b-420a-41f6-9e2f-f473ad4d87a6",
     image: "/cert-itam.jpeg",
     description: "Certified in IT asset lifecycle management, inventory tracking, procurement coordination, and ITAM best practices for enterprise environments.",
-    glowColor: "bg-sky-500/10",
+    glowColor: "bg-pink-700/10",
   },
   {
     title: "Technical Support Fundamentals",

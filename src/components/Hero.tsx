@@ -126,7 +126,7 @@ export default function Hero() {
               <img 
                 src="/sheshadri.jpeg" 
                 alt="Sheshadri N" 
-                className="h-full w-full object-cover rounded-full"
+                className="h-full w-full object-cover object-top rounded-full"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = 'https://ui-avatars.com/api/?name=Sheshadri+N&size=512&background=random';
                 }}

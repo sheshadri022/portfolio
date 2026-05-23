@@ -22,9 +22,9 @@ export default function Hero() {
     <section id="hero" className="relative min-h-[100dvh] flex items-center pt-24 pb-12 overflow-hidden">
       {/* Background gradients */}
       <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] bg-cyan-500/10 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] bg-sky-400/8 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[40vh] bg-cyan-400/3 rounded-full blur-[160px]" />
+        <div className="absolute top-1/4 left-1/4 w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] bg-rose-700/10 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] bg-pink-800/8 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[40vh] bg-rose-700/5 rounded-full blur-[160px]" />
       </div>
 
       <div className="container mx-auto px-6 lg:px-12 z-10">
@@ -53,13 +53,13 @@ export default function Hero() {
             
             <div className="text-xl lg:text-2xl font-medium h-[1.5em] text-muted-foreground flex items-center">
               <span className="text-slate-400 mr-2">I am a</span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-sky-400 font-bold">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-pink-400 font-bold">
                 {titles[titleIndex]}
               </span>
               <motion.span 
                 animate={{ opacity: [0, 1, 0] }} 
                 transition={{ repeat: Infinity, duration: 1 }}
-                className="w-0.5 h-6 bg-cyan-400 ml-1 block" 
+                className="w-0.5 h-6 bg-rose-400 ml-1 block" 
               />
             </div>
 
@@ -109,7 +109,7 @@ export default function Hero() {
                 { value: "100%", label: "Uptime Focus" },
               ].map((stat) => (
                 <div key={stat.label}>
-                  <div className="text-3xl font-bold font-heading text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-sky-300">{stat.value}</div>
+                  <div className="text-3xl font-bold font-heading text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-pink-400">{stat.value}</div>
                   <div className="text-xs text-slate-500 mt-1 uppercase tracking-wider">{stat.label}</div>
                 </div>
               ))}</div>
@@ -121,8 +121,8 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="relative lg:ml-auto w-full max-w-md mx-auto aspect-square"
           >
-            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-500 to-sky-400 blur-2xl opacity-15 animate-pulse" />
-            <div className="relative h-full w-full rounded-full border border-cyan-500/20 p-1.5 overflow-hidden shadow-2xl bg-[#0d0d0f]">
+            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-rose-700 to-pink-600 blur-2xl opacity-20 animate-pulse" />
+            <div className="relative h-full w-full rounded-full border border-rose-600/25 p-1.5 overflow-hidden shadow-2xl bg-[#0d0d0f]">
               <img 
                 src="/sheshadri.jpeg" 
                 alt="Sheshadri N" 

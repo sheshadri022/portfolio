@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
-import { Moon, Sun, Menu, X, Github, Linkedin } from "lucide-react";
+import { Menu, X, Github, Linkedin } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const links = [
@@ -14,14 +13,11 @@ const links = [
 ];
 
 export default function Navbar() {
-  const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    setMounted(true);
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
       const totalScroll = document.documentElement.scrollTop;
@@ -32,8 +28,6 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  if (!mounted) return null;
 
   return (
     <>
@@ -87,14 +81,6 @@ export default function Navbar() {
               >
                 <Github size={18} />
               </a>
-              <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
-                aria-label="Toggle dark mode"
-                data-testid="theme-toggle"
-              >
-                {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-              </button>
             </div>
           </nav>
 
@@ -118,13 +104,6 @@ export default function Navbar() {
             >
               <Github size={18} />
             </a>
-            <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
-              aria-label="Toggle dark mode"
-            >
-              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 -mr-2 text-foreground"

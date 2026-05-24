@@ -50,7 +50,7 @@ export default function Navbar() {
       >
         <div className="container mx-auto px-6 lg:px-12 flex items-center justify-between">
           <a href="#" className="text-xl font-bold tracking-tight font-heading">
-            SHESHADRI N<span className="text-primary">.</span>
+            SHESHADRI N
           </a>
 
           {/* Desktop Nav */}

@@ -53,7 +53,6 @@ export default function Hero() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-300">
                 SHESHADRI N
               </span>
-              <span className="text-primary">.</span>
             </h1>
             
             <div className="text-xl lg:text-2xl font-medium h-[1.5em] text-muted-foreground flex items-center">

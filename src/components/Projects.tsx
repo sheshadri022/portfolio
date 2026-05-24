@@ -1,84 +1,55 @@
 import { motion } from "framer-motion";
-import { Tag, User, Wrench, ExternalLink, Github } from "lucide-react";
+import { Tag, ExternalLink, Github } from "lucide-react";
 
 interface Project {
   tag: string;
   title: string;
   description: string;
-  role: string;
   tools: string[];
   features: string[];
-  image?: string;
   gradient: string;
-  featured: boolean;
-  liveUrl: string | null;
-  githubUrl: string | null;
+  liveUrl: string;
+  githubUrl: string;
 }
 
 const projects: Project[] = [
   {
     tag: "Featured Project",
-    title: "IT Asset & Helpdesk Portal",
+    title: "TechOps Portal",
     description:
-      "Built a modern IT Asset & Helpdesk Portal using Replit AI-assisted development. The platform helps manage IT assets, employee support tickets, onboarding/offboarding requests, asset allocation, issue tracking, and internal IT workflows.",
-    role: "System Administrator / Developer",
-    tools: ["Replit AI", "React", "Tailwind CSS", "Firebase / Supabase", "REST APIs"],
+      "IT Asset and Helpdesk Management Portal built for managing assets, tickets, users, and support workflows with a clean dashboard UI.",
+    tools: ["React", "Tailwind CSS", "Node.js", "REST APIs", "Replit"],
     features: [
       "Asset inventory management",
-      "Ticket management system",
-      "Admin dashboard",
+      "Helpdesk ticket management system",
+      "Admin dashboard with analytics",
       "Employee support portal",
-      "Status tracking",
+      "Status tracking & SLA management",
       "IT workflow automation",
-      "Responsive UI",
+      "Responsive, modern UI",
     ],
-    image: "/project-helpdesk.png",
     gradient: "from-rose-500 via-pink-600 to-purple-700",
-    featured: true,
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://techops-portal.onrender.com",
+    githubUrl: "https://github.com/sheshadri022/techops-demo-portal",
   },
   {
-    tag: "Internal Initiative",
-    title: "Miles IT Asset Management",
+    tag: "Personal Project",
+    title: "Portfolio Website",
     description:
-      "Developed and managed an internal IT Asset Management process for tracking laptops, desktops, accessories, and IT resources across departments. Streamlined asset allocation, onboarding/offboarding processes, inventory tracking, procurement coordination, and maintenance lifecycle management.",
-    role: "System Administrator / IT Asset Coordinator",
-    tools: ["Google Workspace", "ITSM Tools", "Excel", "Windows Administration", "Asset Tracking Systems"],
+      "Personal portfolio website for showcasing experience, skills, projects, certifications, and contact details.",
+    tools: ["React", "Vite", "Tailwind CSS", "Framer Motion", "TypeScript"],
     features: [
-      "Asset allocation & tracking",
-      "Employee onboarding/offboarding asset handling",
-      "Inventory management",
-      "Procurement coordination",
-      "IT asset lifecycle monitoring",
-      "Excel/ITSM-based reporting",
-      "Reduced asset loss & improved tracking efficiency",
-    ],
-    gradient: "from-blue-500 via-indigo-500 to-purple-500",
-    featured: false,
-    liveUrl: null,
-    githubUrl: null,
-  },
-  {
-    tag: "Internal Platform",
-    title: "Miles IT Hub",
-    description:
-      "Built and maintained a centralized IT Hub for Miles Education — a single point of contact for all IT support, service requests, and knowledge resources. Consolidated helpdesk operations, standardized support workflows, and created self-service guides to reduce ticket volume and improve end-user resolution times.",
-    role: "System Administrator / Google Workspace Admin",
-    tools: ["Google Workspace", "ITSM Ticketing", "Windows OS", "Network Troubleshooting", "Knowledge Base Tools"],
-    features: [
-      "Centralized IT helpdesk operations",
-      "Standardized L1/L2 support workflows",
-      "Self-service knowledge base & guides",
-      "Ticket triage and SLA management",
-      "End-user onboarding documentation",
-      "Hardware & software request handling",
-      "Reduced average ticket resolution time",
+      "Animated hero section with role rotator",
+      "Dark / light mode toggle",
+      "Glassmorphism card design",
+      "Smooth scroll navigation",
+      "Responsive layout (mobile & desktop)",
+      "Framer Motion entrance animations",
+      "Deployed on Render via GitHub",
     ],
     gradient: "from-indigo-500 via-purple-500 to-pink-500",
-    featured: false,
-    liveUrl: null,
-    githubUrl: null,
+    liveUrl: "https://sheshadri-portfolio.onrender.com",
+    githubUrl: "https://github.com/sheshadri022/portfolio",
   },
 ];
 
@@ -98,7 +69,7 @@ export default function Projects() {
             <span className="h-px w-24 bg-border inline-block"></span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Key initiatives that streamlined IT operations and improved organizational efficiency.
+            Key projects that demonstrate IT operations expertise and development capability.
           </p>
         </motion.div>
 
@@ -124,7 +95,7 @@ export default function Projects() {
                         <Tag size={14} />
                         {project.tag}
                       </div>
-                      {project.featured && (
+                      {idx === 0 && (
                         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-rose-600/20 to-pink-700/20 text-rose-400 border border-rose-600/30 text-xs font-semibold">
                           <span className="relative flex h-1.5 w-1.5">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
@@ -142,19 +113,8 @@ export default function Projects() {
                       {project.description}
                     </p>
 
-                    <div className="flex items-center gap-3 mb-6">
-                      <User size={16} className="text-primary flex-shrink-0" />
-                      <div>
-                        <span className="text-xs text-muted-foreground uppercase tracking-wider">Role</span>
-                        <p className="text-sm font-semibold">{project.role}</p>
-                      </div>
-                    </div>
-
                     <div className="mb-8">
-                      <div className="flex items-center gap-2 mb-3">
-                        <Wrench size={16} className="text-primary" />
-                        <span className="text-xs text-muted-foreground uppercase tracking-wider">Technologies & Tools</span>
-                      </div>
+                      <span className="text-xs text-muted-foreground uppercase tracking-wider block mb-3">Technologies & Tools</span>
                       <div className="flex flex-wrap gap-2">
                         {project.tools.map((tool) => (
                           <span
@@ -167,48 +127,31 @@ export default function Projects() {
                       </div>
                     </div>
 
-                    {/* CTA buttons for featured project */}
-                    {project.featured && (
-                      <div className="flex flex-wrap gap-3">
-                        {project.liveUrl && (
-                          <a
-                            href={project.liveUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-all hover:-translate-y-0.5 shadow-lg shadow-primary/20"
-                            data-testid="button-live-demo"
-                          >
-                            <ExternalLink size={15} />
-                            Live Demo
-                          </a>
-                        )}
-                        {project.githubUrl && (
-                          <a
-                            href={project.githubUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-border text-sm font-semibold hover:border-primary/50 hover:text-primary transition-all hover:-translate-y-0.5 bg-white/5"
-                            data-testid="button-github"
-                          >
-                            <Github size={15} />
-                            GitHub
-                          </a>
-                        )}
-                      </div>
-                    )}
+                    <div className="flex flex-wrap gap-3">
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-all hover:-translate-y-0.5 shadow-lg shadow-primary/20"
+                        data-testid={`button-live-demo-${idx}`}
+                      >
+                        <ExternalLink size={15} />
+                        Live Demo
+                      </a>
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-border text-sm font-semibold hover:border-primary/50 hover:text-primary transition-all hover:-translate-y-0.5 bg-white/5"
+                        data-testid={`button-github-${idx}`}
+                      >
+                        <Github size={15} />
+                        GitHub
+                      </a>
+                    </div>
                   </div>
 
                   <div>
-                    {/* Project image for featured projects */}
-                    {project.image && (
-                      <div className="mb-6 rounded-2xl overflow-hidden border border-border shadow-lg">
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          className="w-full h-auto object-cover"
-                        />
-                      </div>
-                    )}
                     <h4 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">
                       Key Features & Outcomes
                     </h4>

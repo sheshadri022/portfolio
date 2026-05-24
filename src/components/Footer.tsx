@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Heart } from "lucide-react";
+import { Heart, Github, Linkedin } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -16,11 +16,36 @@ export default function Footer() {
             <span>Designed & Developed by</span>
             <span className="font-semibold text-foreground">SHESHADRI N</span>
           </div>
+
+          <div className="flex items-center gap-4">
+            <a
+              href="https://www.linkedin.com/in/sheshadri-n"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:text-primary transition-colors"
+              aria-label="LinkedIn"
+            >
+              <Linkedin size={16} />
+              <span>LinkedIn</span>
+            </a>
+            <a
+              href="https://github.com/sheshadri022"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:text-primary transition-colors"
+              aria-label="GitHub"
+            >
+              <Github size={16} />
+              <span>GitHub</span>
+            </a>
+          </div>
+
           <div className="flex items-center gap-1.5">
             <span>Made with</span>
             <Heart size={14} className="text-red-500 fill-red-500" />
             <span>using React & Framer Motion</span>
           </div>
+
           <div>
             &copy; {new Date().getFullYear()} Sheshadri N. All rights reserved.
           </div>

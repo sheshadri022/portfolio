@@ -18,6 +18,11 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
+  const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section id="hero" className="relative min-h-[100dvh] flex items-center pt-24 pb-12 overflow-hidden">
       {/* Background gradients */}
@@ -93,7 +98,8 @@ export default function Hero() {
                 Download Resume
               </a>
               <a 
-                href="#contact" 
+                href="#contact"
+                onClick={handleContactClick}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all hover:-translate-y-1 border border-white/15 text-slate-200 hover:border-primary/50 hover:text-primary bg-white/5 backdrop-blur-sm"
               >
                 Contact Me
@@ -101,18 +107,18 @@ export default function Hero() {
               </a>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8 pt-8 border-t border-white/8">
+            <div className="grid grid-cols-3 gap-6 mt-8 pt-8 border-t border-white/8">
               {[
                 { value: "4+", label: "Years Experience" },
                 { value: "1", label: "Company" },
-                { value: "500+", label: "Tickets Resolved" },
                 { value: "100%", label: "Uptime Focus" },
               ].map((stat) => (
                 <div key={stat.label}>
                   <div className="text-3xl font-bold font-heading text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-pink-400">{stat.value}</div>
                   <div className="text-xs text-slate-500 mt-1 uppercase tracking-wider">{stat.label}</div>
                 </div>
-              ))}</div>
+              ))}
+            </div>
           </motion.div>
 
           <motion.div

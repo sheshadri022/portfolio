@@ -33,7 +33,7 @@ export default function Hero() {
       </div>
 
       <div className="container mx-auto px-6 lg:px-12 z-10">
-        <div className="grid gap-12 items-center max-w-3xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
           
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -120,6 +120,41 @@ export default function Hero() {
             </div>
           </motion.div>
 
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="relative lg:ml-auto w-full max-w-md mx-auto aspect-square"
+          >
+            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-rose-700 to-pink-600 blur-2xl opacity-20 animate-pulse" />
+            <div className="relative h-full w-full rounded-full border border-rose-600/25 p-1.5 overflow-hidden shadow-2xl bg-[#0d0d0f]">
+              <img 
+                src="/sheshadri.jpeg" 
+                alt="Sheshadri N" 
+                className="h-full w-full object-cover object-top rounded-full"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = 'https://ui-avatars.com/api/?name=Sheshadri+N&size=512&background=random';
+                }}
+              />
+            </div>
+            
+            {/* Floating badge */}
+            <motion.div 
+              animate={{ y: [0, -10, 0] }}
+              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+              className="absolute -bottom-4 -right-4 lg:bottom-12 lg:-right-8 bg-card border border-border p-4 rounded-xl shadow-xl backdrop-blur-sm"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
+                  IT
+                </div>
+                <div>
+                  <div className="font-semibold text-sm">SysAdmin</div>
+                  <div className="text-xs text-muted-foreground">Expertise</div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
           
         </div>
       </div>

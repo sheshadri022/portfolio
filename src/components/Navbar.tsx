@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { Moon, Sun, Menu, X, Github, Linkedin } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const links = [
@@ -24,10 +24,8 @@ export default function Navbar() {
     setMounted(true);
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
-      
       const totalScroll = document.documentElement.scrollTop;
       const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scroll = `${(totalScroll / windowHeight) * 100}%`;
       setScrollProgress(Number((totalScroll / windowHeight) * 100));
     };
 
@@ -56,7 +54,7 @@ export default function Navbar() {
           </a>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-6">
             <ul className="flex items-center gap-6">
               {links.map((link) => (
                 <li key={link.name}>
@@ -70,18 +68,56 @@ export default function Navbar() {
               ))}
             </ul>
             <div className="h-6 w-px bg-border"></div>
-            <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
-              aria-label="Toggle dark mode"
-              data-testid="theme-toggle"
-            >
-              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
+            <div className="flex items-center gap-2">
+              <a
+                href="https://www.linkedin.com/in/sheshadri-n"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-primary"
+                aria-label="LinkedIn"
+              >
+                <Linkedin size={18} />
+              </a>
+              <a
+                href="https://github.com/sheshadri022"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-primary"
+                aria-label="GitHub"
+              >
+                <Github size={18} />
+              </a>
+              <button
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+                aria-label="Toggle dark mode"
+                data-testid="theme-toggle"
+              >
+                {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
+            </div>
           </nav>
 
           {/* Mobile Nav Toggle */}
-          <div className="flex items-center gap-4 md:hidden">
+          <div className="flex items-center gap-2 md:hidden">
+            <a
+              href="https://www.linkedin.com/in/sheshadri-n"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-primary"
+              aria-label="LinkedIn"
+            >
+              <Linkedin size={18} />
+            </a>
+            <a
+              href="https://github.com/sheshadri022"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-primary"
+              aria-label="GitHub"
+            >
+              <Github size={18} />
+            </a>
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"

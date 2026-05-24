@@ -50,7 +50,7 @@ export default function Hero() {
             </div>
             
             <h1 className="text-5xl lg:text-7xl font-bold font-heading leading-tight tracking-tight">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-300">
+              <span className="text-foreground">
                 SHESHADRI N
               </span>
             </h1>
@@ -99,7 +99,7 @@ export default function Hero() {
               <a 
                 href="#contact"
                 onClick={handleContactClick}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all hover:-translate-y-1 border border-white/15 text-slate-200 hover:border-primary/50 hover:text-primary bg-white/5 backdrop-blur-sm"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all hover:-translate-y-1 border border-border text-foreground hover:border-primary/50 hover:text-primary bg-muted/40 backdrop-blur-sm"
               >
                 Contact Me
                 <ArrowRight size={18} />

@@ -3,7 +3,7 @@ import Portfolio from "./components/Portfolio";
 
 function App() {
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} forcedTheme="dark">
       <Portfolio />
     </ThemeProvider>
   );

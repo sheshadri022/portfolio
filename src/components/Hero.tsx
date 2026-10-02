@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 import { MapPin, Mail, Phone, Download, ArrowRight } from "lucide-react";
 
 const titles = [
-  "System Administrator",
+  "Workplace Technology Specialist",
   "Google Workspace Admin",
-  "L1/L2 Support Specialist",
+  "IT Asset Management Specialist",
 ];
 
 export default function Hero() {
@@ -68,7 +68,7 @@ export default function Hero() {
             </div>
 
             <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
-              System Administrator & Google Workspace professional with 4+ years of experience in IT support, infrastructure management, IT asset management, and enterprise technical support.
+              Workplace Technology professional with 5 years at Miles Education: Google Workspace administration, L1/L2 IT support, laptop servicing and IT asset management. I also build internal IT tools with AI.
             </p>
 
             <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
@@ -108,7 +108,7 @@ export default function Hero() {
 
             <div className="grid grid-cols-3 gap-6 mt-8 pt-8 border-t border-white/8">
               {[
-                { value: "4+", label: "Years Experience" },
+                { value: "5", label: "Years Experience" },
                 { value: "1", label: "Company" },
                 { value: "100%", label: "Uptime Focus" },
               ].map((stat) => (
@@ -149,7 +149,7 @@ export default function Hero() {
                   IT
                 </div>
                 <div>
-                  <div className="font-semibold text-sm">SysAdmin</div>
+                  <div className="font-semibold text-sm">Workplace Tech</div>
                   <div className="text-xs text-muted-foreground">Expertise</div>
                 </div>
               </div>

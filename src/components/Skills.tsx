@@ -231,7 +231,7 @@ export default function Skills() {
             <span className="h-px w-24 bg-border inline-block"></span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Core technical competencies built through 4+ years of hands-on enterprise IT experience.
+            Core technical competencies built through 5 years of hands-on enterprise IT experience.
             <span className="text-primary/80 ml-1">Click any card to explore details.</span>
           </p>
         </motion.div>

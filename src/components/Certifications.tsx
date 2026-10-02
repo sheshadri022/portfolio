@@ -9,8 +9,8 @@ const certs = [
     instructor: "Saleh Ramadan",
     date: "June 25, 2024",
     hours: "32 total hours",
-    certNo: "UC-8a9dbdc1-f6f2-49bb-9eed-65a562811cc7",
-    verifyUrl: "https://ude.my/UC-8a9dbdc1-f6f2-49bb-9eed-65a562811cc7",
+    certNo: "UC-8a9dbdc1-16f2-49bb-9eed-65a562811cc7",
+    verifyUrl: "https://ude.my/UC-8a9dbdc1-16f2-49bb-9eed-65a562811cc7",
     image: "/cert-gworkspace.jpeg",
     description: "Comprehensive 32-hour course covering Google Workspace administration, user provisioning, security policies, and enterprise collaboration tools.",
     glowColor: "bg-rose-700/10",
@@ -39,6 +39,18 @@ const certs = [
     description: "Google-authorized course covering hardware, software, networking, operating systems, and IT customer service fundamentals.",
     glowColor: "bg-emerald-500/10",
   },
+  {
+    title: "Replit Certification – Beginner Builder (Level 1)",
+    platform: "Replit",
+    instructor: "Replit",
+    date: "2026",
+    hours: null,
+    certNo: "",
+    verifyUrl: "",
+    image: "/cert-replit.png",
+    description: "Replit certification for building and shipping apps with AI-assisted development.",
+    glowColor: "bg-orange-500/10",
+  },
 ];
 
 export default function Certifications() {
@@ -63,7 +75,7 @@ export default function Certifications() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {certs.map((cert, i) => (
             <motion.div
               key={cert.title}

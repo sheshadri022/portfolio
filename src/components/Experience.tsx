@@ -5,33 +5,39 @@ const company = {
   name: "Miles Education Pvt Ltd",
   roles: [
     {
-      title: "System Administrator / Google Workspace Admin",
+      title: "Associate – Asset Management",
       duration: "Oct 2023 – Present",
       current: true,
       responsibilities: [
-        "Administered Google Workspace including user management and access control",
-        "Managed IT asset lifecycle and inventory across departments",
-        "Resolved L1/L2 technical support queries, ensuring SLA compliance and minimal downtime",
-        "Provided end-user support for desktops, laptops, and enterprise applications",
-        "Performed hardware and software troubleshooting",
-        "Managed Windows system installation and configuration",
-        "Handled ITSM ticketing system for efficient issue resolution",
-        "Supported onboarding/offboarding and IT procurement",
+        "Own the IT asset lifecycle: procurement, allocation, inventory and SaaS licence tracking",
+        "Google Workspace administration: users, groups, security policies, email migration",
+        "Employee onboarding/offboarding and access management",
+        "L1/L2 support on Freshservice with an SLA focus",
+        "Windows setup, troubleshooting and hands-on laptop servicing",
+        "Built an internal IT Asset & Helpdesk Portal using AI-assisted development",
       ],
     },
     {
-      title: "IT Support Engineer",
-      duration: "Oct 2021 – Oct 2023",
+      title: "IT Support",
+      duration: "Oct 2022 – Sep 2023",
       current: false,
       responsibilities: [
-        "Worked on L1/L2 support queries for end users",
-        "Installed and configured Windows OS and applications",
-        "Provided desktop and laptop hardware support",
-        "Managed service desk tickets efficiently",
-        "Assisted in IT asset tracking and inventory management",
-        "Performed basic network troubleshooting",
+        "L1/L2 support for hardware, software and system issues",
+        "Windows OS installation, configuration and laptop/desktop troubleshooting",
+        "Service desk ticket handling and issue resolution",
+        "Supported IT asset tracking and inventory",
       ],
     },
+    {
+      title: "Network Support",
+      duration: "Oct 2021 – Sep 2022",
+      current: false,
+      responsibilities: [
+        "Network and connectivity troubleshooting for office users",
+        "Desktop and laptop setup and basic hardware support",
+        "First-line technical support for staff",
+      ],
+    }
   ],
 };
 
@@ -51,7 +57,7 @@ export default function Experience() {
             <span className="h-px w-24 bg-border inline-block"></span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            4+ years building reliable IT infrastructure and delivering enterprise-level support.
+            5 years keeping workplace technology running: people, devices, accounts and tools.
           </p>
         </motion.div>
 
@@ -69,7 +75,7 @@ export default function Experience() {
             </div>
             <div>
               <h3 className="text-xl font-bold font-heading">{company.name}</h3>
-              <p className="text-sm text-muted-foreground">Oct 2021 – Present · 4+ years</p>
+              <p className="text-sm text-muted-foreground">Oct 2021 – Present · 5 years</p>
             </div>
           </div>
 

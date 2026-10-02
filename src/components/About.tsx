@@ -45,10 +45,10 @@ export default function About() {
             <span className="h-px w-24 bg-border inline-block"></span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            I am a dedicated IT professional specializing in system administration and technical support. With a proactive approach to problem-solving, I build and maintain reliable infrastructure that empowers teams to work efficiently.
+            I keep workplaces running: people, devices, accounts and tools. I joined Miles Education in 2021 in Network Support, moved to IT Support in 2022, and have been Associate – Asset Management since 2023, looking after Google Workspace, onboarding/offboarding, L1/L2 helpdesk, laptop servicing and the IT asset lifecycle.
           </p>
           <p className="text-lg text-muted-foreground leading-relaxed mt-4">
-            My expertise bridges the gap between complex technical systems and everyday user needs, ensuring seamless operations across enterprise environments.
+            I also build. Using AI tools, I created our internal IT Asset & Helpdesk Portal, set up Google Workspace for two businesses, and built a complete e-commerce website for a client. For startups, I can plan and set up IT from day one.
           </p>
         </motion.div>
 

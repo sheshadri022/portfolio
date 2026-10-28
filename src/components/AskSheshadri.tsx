@@ -3,7 +3,6 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowUp, ExternalLink } from "lucide-react";
 import { ask, questions, type Answer } from "@/lib/ask";
 import { useVirtualHuman } from "@/context/VirtualHuman";
-import ResponsiveImage from "./ResponsiveImage";
 
 type Msg = { id: number; from: "me" | "you"; text: string; links?: Answer["links"] };
 
@@ -70,7 +69,7 @@ export default function AskSheshadri({ compact = false, autoFocus = false }: { c
     >
       <header className="flex items-center gap-3 border-b border-line px-5 py-4">
         <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full bg-ink-3 ring-1 ring-magenta/40">
-          <ResponsiveImage base="/assets/profile/avatar" alt="" width={44} height={44} className="h-full w-full object-cover" />
+          <img src="/assets/avatars/profile.webp" alt="" width={44} height={44} className="h-full w-full object-cover object-[50%_22%]" />
           <span className="absolute bottom-0.5 right-0.5 h-2.5 w-2.5 rounded-full bg-ice ring-2 ring-ink-2" aria-hidden />
         </span>
         <div className="min-w-0">

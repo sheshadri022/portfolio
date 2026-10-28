@@ -1,7 +1,6 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import { Github, Linkedin, Mail, Phone, Send } from "lucide-react";
 import { person } from "@/data/profile";
-import ResponsiveImage from "./ResponsiveImage";
 import SectionHeading from "./SectionHeading";
 
 const channels = [
@@ -39,8 +38,8 @@ export default function ContactSection() {
             Have a role, a project or an IT setup in mind? Reach out.
           </SectionHeading>
           <div className="mb-12 hidden items-center gap-4 md:mb-16 md:flex">
-            <span className="h-20 w-20 overflow-hidden rounded-full bg-ink-3 ring-2 ring-ice/50">
-              <ResponsiveImage base="/assets/profile/avatar" alt="Sheshadri N" width={80} height={80} className="h-full w-full object-cover" />
+            <span className="h-32 w-24 overflow-hidden rounded-2xl bg-ink-3 ring-2 ring-ice/50">
+              <img src="/assets/avatars/greeting.webp" alt="Sheshadri N waving hello" width={96} height={128} loading="lazy" className="h-full w-full object-cover object-top" />
             </span>
             <p className="hand -rotate-3 text-3xl text-ice" aria-hidden>
               say hello

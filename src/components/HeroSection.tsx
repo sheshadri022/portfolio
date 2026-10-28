@@ -128,12 +128,12 @@ export default function HeroSection() {
             />
             <div className="relative overflow-hidden rounded-t-[999px] rounded-b-[28px] border border-line bg-gradient-to-b from-ink-3 to-ink-2">
               <ResponsiveImage
-                base="/assets/profile/mobile"
+                base="/assets/avatars/mobile"
                 alt="Sheshadri N"
-                width={440}
-                height={520}
+                width={520}
+                height={885}
                 priority
-                className="block h-auto w-full"
+                className="block aspect-[4/5] h-auto w-full object-cover object-top"
               />
             </div>
             <figcaption className="hand mt-3 text-center text-2xl text-text/90" aria-hidden>

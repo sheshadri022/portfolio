@@ -194,7 +194,18 @@ export default function FeaturedProjects() {
   return (
     <section id="projects" aria-labelledby="projects-title" className="section">
       <div className="container-x">
-        <SectionHeading id="projects-title" title="Featured projects">
+        <SectionHeading
+          id="projects-title"
+          title="Featured projects"
+          aside={
+            <figure className="relative">
+              <img src="/assets/avatars/presenting.webp" alt="Sheshadri pointing toward his projects" width={200} height={308} loading="lazy" className="h-[260px] w-auto rounded-[22px] border border-line object-cover" />
+              <figcaption className="hand absolute -left-28 bottom-8 -rotate-6 text-2xl text-magenta" aria-hidden>
+                take a look ↓
+              </figcaption>
+            </figure>
+          }
+        >
           Real applications, built from problems I saw in IT operations.
         </SectionHeading>
 

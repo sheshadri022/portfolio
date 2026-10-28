@@ -52,6 +52,7 @@ The browser only ever calls that endpoint. No API key is shipped in the frontend
 ## Talking avatar and skill explainers
 
 - Point at a menu item (or a section heading once voice is on) and Sheshadri's avatar explains that section. "Meet Sheshadri" in the hero, or the speaker button in the navbar, turns the voice on. Browsers block sound until the visitor clicks once, so before that clips play muted with captions.
+- Poses: `public/assets/avatars/` holds his avatar set (about, developer, seated, mobile, profile, greeting, presenting, interactive, talking). The floating dock switches pose by section: presenting on Projects, interactive on Skills, talking while Ask is open, waving on Contact.
 - Clips: `public/assets/avatar/*.webm|mp4`, lip-synced from his real photo with a neutral AI voice (Higgsfield: Seed Audio voice "Julian", Wan 2.7). Scripts live in `src/data/voice.ts`; change a script there and regenerate its clip.
 - Skills: each card has "How it works", a step-by-step explainer timed to an AI voice-over in `public/assets/voice/*.mp3`.
 - Everything loads only when played, and the site labels the voice and animation as AI.

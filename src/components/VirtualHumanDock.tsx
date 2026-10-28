@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { useVirtualHuman, type VirtualHumanState } from "@/context/VirtualHuman";
 import AskSheshadri from "./AskSheshadri";
-import ResponsiveImage from "./ResponsiveImage";
 
 // Small, section-aware presence once the hero has scrolled away.
 // It reacts to where the reader is (one short line, then it quietly
@@ -14,6 +13,16 @@ const lines: Partial<Record<VirtualHumanState, { text: string; point?: "left" }>
   projects: { text: "These are apps I built and shipped.", point: "left" },
   skills: { text: "Grouped the way I use them at work." },
   contact: { text: "Email or LinkedIn both reach me." },
+};
+
+// One pose per state, from Sheshadri's avatar set.
+const pose: Record<VirtualHumanState, string> = {
+  idle: "/assets/avatars/profile.webp",
+  greeting: "/assets/avatars/greeting.webp",
+  explaining: "/assets/avatars/talking.webp",
+  projects: "/assets/avatars/presenting.webp",
+  skills: "/assets/avatars/interactive.webp",
+  contact: "/assets/avatars/greeting.webp",
 };
 
 const ring: Record<VirtualHumanState, string> = {
@@ -112,9 +121,22 @@ export default function VirtualHumanDock() {
               whileTap={{ scale: 0.96 }}
               animate={state === "projects" ? { rotate: [-4, 0] } : state === "contact" ? { y: [0, -3, 0] } : { rotate: 0 }}
               transition={{ duration: 0.6 }}
-              className={`h-14 w-14 overflow-hidden rounded-full bg-ink-3 shadow-[0_12px_30px_-10px_rgba(0,0,0,0.8)] ring-2 transition-[box-shadow] ${ring[state]}`}
+              className={`relative h-[84px] w-[64px] overflow-hidden rounded-2xl bg-ink-3 shadow-[0_12px_30px_-10px_rgba(0,0,0,0.8)] ring-2 transition-[box-shadow] ${ring[state]}`}
             >
-              <ResponsiveImage base="/assets/profile/avatar" alt="" width={56} height={56} className="h-full w-full object-cover" />
+              <AnimatePresence initial={false}>
+                <motion.img
+                  key={pose[state]}
+                  src={pose[state]}
+                  alt=""
+                  width={64}
+                  height={84}
+                  className="absolute inset-0 h-full w-full object-cover object-top"
+                  initial={{ opacity: 0, scale: 1.04 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.35 }}
+                />
+              </AnimatePresence>
             </motion.button>
           </motion.div>
         )}

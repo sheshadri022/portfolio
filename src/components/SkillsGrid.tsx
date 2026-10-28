@@ -19,7 +19,13 @@ export default function SkillsGrid() {
   return (
     <section id="skills" aria-labelledby="skills-title" className="section">
       <div className="container-x">
-        <SectionHeading id="skills-title" title="Skills">
+        <SectionHeading
+          id="skills-title"
+          title="Skills"
+          aside={
+            <img src="/assets/avatars/interactive.webp" alt="Sheshadri pointing at Work, Automate, Build and Support" width={340} height={366} loading="lazy" className="h-[260px] w-auto rounded-[22px] border border-line object-cover" />
+          }
+        >
           Built through five years of hands-on workplace IT, and the apps that came out of it.
         </SectionHeading>
 

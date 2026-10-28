@@ -18,23 +18,16 @@ const code = [
 
 function DeskScene() {
   return (
-    <div className="relative mx-auto aspect-[5/4] w-full max-w-[620px]">
-      {/* Monitor */}
-      <div className="absolute right-0 top-0 w-[82%] overflow-hidden rounded-[16px] border border-line-strong bg-[#0c1024] shadow-[0_40px_80px_-30px_rgba(0,0,0,0.9)]">
-        <div className="h-6 border-b border-line bg-white/[0.02]" aria-hidden />
-        <img
-          src="/assets/projects/techops-dashboard-sm.webp"
-          alt="Dashboard of the asset and helpdesk portal, demo data"
-          width={640}
-          height={400}
-          loading="lazy"
-          className="block h-auto w-full"
-        />
-      </div>
-      <div aria-hidden className="absolute right-[34%] top-[58%] h-[8%] w-[14%] bg-gradient-to-b from-line-strong to-transparent" />
-
-      {/* Code window */}
-      <div className="absolute bottom-[4%] right-[4%] w-[66%] rounded-[14px] border border-line-strong bg-[#0a0d1f]/95 p-4 font-mono text-[10px] leading-[1.7] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.9)] sm:text-[11px]">
+    <figure className="relative mx-auto w-full max-w-[640px]">
+      <ResponsiveImage
+        base="/assets/avatars/developer"
+        alt="Sheshadri N working on a laptop with code on the monitors"
+        width={1100}
+        height={923}
+        className="block aspect-[1100/923] h-auto w-full rounded-[var(--radius-panel)] border border-line object-cover"
+      />
+      {/* Real excerpt from the asset portal API */}
+      <div className="absolute -bottom-6 right-3 hidden w-[min(78%,360px)] sm:block rounded-[14px] border border-line-strong bg-[#0a0d1f]/95 p-4 font-mono text-[10px] leading-[1.7] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.9)] sm:-right-6 sm:text-[11px]">
         <p className="mb-2 text-[10px] text-faint">api-server/src/routes/assets.ts</p>
         <pre className="overflow-hidden whitespace-pre text-muted">
           {code.map(([t, line], i) => (
@@ -44,21 +37,10 @@ function DeskScene() {
           ))}
         </pre>
       </div>
-
-      {/* Sheshadri, presenting the work */}
-      <div className="absolute bottom-0 left-0 w-[34%]">
-        <ResponsiveImage
-          base="/assets/profile/hero-sm"
-          alt="Sheshadri N presenting the portal"
-          width={320}
-          height={550}
-          className="block h-auto w-full drop-shadow-[0_20px_30px_rgba(0,0,0,0.7)]"
-        />
-      </div>
-      <p className="hand absolute left-[1%] top-[36%] -rotate-6 text-2xl text-magenta" aria-hidden>
-        built this one
-      </p>
-    </div>
+      <figcaption className="hand absolute -top-5 left-4 -rotate-6 text-2xl text-magenta" aria-hidden>
+        building the asset portal
+      </figcaption>
+    </figure>
   );
 }
 

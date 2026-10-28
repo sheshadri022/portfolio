@@ -24,6 +24,17 @@ export default function ExperienceTimeline() {
           <div className="lg:sticky lg:top-28 lg:self-start">
             <h3 className="font-display text-[clamp(1.75rem,3.2vw,2.5rem)] font-bold leading-tight">My Professional Journey</h3>
             <p className="mt-3 text-muted">Miles Education Pvt Ltd, Oct 2021 – Present, 5 years.</p>
+            <picture>
+              <source type="image/avif" srcSet="/assets/avatars/seated.avif" />
+              <img
+                src="/assets/avatars/seated.webp"
+                alt="Sheshadri N seated in a lounge chair"
+                width={840}
+                height={973}
+                loading="lazy"
+                className="mt-6 hidden aspect-[5/4] w-full rounded-[var(--radius-card)] border border-line object-cover object-[50%_20%] lg:block"
+              />
+            </picture>
 
             <h4 className="mt-8 text-sm font-semibold text-text">How the scope grew</h4>
             <ol className="mt-3 space-y-2">

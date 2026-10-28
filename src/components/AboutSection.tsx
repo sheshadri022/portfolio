@@ -15,19 +15,14 @@ export default function AboutSection() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="relative mx-auto w-full max-w-[420px] lg:sticky lg:top-28"
         >
-          <div
-            aria-hidden
-            className="absolute inset-x-[8%] bottom-0 top-[18%] rounded-[var(--radius-panel)] border border-line"
-            style={{ background: "linear-gradient(160deg, rgb(123 30 62 / 0.55), rgb(15 20 48 / 0.9) 60%)" }}
-          />
           <ResponsiveImage
-            base="/assets/profile/about"
-            alt="Sheshadri N, upper-body portrait looking to the side"
-            width={480}
-            height={600}
-            className="relative block h-auto w-full"
+            base="/assets/avatars/about"
+            alt="Sheshadri N with arms crossed"
+            width={720}
+            height={1170}
+            className="relative block aspect-[4/5] h-auto w-full rounded-[var(--radius-panel)] border border-line object-cover object-top"
           />
-          <figcaption className="hand absolute -right-2 top-[22%] rotate-[8deg] text-2xl text-ice" aria-hidden>
+          <figcaption className="hand absolute right-2 bottom-[8%] rotate-[-6deg] sm:-right-3 rounded-xl bg-ink/70 px-3 py-2 text-2xl text-ice backdrop-blur" aria-hidden>
             people, devices,
             <br />
             accounts, tools

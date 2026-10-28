@@ -13,19 +13,19 @@ const toneText: Record<Tone, string> = {
   magenta: "text-magenta",
   ice: "text-ice",
   orchid: "text-orchid",
-  sun: "text-[#facc15]",
+  sun: "text-[#9a5b00]",
 };
 const toneTile: Record<Tone, string> = {
   magenta: "bg-magenta/10 border-magenta/25",
   ice: "bg-ice/10 border-ice/25",
   orchid: "bg-orchid/10 border-orchid/25",
-  sun: "bg-[#facc15]/10 border-[#facc15]/25",
+  sun: "bg-[#9a5b00]/10 border-[#9a5b00]/25",
 };
 const toneGlow: Record<Tone, string> = {
-  magenta: "hover:border-magenta/50 hover:shadow-[0_20px_50px_-24px_rgb(229_65_127/0.55)]",
+  magenta: "hover:border-magenta/50 hover:shadow-[0_20px_50px_-24px_rgb(194_70_31/0.55)]",
   ice: "hover:border-ice/50 hover:shadow-[0_20px_50px_-24px_rgb(103_232_249/0.45)]",
   orchid: "hover:border-orchid/50 hover:shadow-[0_20px_50px_-24px_rgb(180_140_255/0.5)]",
-  sun: "hover:border-[#facc15]/50 hover:shadow-[0_20px_50px_-24px_rgb(250_204_21/0.4)]",
+  sun: "hover:border-[#9a5b00]/50 hover:shadow-[0_20px_50px_-24px_rgb(154_91_0/0.4)]",
 };
 
 export default function SkillsGrid() {
@@ -120,7 +120,7 @@ function SkillDialog({ card, onClose }: { card: SkillCard; onClose: () => void }
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
-      className="m-auto max-h-[90svh] w-[min(92vw,760px)] overflow-y-auto rounded-[24px] border border-line-strong bg-ink-2 p-0 text-text shadow-[0_40px_120px_-30px_rgb(0_0_0/0.8)] backdrop:bg-black/70 backdrop:backdrop-blur-sm"
+      className="m-auto max-h-[90svh] w-[min(92vw,760px)] overflow-y-auto rounded-[24px] border border-line-strong bg-ink-2 p-0 text-text shadow-[0_40px_120px_-30px_rgb(18_48_71/0.4)] backdrop:bg-[#123047]/55 backdrop:backdrop-blur-sm"
     >
       <div className="relative p-6 sm:p-8">
         <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-magenta/60 to-transparent" />

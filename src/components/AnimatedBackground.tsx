@@ -10,23 +10,23 @@ export default function AnimatedBackground() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(45% 40% at 50% 8%, rgb(229 65 127 / 0.14), transparent 70%)," +
-            "radial-gradient(40% 40% at 6% 40%, rgb(79 70 229 / 0.16), transparent 70%)," +
-            "radial-gradient(45% 35% at 92% 85%, rgb(99 213 232 / 0.08), transparent 70%)," +
-            "linear-gradient(180deg, #0d1338 0%, #0b1030 50%, #090d29 100%)",
+            "radial-gradient(55% 45% at 70% 20%, rgb(255 255 255 / 0.85), transparent 70%)," +
+            "radial-gradient(40% 40% at 8% 12%, rgb(205 238 244 / 0.9), transparent 70%)," +
+            "radial-gradient(45% 35% at 90% 95%, rgb(255 215 200 / 0.35), transparent 70%)," +
+            "linear-gradient(180deg, #d9f1f6 0%, #e7f5f8 40%, #eef8fa 100%)",
         }}
       />
       <div
         className="absolute inset-0 opacity-[0.35]"
         style={{
           backgroundImage:
-            "linear-gradient(rgb(238 240 248 / 0.04) 1px, transparent 1px), linear-gradient(90deg, rgb(238 240 248 / 0.04) 1px, transparent 1px)",
+            "linear-gradient(rgb(18 48 71 / 0.05) 1px, transparent 1px), linear-gradient(90deg, rgb(18 48 71 / 0.05) 1px, transparent 1px)",
           backgroundSize: "72px 72px",
           maskImage: "radial-gradient(ellipse 70% 60% at 50% 30%, black 20%, transparent 75%)",
           WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 30%, black 20%, transparent 75%)",
         }}
       />
-      <div className="absolute inset-0 opacity-[0.06] mix-blend-overlay" style={{ backgroundImage: grain }} />
+      <div className="absolute inset-0 opacity-[0.05] mix-blend-multiply" style={{ backgroundImage: grain }} />
     </div>
   );
 }

@@ -7,18 +7,18 @@ import SectionHeading from "./SectionHeading";
 // "Services I Provide" plus the IT Asset & Helpdesk product block.
 // Product items marked live are in the public demo today; the rest is roadmap.
 
-const toneText = { magenta: "text-magenta", ice: "text-ice", orchid: "text-orchid", sun: "text-[#facc15]" } as const;
+const toneText = { magenta: "text-magenta", ice: "text-ice", orchid: "text-orchid", sun: "text-[#9a5b00]" } as const;
 const toneTile = {
   magenta: "bg-magenta/10 border-magenta/25",
   ice: "bg-ice/10 border-ice/25",
   orchid: "bg-orchid/10 border-orchid/25",
-  sun: "bg-[#facc15]/10 border-[#facc15]/25",
+  sun: "bg-[#9a5b00]/10 border-[#9a5b00]/25",
 } as const;
 const toneHover = {
   magenta: "hover:border-magenta/45",
   ice: "hover:border-ice/45",
   orchid: "hover:border-orchid/45",
-  sun: "hover:border-[#facc15]/45",
+  sun: "hover:border-[#9a5b00]/45",
 } as const;
 
 const shot = projects.find((p) => p.id === "itam")?.shots?.[0];
@@ -51,7 +51,7 @@ export default function ServicesSection() {
 
       <section id="product" aria-labelledby="product-title" className="section pt-0">
         <div className="container-x">
-          <div className="relative overflow-hidden rounded-[28px] border border-line-strong bg-gradient-to-br from-[#1a2358] via-ink-2 to-ink-2 p-6 sm:p-10">
+          <div className="relative overflow-hidden rounded-[28px] border border-line-strong bg-gradient-to-br from-[#ffe7dc] via-ink-2 to-ink-2 p-6 sm:p-10">
             <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-orchid/20 blur-3xl" />
             <div aria-hidden className="pointer-events-none absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-magenta/15 blur-3xl" />
 
@@ -85,7 +85,7 @@ export default function ServicesSection() {
               </div>
 
               {shot && (
-                <figure className="overflow-hidden rounded-2xl border border-line-strong bg-ink shadow-[0_30px_80px_-30px_rgb(0_0_0/0.8)]">
+                <figure className="overflow-hidden rounded-2xl border border-line-strong bg-ink shadow-[0_30px_80px_-30px_rgb(18_48_71/0.4)]">
                   <div className="flex items-center gap-1.5 border-b border-line px-4 py-2.5" aria-hidden>
                     <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
                     <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />

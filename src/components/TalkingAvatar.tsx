@@ -41,7 +41,7 @@ export default function TalkingAvatar() {
         <motion.aside
           key="talk"
           aria-label={`Sheshadri on ${clip.label}`}
-          className="fixed bottom-4 left-4 right-4 z-50 flex overflow-hidden rounded-[22px] border border-line-strong bg-ink-2 shadow-[0_24px_50px_-20px_rgba(0,0,0,0.45)] sm:bottom-24 sm:left-auto sm:right-5 sm:w-[380px]"
+          className="fixed bottom-4 left-4 right-4 z-50 flex overflow-hidden rounded-[22px] border border-line-strong bg-ink-2 shadow-[0_24px_50px_-20px_rgba(18,48,71,0.45)] sm:bottom-24 sm:left-auto sm:right-5 sm:w-[380px]"
           initial={{ opacity: 0, y: 20, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20, scale: 0.96 }}
@@ -52,7 +52,7 @@ export default function TalkingAvatar() {
               ref={video}
               playsInline
               preload="none"
-              poster="/assets/guide/guide.webp"
+              poster="/assets/hero3d/guide.webp"
               className="h-full w-full object-cover"
               onTimeUpdate={(e) => {
                 const v = e.currentTarget;

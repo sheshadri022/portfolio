@@ -67,7 +67,7 @@ export default function ExperienceTimeline() {
                 <span
                   aria-hidden
                   className={`absolute left-0 top-1 grid h-6 w-6 place-items-center rounded-full border-2 ${
-                    r.current ? "border-magenta bg-ink shadow-[0_0_0_6px_rgb(229_65_127/0.2)]" : "border-line-strong bg-ink"
+                    r.current ? "border-magenta bg-ink shadow-[0_0_0_6px_rgb(194_70_31/0.15)]" : "border-line-strong bg-ink"
                   }`}
                 >
                   <span className={`h-2 w-2 rounded-full ${r.current ? "bg-magenta" : "bg-faint"}`} />

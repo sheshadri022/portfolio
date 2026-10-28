@@ -29,7 +29,7 @@ export default function Certifications() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.45, delay: i * 0.06 }}
-              className="group flex flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-ink-2/70 transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-magenta/45 hover:shadow-[0_24px_60px_-28px_rgb(229_65_127/0.5)]"
+              className="group flex flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-ink-2/70 transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-magenta/45 hover:shadow-[0_24px_60px_-28px_rgb(194_70_31/0.5)]"
             >
               <button
                 type="button"
@@ -125,7 +125,7 @@ function CertDialog({ cert, onClose }: { cert: Cert; onClose: () => void }) {
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
-      className="m-auto max-w-[94vw] bg-transparent p-0 backdrop:bg-black/85 backdrop:backdrop-blur-sm"
+      className="m-auto max-w-[94vw] bg-transparent p-0 backdrop:bg-[#123047]/80 backdrop:backdrop-blur-sm"
     >
       <div className="flex justify-end pb-2">
         <button

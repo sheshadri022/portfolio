@@ -37,7 +37,7 @@ export default function IdCard() {
         >
           {/* Front */}
           <span
-            className="absolute inset-0 flex flex-col overflow-hidden rounded-[22px] border border-line-strong bg-gradient-to-b from-ink-3 to-ink-2 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)]"
+            className="absolute inset-0 flex flex-col overflow-hidden rounded-[22px] border border-line-strong bg-gradient-to-b from-ink-3 to-ink-2 shadow-[0_30px_60px_-30px_rgba(18,48,71,0.5)]"
             style={{ backfaceVisibility: "hidden" }}
           >
             <span className="flex items-center justify-between px-5 pt-5 text-xs text-faint">
@@ -71,7 +71,7 @@ export default function IdCard() {
 
           {/* Back */}
           <span
-            className="absolute inset-0 flex flex-col overflow-hidden rounded-[22px] border border-line-strong bg-gradient-to-b from-wine via-ink-2 to-ink-2 p-6 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)]"
+            className="absolute inset-0 flex flex-col overflow-hidden rounded-[22px] border border-line-strong bg-gradient-to-b from-wine via-ink-2 to-ink-2 p-6 shadow-[0_30px_60px_-30px_rgba(18,48,71,0.5)]"
             style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
           >
             <span className="font-display text-lg font-bold text-text">What I do</span>

@@ -33,19 +33,9 @@ export default function ContactSection() {
   return (
     <section id="contact" aria-labelledby="contact-title" className="section">
       <div className="container-x">
-        <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-          <SectionHeading id="contact-title" title="Get in touch">
-            Have a role, a project or an IT setup in mind? Reach out.
-          </SectionHeading>
-          <div className="mb-12 hidden items-center gap-4 md:mb-16 md:flex">
-            <span className="h-32 w-24 overflow-hidden rounded-2xl bg-ink-3 ring-2 ring-ice/50">
-              <img src="/assets/avatars/greeting.webp" alt="Sheshadri N waving hello" width={96} height={128} loading="lazy" className="h-full w-full object-cover object-top" />
-            </span>
-            <p className="hand -rotate-3 text-3xl text-ice" aria-hidden>
-              say hello
-            </p>
-          </div>
-        </div>
+        <SectionHeading id="contact-title" title="Get in touch">
+          Have a role, a project or an IT setup in mind? Reach out.
+        </SectionHeading>
 
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
           <ul className="grid content-start gap-3 sm:grid-cols-2 lg:grid-cols-1">

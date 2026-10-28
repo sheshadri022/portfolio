@@ -1,18 +1,37 @@
-import { useState } from "react";
-import { Bot, Code2, Cloud, MonitorCog, PlayCircle, X } from "lucide-react";
-import { skillGroups } from "@/data/profile";
-import { skillExplainers } from "@/data/voice";
+import { useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, X } from "lucide-react";
+import { skillCards, type SkillCard, type Tone } from "@/data/skills";
 import SectionHeading from "./SectionHeading";
 import SkillExplainer from "./SkillExplainer";
-import PeriodicSkills from "./PeriodicSkills";
 import { useTalk } from "@/context/Talk";
 
-const icons = [MonitorCog, Cloud, Code2, Bot];
-const accents = ["text-magenta", "text-ice", "text-orchid", "text-magenta"];
-const audioFiles = ["workplace", "workspace", "dev", "ai"];
+// Skills as cards. Clicking a card opens a panel where Sheshadri's AI voice
+// explains the skill step by step, with a summary and everything it covers.
+
+const toneText: Record<Tone, string> = {
+  magenta: "text-magenta",
+  ice: "text-ice",
+  orchid: "text-orchid",
+  sun: "text-[#facc15]",
+};
+const toneTile: Record<Tone, string> = {
+  magenta: "bg-magenta/10 border-magenta/25",
+  ice: "bg-ice/10 border-ice/25",
+  orchid: "bg-orchid/10 border-orchid/25",
+  sun: "bg-[#facc15]/10 border-[#facc15]/25",
+};
+const toneGlow: Record<Tone, string> = {
+  magenta: "hover:border-magenta/50 hover:shadow-[0_20px_50px_-24px_rgb(236_72_153/0.55)]",
+  ice: "hover:border-ice/50 hover:shadow-[0_20px_50px_-24px_rgb(103_232_249/0.45)]",
+  orchid: "hover:border-orchid/50 hover:shadow-[0_20px_50px_-24px_rgb(180_140_255/0.5)]",
+  sun: "hover:border-[#facc15]/50 hover:shadow-[0_20px_50px_-24px_rgb(250_204_21/0.4)]",
+};
 
 export default function SkillsGrid() {
-  const [playing, setPlaying] = useState<number | null>(null);
+  const [open, setOpen] = useState<SkillCard | null>(null);
+  const opener = useRef<HTMLButtonElement | null>(null);
+  const reduce = useReducedMotion();
   const { stop } = useTalk();
 
   return (
@@ -20,59 +39,149 @@ export default function SkillsGrid() {
       <div className="container-x">
         <SectionHeading
           id="skills-title"
-          title="Skills"
+          title="Skills & Expertise"
           aside={
-            <img src="/assets/avatars/interactive.webp" alt="Sheshadri pointing at Work, Automate, Build and Support" width={340} height={366} loading="lazy" className="h-[260px] w-auto rounded-[22px] border border-line object-cover" />
+            <img
+              src="/assets/avatars/interactive.webp"
+              alt="Sheshadri pointing at Work, Automate, Build and Support"
+              width={340}
+              height={366}
+              loading="lazy"
+              className="h-[260px] w-auto rounded-[22px] border border-line object-cover"
+            />
           }
         >
-          Built through five years of hands-on workplace IT, and the apps that came out of it.
+          Built through five years of hands-on workplace IT, and the apps that came out of it.{" "}
+          <span className="text-magenta">Click any card and I’ll explain it.</span>
         </SectionHeading>
 
-        <PeriodicSkills />
-
-        <h3 className="mt-16 font-display text-2xl font-bold">How it works</h3>
-        <p className="mt-2 max-w-2xl text-muted">Pick a group to hear how that work actually runs, step by step.</p>
-        <div className="mt-6 grid gap-5 md:grid-cols-2">
-          {skillGroups.map((g, i) => {
-            const Icon = icons[i];
-            const listId = `skills-${i}`;
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {skillCards.map((c, i) => {
+            const Icon = c.icon;
             return (
-              <article key={g.title} aria-labelledby={`${listId}-t`} className="glass rounded-[var(--radius-card)] p-6 sm:p-8">
-                <div className="flex items-start justify-between gap-4">
-                  <Icon size={26} className={accents[i]} aria-hidden />
-                  <button
-                    type="button"
-                    aria-expanded={playing === i}
-                    aria-controls={`${listId}-x`}
-                    onClick={() => {
-                      stop();
-                      setPlaying(playing === i ? null : i);
-                    }}
-                    className="inline-flex min-h-10 items-center gap-2 rounded-full border border-line-strong px-3.5 text-sm text-text transition-colors hover:border-magenta/60"
-                  >
-                    {playing === i ? <X size={16} aria-hidden /> : <PlayCircle size={16} className="text-magenta" aria-hidden />}
-                    {playing === i ? "Close" : "How it works"}
-                  </button>
-                </div>
-                <h4 id={`${listId}-t`} className="mt-4 font-display text-xl font-bold">
-                  {g.title}
-                </h4>
-                <p className="mt-1 text-sm text-muted">{g.text}</p>
-                <div id={`${listId}-x`}>
-                  {playing === i && (
-                    <SkillExplainer
-                      audio={`/assets/voice/${audioFiles[i]}.mp3`}
-                      script={skillExplainers[i].script}
-                      steps={skillExplainers[i].steps}
-                      accent={accents[i]}
-                    />
-                  )}
-                </div>
-              </article>
+              <motion.li
+                key={c.id}
+                initial={reduce ? false : { opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.45, delay: i * 0.05 }}
+              >
+                <button
+                  type="button"
+                  aria-haspopup="dialog"
+                  onClick={(e) => {
+                    opener.current = e.currentTarget;
+                    stop();
+                    setOpen(c);
+                  }}
+                  className={`group flex h-full w-full flex-col rounded-[var(--radius-card)] border border-line bg-ink-2/70 p-6 text-left transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 ${toneGlow[c.tone]}`}
+                >
+                  <span className={`grid h-14 w-14 place-items-center rounded-2xl border ${toneTile[c.tone]} ${toneText[c.tone]} transition-transform duration-300 group-hover:scale-110`}>
+                    <Icon size={26} aria-hidden />
+                  </span>
+                  <span className="mt-5 block text-lg font-semibold text-text">{c.title}</span>
+                  <span className="mt-1.5 block text-sm leading-relaxed text-muted">{c.subtitle}</span>
+                  <span className={`mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-medium ${toneText[c.tone]}`}>
+                    Explain this skill
+                    <ArrowRight size={15} aria-hidden className="transition-transform group-hover:translate-x-1" />
+                  </span>
+                </button>
+              </motion.li>
             );
           })}
+        </ul>
+      </div>
+
+      {open && (
+        <SkillDialog
+          card={open}
+          onClose={() => {
+            setOpen(null);
+            requestAnimationFrame(() => opener.current?.focus());
+          }}
+        />
+      )}
+    </section>
+  );
+}
+
+function SkillDialog({ card, onClose }: { card: SkillCard; onClose: () => void }) {
+  const ref = useRef<HTMLDialogElement>(null);
+  const Icon = card.icon;
+
+  useEffect(() => {
+    const d = ref.current;
+    if (!d) return;
+    d.showModal();
+    const html = document.documentElement;
+    const prev = html.style.overflow;
+    html.style.overflow = "hidden";
+    return () => {
+      html.style.overflow = prev;
+      if (d.open) d.close();
+    };
+  }, []);
+
+  return (
+    <dialog
+      ref={ref}
+      aria-labelledby="skill-dialog-title"
+      onClose={onClose}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+      className="m-auto max-h-[90svh] w-[min(92vw,760px)] overflow-y-auto rounded-[24px] border border-line-strong bg-ink-2 p-0 text-text shadow-[0_40px_120px_-30px_rgb(0_0_0/0.8)] backdrop:bg-black/70 backdrop:backdrop-blur-sm"
+    >
+      <div className="relative p-6 sm:p-8">
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-magenta/60 to-transparent" />
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <span className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl border ${toneTile[card.tone]} ${toneText[card.tone]}`}>
+              <Icon size={26} aria-hidden />
+            </span>
+            <div>
+              <h3 id="skill-dialog-title" className="font-display text-2xl uppercase leading-none tracking-wide sm:text-3xl">
+                {card.title}
+              </h3>
+              <p className="mt-1.5 text-sm text-muted">{card.subtitle}</p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-line text-muted transition-colors hover:text-text"
+          >
+            <X size={18} aria-hidden />
+          </button>
+        </div>
+
+        <p className="mt-6 text-[0.98rem] leading-relaxed text-text/90">{card.summary}</p>
+
+        <div className="mt-6 grid gap-6 md:grid-cols-[1.05fr_1fr]">
+          <div>
+            <h4 className="text-xs font-semibold uppercase tracking-[0.14em] text-faint">How it works</h4>
+            <SkillExplainer
+              key={card.id}
+              audio={card.explainer.audio}
+              script={card.explainer.script}
+              steps={card.explainer.steps}
+              accent={toneText[card.tone]}
+            />
+          </div>
+          <div>
+            <h4 className="text-xs font-semibold uppercase tracking-[0.14em] text-faint">What it covers</h4>
+            <ul className="mt-5 grid gap-2">
+              {card.items.map(({ icon: ItemIcon, label }) => (
+                <li key={label} className="flex items-center gap-3 rounded-xl border border-line bg-white/[0.03] px-3.5 py-2.5 text-sm">
+                  <ItemIcon size={16} aria-hidden className={`shrink-0 ${toneText[card.tone]}`} />
+                  {label}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
-    </section>
+    </dialog>
   );
 }

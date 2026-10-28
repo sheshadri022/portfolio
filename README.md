@@ -57,7 +57,7 @@ Dark theme (near-black ink) with a magenta-to-violet glow and an ice-cyan accent
 
 - Hero: a 3D Sheshadri at his desk in a dark room with code on the monitors. "I'M SHESHADRI" is set huge *behind* him: the scene, the name and a transparent cut-out of him are stacked (`public/assets/aura/`), with a pink and violet aura breathing behind the name. "Click to interact" crossfades to a lip-synced clip of the same shot (`aura/intro.webm|mp4`) with his spoken intro and live captions.
 - About: a flipping ID card on a lanyard (front: photo, name, title; back: what he does and how to reach him).
-- Skills: every skill from `profile.ts` as a periodic-table element, colour-coded by group with filters, plus "How it works" explainers.
+- Skills & Expertise: seven skill cards (`src/data/skills.ts`). Clicking a card opens a panel that explains the skill: a short summary, a step-by-step "How it works" narrated by an AI voice, and everything the skill covers.
 - Proud moments: milestones and certifications on one track that moves sideways as you scroll (swipe on phones).
 
 ## Talking avatar and skill explainers
@@ -65,7 +65,7 @@ Dark theme (near-black ink) with a magenta-to-violet glow and an ice-cyan accent
 - Point at a menu item (or a section heading once voice is on) and Sheshadri's avatar explains that section. "Click to interact" in the hero, or the speaker button in the navbar, turns the voice on. Browsers block sound until the visitor clicks once, so before that clips play muted with captions.
 - Poses: `public/assets/avatars/` holds his avatar set (about, developer, seated, mobile, profile, greeting, presenting, interactive, talking). Real-photo poses are used in About, Experience, Developer journey, Projects, Skills and Contact; the floating 3D guide changes its ring colour by section.
 - Clips: `public/assets/avatar/*.webm|mp4` (about, experience, projects, skills, contact), lip-synced on a 3D character based on his photo with a neutral AI voice (Higgsfield: Seed Audio voice "Julian", Wan 2.7). Scripts live in `src/data/voice.ts`; change a script there and regenerate its clip.
-- Skills: each card has "How it works", a step-by-step explainer timed to an AI voice-over in `public/assets/voice/*.mp3`.
+- Skills: each card's panel plays a step-by-step explainer timed to an AI voice-over in `public/assets/voice/*.mp3`.
 - Everything loads only when played, and the site labels the voice and animation as AI.
 
 ## Deployment (Render)

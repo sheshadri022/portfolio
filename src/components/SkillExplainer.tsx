@@ -69,7 +69,7 @@ export default function SkillExplainer({
           return (
             <motion.li
               key={s.title}
-              animate={{ opacity: on ? 1 : 0.35, x: now ? 4 : 0 }}
+              animate={{ opacity: on ? 1 : 0.72, x: now ? 4 : 0 }}
               transition={{ duration: 0.35 }}
               className={`flex items-start gap-3 rounded-[10px] border px-3 py-2.5 ${now ? "border-magenta/60 bg-magenta/[0.07]" : "border-transparent"}`}
             >

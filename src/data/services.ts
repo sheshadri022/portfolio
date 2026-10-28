@@ -166,11 +166,12 @@ export const product = {
       items: [on("Asset dashboard"), on("Available vs assigned by category"), on("Ticket trends"), later("Location reports")],
     },
   ] as ProductModule[],
-  // Planned SaaS capabilities. None of these exist yet.
+  // SaaS capabilities built in the internal version (stated by Sheshadri,
+  // Oct 2026). They are not in the public demo.
   roadmap: [
     { title: "Multi-company support", detail: "One platform, separate data per organisation (multi-tenant)" },
     { title: "Subscription plans", detail: "Plans for different team sizes" },
-    { title: "Role-based access", detail: "Finer roles beyond today's admin and employee sign-in" },
+    { title: "Role-based access", detail: "Finer roles than just admin and employee sign-in" },
     { title: "Customer onboarding", detail: "Self-serve setup for a new organisation" },
   ],
 };

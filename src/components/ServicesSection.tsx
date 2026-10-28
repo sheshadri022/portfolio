@@ -135,8 +135,8 @@ export default function ServicesSection() {
 
             <div className="relative mt-8 rounded-2xl border border-dashed border-line-strong p-5 sm:p-6">
               <h3 className="flex items-center gap-2 font-display text-lg">
-                <Rocket size={18} className="text-orchid" aria-hidden /> SaaS roadmap
-                <span className="ml-1 rounded-full bg-white/5 px-2.5 py-0.5 font-sans text-xs font-normal tracking-normal text-faint">Planned, not built yet</span>
+                <Rocket size={18} className="text-orchid" aria-hidden /> SaaS features
+                <span className="ml-1 rounded-full bg-white/5 px-2.5 py-0.5 font-sans text-xs font-normal tracking-normal text-faint">Built, in internal use</span>
               </h3>
               <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                 {product.roadmap.map((r) => (

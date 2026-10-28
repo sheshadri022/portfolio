@@ -39,7 +39,7 @@ export const questions: Question[] = [
     label: "Can my company use your asset platform?",
     keywords: ["saas", "product", "demo", "platform", "deploy", "subscription", "startup"],
     answer: {
-      text: `${product.positioning} Today it covers asset inventory, allocation, the asset lifecycle, a helpdesk, employees and dashboard reports. Multi-company support and subscription plans are on the roadmap. You can try the public demo or ask me about deploying it.`,
+      text: `${product.positioning} Today it covers asset inventory, allocation, the asset lifecycle, a helpdesk, employees and dashboard reports. Multi-company support, subscription plans, role-based access and customer onboarding are built in the internal version. You can try the public demo or ask me about deploying it.`,
       links: [
         { label: "Public demo", href: product.demo },
         { label: "See the product", href: "#product" },

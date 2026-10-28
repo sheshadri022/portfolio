@@ -13,6 +13,7 @@ const FeaturedProjects = lazy(() => import("@/components/FeaturedProjects"));
 const DeveloperJourney = lazy(() => import("@/components/DeveloperJourney"));
 const SkillsGrid = lazy(() => import("@/components/SkillsGrid"));
 const Certifications = lazy(() => import("@/components/Certifications"));
+const ServicesSection = lazy(() => import("@/components/ServicesSection"));
 const Education = lazy(() => import("@/components/Education"));
 const ContactSection = lazy(() => import("@/components/ContactSection"));
 const Footer = lazy(() => import("@/components/Footer"));
@@ -33,12 +34,13 @@ export default function App() {
           <HeroSection />
           <Suspense fallback={<div className="min-h-screen" aria-hidden />}>
             <AboutSection />
-            <ExperienceTimeline />
+            <ServicesSection />
             <FeaturedProjects />
             <DeveloperJourney />
+            <ExperienceTimeline />
+            <Education />
             <SkillsGrid />
             <Certifications />
-            <Education />
             <ContactSection />
           </Suspense>
         </main>

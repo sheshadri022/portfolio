@@ -1,6 +1,7 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import { Github, Linkedin, Mail, Phone, Send } from "lucide-react";
 import { person } from "@/data/profile";
+import { needs, type Need } from "@/data/services";
 import SectionHeading from "./SectionHeading";
 
 const channels = [
@@ -16,16 +17,23 @@ const field =
 // There is no backend for the form: sending opens the visitor's email app
 // with the message filled in, so nothing is lost silently.
 export default function ContactSection() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", need: "", message: "" });
   const [opened, setOpened] = useState(false);
 
-  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+  // Service and demo buttons elsewhere on the page preselect "What do you need?".
+  useEffect(() => {
+    const onPrefill = (e: Event) => setForm((f) => ({ ...f, need: (e as CustomEvent<Need>).detail }));
+    window.addEventListener("prefill-contact", onPrefill);
+    return () => window.removeEventListener("prefill-contact", onPrefill);
+  }, []);
+
+  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
   function onSubmit(e: FormEvent) {
     e.preventDefault();
-    const subject = `Portfolio enquiry from ${form.name}`;
-    const body = `${form.message}\n\n${form.name}\n${form.email}`;
+    const subject = `${form.need || "Portfolio enquiry"}: ${form.name}`;
+    const body = `${form.need ? `What I need: ${form.need}\n\n` : ""}${form.message}\n\n${form.name}\n${form.email}`;
     window.location.href = `mailto:${person.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setOpened(true);
   }
@@ -71,6 +79,19 @@ export default function ContactSection() {
                 Email
               </label>
               <input id="c-email" name="email" type="email" required autoComplete="email" value={form.email} onChange={onChange} className={field} />
+            </div>
+            <div>
+              <label htmlFor="c-need" className="mb-2 block text-sm font-medium">
+                What do you need?
+              </label>
+              <select id="c-need" name="need" value={form.need} onChange={onChange} className={`${field} appearance-none bg-[length:16px] bg-[right_1rem_center] bg-no-repeat pr-10`} style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b9b4c8' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E\")" }}>
+                <option value="">Choose one (optional)</option>
+                {needs.map((n) => (
+                  <option key={n} value={n}>
+                    {n}
+                  </option>
+                ))}
+              </select>
             </div>
             <div>
               <label htmlFor="c-msg" className="mb-2 block text-sm font-medium">

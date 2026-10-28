@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Download, Github, Linkedin, Mail, MessageCircle, Play, Square } from "lucide-react";
+import { ArrowRight, Download, Github, Linkedin, Mail, MessageCircle, Play, Square } from "lucide-react";
 import { useTalk } from "@/context/Talk";
 import { useVirtualHuman } from "@/context/VirtualHuman";
 import { person, stats } from "@/data/profile";
@@ -200,6 +200,14 @@ export default function HeroSection() {
                 <Icon size={18} aria-hidden />
               </a>
             ))}
+            <a
+              href={person.resume}
+              download
+              className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line px-4 text-sm font-semibold text-muted transition-colors hover:border-magenta/60 hover:text-text"
+            >
+              <Download size={16} aria-hidden />
+              Resume
+            </a>
             <button
               type="button"
               onClick={() => setAskOpen(true)}
@@ -237,8 +245,8 @@ function Copy({ talking, words, shown }: { talking: boolean; words: string[]; sh
           </span>
         </p>
       ) : (
-        <motion.p {...rise(0.52)} className="mt-3 text-[0.95rem] leading-relaxed text-muted">
-          {person.intro}
+        <motion.p {...rise(0.52)} className="mt-3 text-[1.02rem] leading-relaxed text-text/85">
+          {person.headline}
         </motion.p>
       )}
     </div>
@@ -247,20 +255,30 @@ function Copy({ talking, words, shown }: { talking: boolean; words: string[]; sh
 
 function Actions({ talking, start, end, compact }: { talking: boolean; start: () => void; end: () => void; compact?: boolean }) {
   return (
-    <motion.div {...rise(0.6)} className="flex flex-wrap gap-2.5">
+    <motion.div {...rise(0.6)} className={`flex flex-col gap-3 ${compact ? "" : "items-end"}`}>
       {!compact && (
-        <button type="button" onClick={talking ? end : start} aria-pressed={talking} className="btn btn-primary">
-          {talking ? <Square size={14} aria-hidden /> : <Play size={16} aria-hidden />}
+        <button
+          type="button"
+          onClick={talking ? end : start}
+          aria-pressed={talking}
+          className="inline-flex min-h-10 items-center gap-2 rounded-full border border-ice/45 bg-ink/50 px-4 text-sm font-semibold text-ice backdrop-blur transition-colors hover:bg-ice/10"
+        >
+          {talking ? <Square size={13} aria-hidden /> : <Play size={14} aria-hidden />}
           {talking ? "Stop" : "Click to interact"}
         </button>
       )}
-      <a href="#projects" className="btn btn-ghost">
-        View Projects
-      </a>
-      <a href={person.resume} download className="btn btn-ghost">
-        <Download size={17} aria-hidden />
-        Resume
-      </a>
+      <div className="flex flex-wrap gap-2.5">
+        <a href="#projects" className="btn btn-primary">
+          View My Work
+          <ArrowRight size={16} aria-hidden />
+        </a>
+        <a href="#services" className="btn btn-ghost">
+          Explore Services
+        </a>
+        <a href="#contact" className="btn btn-ghost">
+          Contact Me
+        </a>
+      </div>
     </motion.div>
   );
 }

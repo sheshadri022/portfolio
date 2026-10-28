@@ -11,11 +11,15 @@ export const person = {
     "IT Operations",
     "Google Workspace",
     "Asset Management",
+    "Hardware Services",
     "Automation",
     "AI-Assisted Full-Stack Development",
   ],
+  // Short hero line.
+  headline:
+    "I manage workplace technology, repair and optimise devices, administer Google Workspace, and build practical software solutions for real business operations.",
   intro:
-    "Workplace Technology professional with 5+ years of experience across IT operations, Google Workspace administration, endpoint support and IT asset management. I also design, build and deploy internal applications using AI-assisted full-stack development workflows.",
+    "Workplace Technology professional with 5+ years of experience across IT operations, Google Workspace administration, endpoint support, IT asset management and hardware servicing. I also design and deploy websites, internal tools and SaaS applications using AI-assisted full-stack development workflows.",
   location: "Bengaluru, Karnataka",
   email: "sheshadri022@gmail.com",
   phone: "+91 8190062144",

@@ -1,4 +1,5 @@
 import { person, projects, entities } from "@/data/profile";
+import { product } from "@/data/services";
 
 // Ask Sheshadri answers come from a provider. Today the local provider
 // answers from profile data. To connect a real AI model later, deploy a
@@ -20,6 +21,30 @@ export const questions: Question[] = [
     keywords: ["specialize", "specialise", "do you do", "role", "about", "who"],
     answer: {
       text: "Workplace technology at Miles Education: Google Workspace administration, L1/L2 support, laptop servicing and the IT asset lifecycle. On top of that I build internal tools with AI-assisted full-stack development.",
+    },
+  },
+  {
+    id: "services",
+    label: "What services do you offer?",
+    keywords: ["service", "offer", "hire", "repair", "upgrade", "ssd", "ram", "battery", "website", "freelance"],
+    answer: {
+      text: "Four things: laptop repair and upgrades (RAM, SSD, battery, keyboard, display, Windows), business websites from landing pages to e-commerce, Google Workspace and IT setup for growing teams, and an IT Asset & Helpdesk platform. Hardware repairs depend on inspection, parts availability and device condition.",
+      links: [
+        { label: "See services", href: "#services" },
+        { label: "Contact me", href: "#contact" },
+      ],
+    },
+  },
+  {
+    id: "product",
+    label: "Can my company use your asset platform?",
+    keywords: ["saas", "product", "demo", "platform", "deploy", "subscription", "startup"],
+    answer: {
+      text: `${product.positioning} Today it covers asset inventory, allocation, the asset lifecycle, a helpdesk, employees and dashboard reports. Multi-company support and subscription plans are on the roadmap. You can try the public demo or ask me about deploying it.`,
+      links: [
+        { label: "Public demo", href: product.demo },
+        { label: "See the product", href: "#product" },
+      ],
     },
   },
   {

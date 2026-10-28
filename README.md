@@ -53,6 +53,12 @@ The browser only ever calls that endpoint. No API key is shipped in the frontend
 
 Dark theme (near-black ink) with a magenta-to-violet glow and an ice-cyan accent; display font Anton, body font Inter. Colours live as tokens in `src/index.css`.
 
+## Services and product
+
+- Services I Provide (`src/data/services.ts`): Laptop Repair & Upgrade Services, Business Website Development, IT Asset & Helpdesk SaaS and Google Workspace & IT Setup. Each card's button jumps to Contact with "What do you need?" already picked.
+- Product block (`#product`): the IT Asset & Helpdesk platform. "IT Asset & Helpdesk SaaS" is a working name, set once in `PRODUCT_NAME`. Module items are marked available only where the public demo's code has them (techops-demo-portal); everything else, and the SaaS roadmap (multi-company, plans, roles, customer onboarding), is shown as planned.
+- Laptop repairs carry the note "Hardware repairs are subject to inspection, parts availability and device condition." No manufacturer authorisation is claimed.
+
 ## Hero, ID card, skills and certifications
 
 - Hero: a 3D Sheshadri at his desk in a dark room with code on the monitors. "I'M SHESHADRI" is set huge *behind* him: the scene, the name and a transparent cut-out of him are stacked (`public/assets/aura/`), with a pink and violet aura breathing behind the name. "Click to interact" crossfades to a lip-synced clip of the same shot (`aura/intro.webm|mp4`) with his spoken intro and live captions.

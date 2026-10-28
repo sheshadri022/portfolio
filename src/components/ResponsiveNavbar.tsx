@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Download, Menu, Volume2, VolumeX, X } from "lucide-react";
+import { Download, Mail, Menu, Volume2, VolumeX, X } from "lucide-react";
 import { person } from "@/data/profile";
 import { useVirtualHuman } from "@/context/VirtualHuman";
 import { useTalk } from "@/context/Talk";
@@ -8,16 +8,16 @@ import { useTalk } from "@/context/Talk";
 const links = [
   { name: "Home", id: "home" },
   { name: "About", id: "about" },
-  { name: "Experience", id: "experience" },
+  { name: "Services", id: "services" },
   { name: "Projects", id: "projects" },
+  { name: "Experience", id: "experience" },
   { name: "Skills", id: "skills" },
   { name: "Certifications", id: "certifications" },
-  { name: "Education", id: "education" },
   { name: "Contact", id: "contact" },
 ];
 
 // Sections that are not in the menu highlight their nearest parent link.
-const alias: Record<string, string> = { journey: "projects" };
+const alias: Record<string, string> = { journey: "projects", product: "services", education: "experience" };
 
 export default function ResponsiveNavbar() {
   const { section } = useVirtualHuman();
@@ -110,9 +110,9 @@ export default function ResponsiveNavbar() {
           >
             {voiceOn ? <Volume2 size={18} aria-hidden /> : <VolumeX size={18} aria-hidden />}
           </button>
-          <a href={person.resume} download className="btn btn-primary hidden sm:inline-flex !min-h-10 !px-4 text-sm">
-            <Download size={16} aria-hidden />
-            Download Resume
+          <a href="#contact" className="btn btn-primary hidden sm:inline-flex !min-h-10 !px-4 text-sm">
+            <Mail size={16} aria-hidden />
+            Contact Me
           </a>
           <button
             ref={toggleRef}
@@ -157,7 +157,11 @@ export default function ResponsiveNavbar() {
                 </li>
               ))}
             </ul>
-            <a href={person.resume} download className="btn btn-primary mt-8 w-full justify-center">
+            <a href="#contact" onClick={() => setOpen(false)} className="btn btn-primary mt-8 w-full justify-center">
+              <Mail size={18} aria-hidden />
+              Contact Me
+            </a>
+            <a href={person.resume} download className="btn btn-ghost mt-3 w-full justify-center">
               <Download size={18} aria-hidden />
               Download Resume
             </a>

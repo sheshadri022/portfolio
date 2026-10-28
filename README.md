@@ -1,155 +1,60 @@
 # Sheshadri N – Portfolio
 
-A modern, production-ready personal portfolio website for **Sheshadri N**, System Administrator & Google Workspace Administrator at Miles Education Pvt Ltd.
+Personal portfolio of **Sheshadri N**, Workplace Technology Specialist at Miles Education Pvt Ltd.
 
-🌐 **Live Site:** [sheshadri-portfolio.onrender.com](https://sheshadri-portfolio.onrender.com)  
-💼 **LinkedIn:** [linkedin.com/in/sheshadri-n](https://www.linkedin.com/in/sheshadri-n)  
-🐙 **GitHub:** [github.com/sheshadri022](https://github.com/sheshadri022)
+Live: [snscloud.in](https://snscloud.in) · LinkedIn: [sheshadri-n](https://www.linkedin.com/in/sheshadri-n) · GitHub: [sheshadri022](https://github.com/sheshadri022)
 
----
+## Stack
 
-## Preview
+React 19, TypeScript, Vite 7, Tailwind CSS 4, Framer Motion, Lucide icons. Fonts are self-hosted through Fontsource (Syne, Inter, Caveat). Static site on Render, built from GitHub.
 
-![Portfolio Preview](public/sheshadri.jpeg)
-
----
-
-## Features
-
-- **Animated Hero Section** — Role typewriter effect, profile photo, stats
-- **Interactive Skills Modal** — 5 expertise cards with glassmorphism popups (Google Workspace, L1/L2 Support, IT Asset Lifecycle, Troubleshooting, Enterprise IT)
-- **Experience Timeline** — Dual-role vertical timeline (Miles Education Pvt Ltd)
-- **Projects Section** — TechOps Portal & Portfolio Website with live demo links
-- **Certifications** — Google Workspace, Technical Support Fundamentals, ITAM
-- **Education** — B.Com, Higher Secondary (+2), SSLC
-- **Contact Form** — Direct email, phone, LinkedIn, and GitHub links
-- **Dark / Light Mode Toggle** — Theme-aware design using `next-themes`
-- **Fully Responsive** — Mobile, tablet, and desktop layouts
-- **Resume Download** — Direct PDF download from hero section
-
----
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Framework | React 18 + Vite 6 |
-| Language | TypeScript |
-| Styling | Tailwind CSS v4 |
-| Animations | Framer Motion |
-| Icons | Lucide React |
-| Theme | next-themes |
-| Fonts | Syne (headings) + Inter (body) |
-| Hosting | Render (static site) |
-| Version Control | GitHub |
-
----
-
-## Project Structure
+## Structure
 
 ```
-artifacts/portfolio/
-├── public/
-│   ├── sheshadri.jpeg       # Profile photo
-│   └── resume.pdf           # Downloadable resume
-├── src/
-│   ├── components/
-│   │   ├── Navbar.tsx        # Fixed navbar with scroll progress bar
-│   │   ├── Hero.tsx          # Landing section with stats & photo
-│   │   ├── About.tsx         # About me section
-│   │   ├── Experience.tsx    # Work experience timeline
-│   │   ├── Projects.tsx      # Featured project cards
-│   │   ├── Skills.tsx        # Interactive skill cards + modals
-│   │   ├── Certifications.tsx
-│   │   ├── Education.tsx
-│   │   ├── Languages.tsx
-│   │   ├── Contact.tsx
-│   │   └── Footer.tsx
-│   ├── App.tsx
-│   ├── main.tsx
-│   └── index.css             # Tailwind + CSS variables (dark/light theme)
-└── dist/                     # Pre-built output (served by Render)
+src/
+  data/profile.ts          every fact on the site (single source of truth)
+  lib/ask.ts               Ask Sheshadri answer providers (local now, API-ready)
+  context/VirtualHuman.tsx virtual human state: idle, greeting, explaining, projects, skills, contact
+  hooks/useActiveSection.ts section tracking for the navbar and virtual human
+  components/
+    HeroSection, VirtualHuman, AskSheshadri, VirtualHumanDock
+    AboutSection, EntityStrip, ExperienceTimeline
+    FeaturedProjects, ProjectCaseStudy, DeveloperJourney, SkillsGrid
+    Certifications, Education, ContactSection, Footer
+    ResponsiveNavbar, AnimatedBackground, ResponsiveImage, SectionHeading
+public/assets/
+  profile/   photo variants (full, hero, about, avatar, mobile) in AVIF + WebP
+  logos/     Miles Education, MOJO Campus, AgencyM, MilesSOBA
+  projects/  TechOps public demo screenshots (sample data only)
+  certs/     certificate images
 ```
 
----
+To change content, edit `src/data/profile.ts`. Only verified facts go there.
 
-## Color Theme
-
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--primary` | `345 70% 55%` | Burgundy/wine — buttons, accents, icons |
-| Background | `#0d0d0f` | Matte black (dark mode) |
-| Card | `#111113` | Glassmorphism cards |
-| Font Heading | Syne | Bold display text |
-| Font Body | Inter | Readable body copy |
-
----
-
-## Getting Started
-
-### Prerequisites
-- Node.js 20+
-- pnpm 9+
-
-### Install & Run
+## Run locally
 
 ```bash
-# From the workspace root
-pnpm install
-
-# Start the portfolio dev server
-pnpm --filter @workspace/portfolio run dev
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # outputs dist/
+npm run preview  # serves dist/
 ```
 
-The site runs on the port defined by the `PORT` environment variable (default routed through the shared proxy at `/`).
+## Ask Sheshadri and AI
 
-### Build
+Out of the box, answers come from `src/data/profile.ts` with no network calls. To connect a real model later:
 
-```bash
-pnpm --filter @workspace/portfolio run build
-```
+1. Deploy a small server endpoint (Render web service or Supabase Edge Function) that accepts `POST { question }` and returns `{ text, links? }`. Keep the model API key there.
+2. Set `VITE_ASK_ENDPOINT` to that URL in Render's environment settings and redeploy.
 
----
+The browser only ever calls that endpoint. No API key is shipped in the frontend. If the endpoint fails, the local answers are used.
 
-## Deployment
+## Deployment (Render)
 
-The site is deployed on **Render** as a static site.
+`render.yaml` defines a static site: `npm install && npm run build`, publish `./dist`, SPA rewrite to `/index.html`. `dist/` is not committed; Render builds it.
 
-- **Publish directory:** `./dist`
-- **Build command:** *(empty — pre-built `dist/` is committed to the repo)*
-- **Auto-deploy:** Triggered via Render API on every update
+## Environment variables
 
-To redeploy manually:
-1. Build locally: `pnpm --filter @workspace/portfolio run build`
-2. Commit and push `dist/` to GitHub
-3. Trigger a new deploy from the Render dashboard or via API
-
----
-
-## Sections
-
-| # | Section | Description |
-|---|---------|-------------|
-| 1 | Hero | Name, role rotator, photo, stats, CTA buttons |
-| 2 | About | Professional summary and personal intro |
-| 3 | Experience | Miles Education – System Admin & IT Support Engineer roles |
-| 4 | Projects | TechOps Portal, Portfolio Website |
-| 5 | Skills | 5 clickable expertise cards with detailed modals |
-| 6 | Certifications | Google Workspace, Technical Support, ITAM |
-| 7 | Education | B.Com, +2 Commerce, SSLC |
-| 8 | Languages | Tamil, Kannada, Telugu, English |
-| 9 | Contact | Email, phone, LinkedIn, GitHub |
-
----
-
-## Contact
-
-**Sheshadri N**  
-📧 sheshadri022@gmail.com  
-📞 +91 8190062144  
-📍 Bengaluru, Karnataka  
-🔗 [LinkedIn](https://www.linkedin.com/in/sheshadri-n) · [GitHub](https://github.com/sheshadri022)
-
----
-
-*Built with React, Tailwind CSS & Framer Motion*
+| Name | Required | Purpose |
+|------|----------|---------|
+| `VITE_ASK_ENDPOINT` | No | URL of a server-side Ask endpoint. Leave unset to use local answers. |

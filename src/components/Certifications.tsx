@@ -1,183 +1,121 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, X, Calendar, Clock } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Calendar, Clock, ExternalLink, X } from "lucide-react";
+import { certifications } from "@/data/profile";
+import SectionHeading from "./SectionHeading";
 
-const certs = [
-  {
-    title: "Google Workspace (G Suite) Admin – The Complete Course",
-    platform: "Udemy",
-    instructor: "Saleh Ramadan",
-    date: "June 25, 2024",
-    hours: "32 total hours",
-    certNo: "UC-8a9dbdc1-16f2-49bb-9eed-65a562811cc7",
-    verifyUrl: "https://ude.my/UC-8a9dbdc1-16f2-49bb-9eed-65a562811cc7",
-    image: "/cert-gworkspace.jpeg",
-    description: "Comprehensive 32-hour course covering Google Workspace administration, user provisioning, security policies, and enterprise collaboration tools.",
-    glowColor: "bg-rose-700/10",
-  },
-  {
-    title: "IT Asset Management (ITAM) Course with Certificate",
-    platform: "Udemy",
-    instructor: "Mahmoud Elnady",
-    date: "Nov. 20, 2025",
-    hours: "1 total hour",
-    certNo: "UC-ed9acd1b-420a-41f6-9e2f-f473ad4d87a6",
-    verifyUrl: "https://ude.my/UC-ed9acd1b-420a-41f6-9e2f-f473ad4d87a6",
-    image: "/cert-itam.jpeg",
-    description: "Certified in IT asset lifecycle management, inventory tracking, procurement coordination, and ITAM best practices for enterprise environments.",
-    glowColor: "bg-pink-700/10",
-  },
-  {
-    title: "Technical Support Fundamentals",
-    platform: "Google / Coursera",
-    instructor: "Google",
-    date: "Jul 31, 2025",
-    hours: null,
-    certNo: "ZO4RMTOSHTPE",
-    verifyUrl: "https://coursera.org/verify/ZO4RMTOSHTPE",
-    image: "/cert-google-tsf.jpeg",
-    description: "Google-authorized course covering hardware, software, networking, operating systems, and IT customer service fundamentals.",
-    glowColor: "bg-emerald-500/10",
-  },
-  {
-    title: "Replit Certification – Beginner Builder (Level 1)",
-    platform: "Replit",
-    instructor: "Replit",
-    date: "2026",
-    hours: null,
-    certNo: "",
-    verifyUrl: "",
-    image: "/cert-replit.png",
-    description: "Replit certification for building and shipping apps with AI-assisted development.",
-    glowColor: "bg-orange-500/10",
-  },
-];
+type Cert = (typeof certifications)[number];
 
-export default function Certifications() {
-  const [preview, setPreview] = useState<string | null>(null);
+function Lightbox({ cert, onClose }: { cert: Cert; onClose: () => void }) {
+  const closeRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    const prev = document.activeElement as HTMLElement | null;
+    closeRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      prev?.focus();
+    };
+  }, [onClose]);
 
   return (
-    <section id="certifications" className="py-24 bg-muted/30">
-      <div className="container mx-auto px-6 lg:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="max-w-3xl mb-16"
+    <motion.div
+      className="fixed inset-0 z-[70] flex items-center justify-center bg-black/85 p-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+    >
+      <motion.div
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${cert.title} certificate`}
+        className="relative w-full max-w-3xl overflow-hidden rounded-2xl"
+        initial={{ scale: 0.95 }}
+        animate={{ scale: 1 }}
+        exit={{ scale: 0.95 }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <img src={cert.image} alt={`${cert.title} certificate`} className="h-auto w-full" />
+        <button
+          ref={closeRef}
+          type="button"
+          onClick={onClose}
+          aria-label="Close certificate"
+          className="absolute right-3 top-3 grid h-11 w-11 place-items-center rounded-full bg-black/70 text-white"
         >
-          <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4 inline-flex items-center gap-4">
-            Certifications
-            <span className="h-px w-24 bg-border inline-block"></span>
-          </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            Verified credentials from industry-recognized platforms.
-          </p>
-        </motion.div>
+          <X size={18} aria-hidden />
+        </button>
+      </motion.div>
+    </motion.div>
+  );
+}
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {certs.map((cert, i) => (
-            <motion.div
-              key={cert.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.12 }}
-              className="relative group flex flex-col rounded-2xl bg-card border border-border hover:border-primary/40 transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-1 overflow-hidden"
-              data-testid={`cert-card-${i}`}
-            >
-              {/* Certificate thumbnail */}
+export default function Certifications() {
+  const [preview, setPreview] = useState<Cert | null>(null);
+  const [close] = useState(() => () => setPreview(null));
+
+  return (
+    <section id="certifications" aria-labelledby="cert-title" className="section">
+      <div className="container-x">
+        <SectionHeading id="cert-title" title="Certifications">
+          Verified credentials. Open a card to see the certificate.
+        </SectionHeading>
+
+        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {certifications.map((c) => (
+            <li key={c.title} className="flex flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-ink-2/70">
               <button
-                onClick={() => setPreview(cert.image)}
-                className="relative overflow-hidden aspect-[16/7] w-full bg-white flex-shrink-0 cursor-zoom-in"
-                data-testid={`cert-preview-${i}`}
-                aria-label={`View ${cert.title} certificate`}
+                type="button"
+                onClick={() => setPreview(c)}
+                aria-label={`View ${c.title} certificate`}
+                className="group relative aspect-[16/9] overflow-hidden bg-white"
               >
                 <img
-                  src={cert.image}
-                  alt={cert.title}
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  src={c.image}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                  <span className="opacity-0 group-hover:opacity-100 transition-opacity text-white text-xs font-semibold bg-black/60 px-3 py-1 rounded-full">
-                    View Certificate
-                  </span>
-                </div>
               </button>
-
-              {/* Glow */}
-              <div className={`absolute -top-10 -right-10 w-32 h-32 ${cert.glowColor} rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500`} />
-
-              <div className="relative flex flex-col flex-1 p-6">
-                {/* Platform badge + verify */}
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-bold uppercase tracking-wider text-primary bg-primary/10 border border-primary/20 px-2.5 py-1 rounded-full">
-                    {cert.platform}
-                  </span>
-                  {cert.verifyUrl && (
+              <div className="flex flex-1 flex-col p-5">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-sm text-magenta">{c.platform}</span>
+                  {c.verifyUrl && (
                     <a
-                      href={cert.verifyUrl}
+                      href={c.verifyUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
-                      data-testid={`cert-verify-${i}`}
+                      className="inline-flex items-center gap-1 text-sm text-ice hover:underline"
                     >
-                      <ExternalLink size={12} />
                       Verify
+                      <ExternalLink size={12} aria-hidden />
+                      <span className="sr-only">{c.title}</span>
                     </a>
                   )}
                 </div>
-
-                <h3 className="text-sm font-bold font-heading mb-2 leading-snug">{cert.title}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed mb-4 flex-1">{cert.description}</p>
-
-                <div className="flex flex-wrap gap-3 text-xs text-muted-foreground border-t border-border pt-3 mt-auto">
-                  <div className="flex items-center gap-1.5">
-                    <Calendar size={11} className="text-primary" />
-                    {cert.date}
-                  </div>
-                  {cert.hours && (
-                    <div className="flex items-center gap-1.5">
-                      <Clock size={11} className="text-primary" />
-                      {cert.hours}
-                    </div>
+                <h3 className="mt-2 font-display text-base font-bold leading-snug">{c.title}</h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{c.description}</p>
+                <p className="mt-4 flex flex-wrap gap-x-4 gap-y-1 border-t border-line pt-3 text-xs text-faint">
+                  <span className="inline-flex items-center gap-1.5">
+                    <Calendar size={12} aria-hidden />
+                    {c.date}
+                  </span>
+                  {c.hours && (
+                    <span className="inline-flex items-center gap-1.5">
+                      <Clock size={12} aria-hidden />
+                      {c.hours}
+                    </span>
                   )}
-                </div>
+                </p>
               </div>
-            </motion.div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
-
-      {/* Certificate lightbox */}
-      <AnimatePresence>
-        {preview && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4"
-            onClick={() => setPreview(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="relative max-w-3xl w-full rounded-2xl overflow-hidden shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img src={preview} alt="Certificate" className="w-full h-auto" />
-              <button
-                onClick={() => setPreview(null)}
-                className="absolute top-3 right-3 p-2 bg-black/60 hover:bg-black/80 text-white rounded-full transition-colors"
-                data-testid="button-close-preview"
-              >
-                <X size={18} />
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <AnimatePresence>{preview && <Lightbox cert={preview} onClose={close} />}</AnimatePresence>
     </section>
   );
 }

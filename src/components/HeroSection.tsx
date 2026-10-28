@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Download, Github, Linkedin, Mail, MessageCircle, Square } from "lucide-react";
+import { Download, Github, Linkedin, Mail, MessageCircle, Play } from "lucide-react";
 import { useTalk } from "@/context/Talk";
 import { useVirtualHuman } from "@/context/VirtualHuman";
 import { person, stats } from "@/data/profile";
 
-// Template 4 hero: Sheshadri stands in a dark tech office on the right.
-// He idles (breathing, blinking) on a short silent loop; "Click to interact"
-// plays his voiced introduction, lip-synced, with captions.
+// Template 03, "Isometric IT Desk". A 3D Sheshadri works at a floating desk
+// surrounded by the things he looks after. Labels name each one. The scene
+// idles on a short silent loop; "Click to interact" has his 3D guide give a
+// voiced introduction (see TalkingAvatar).
 
 const ease = [0.22, 1, 0.36, 1] as const;
 const rise = (delay: number) => ({
@@ -22,181 +22,142 @@ const socials = [
   { label: "Email", href: `mailto:${person.email}`, Icon: Mail },
 ];
 
-const intro =
-  "Hello! I'm Sheshadri, a Workplace Technology Specialist at Miles Education. I keep people, devices and accounts running, and I build internal tools with AI. Scroll down and I'll walk you through my work.";
+// Positions are fractions of the cropped scene box (the image's right 65%).
+const labels = [
+  { text: "Servers & network", x: 0.2, y: 0.55, side: "left" as const },
+  { text: "IT asset lifecycle", x: 0.33, y: 0.37, side: "left" as const },
+  { text: "Google Workspace", x: 0.5, y: 0.47, side: "right" as const },
+  { text: "Helpdesk", x: 0.6, y: 0.58, side: "right" as const },
+];
 
-function Wave({ active }: { active: boolean }) {
+const SCENE_SHOWN = 0.65; // share of the image width kept in view
+
+function Scene() {
+  const reduce = useReducedMotion();
+  const { setVoiceOn, say } = useTalk();
+  const imgStyle = { width: `${100 / SCENE_SHOWN}%`, left: `${(-(1 - SCENE_SHOWN) / SCENE_SHOWN) * 100}%` };
+
   return (
-    <span className="flex h-5 items-center gap-[3px]" aria-hidden>
-      {[0.5, 0.9, 0.6, 1, 0.7, 0.4].map((h, i) => (
-        <motion.span
-          key={i}
-          className="w-[3px] rounded-full bg-current"
-          style={{ height: `${h * 100}%` }}
-          animate={active ? { scaleY: [0.4, 1, 0.5, 0.9, 0.4] } : { scaleY: [1, 0.6, 1] }}
-          transition={{ duration: active ? 0.9 : 2.4, repeat: Infinity, delay: i * 0.08 }}
+    <div className="relative aspect-[1789/1536] w-full overflow-hidden">
+      <picture>
+        <source type="image/avif" srcSet="/assets/hero3d/scene-md.avif 960w, /assets/hero3d/scene.avif 1920w" sizes="(min-width: 1024px) 60vw, 100vw" />
+        <img
+          src="/assets/hero3d/scene.webp"
+          alt="3D illustration of Sheshadri at a floating desk with a laptop, a stack of laptops, a server rack, a router and a plant"
+          width={1920}
+          height={1072}
+          fetchPriority="high"
+          className="absolute top-0 h-full max-w-none"
+          style={imgStyle}
         />
+      </picture>
+      {!reduce && (
+        <video
+          src="/assets/hero3d/idle.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden
+          className="absolute top-0 h-full max-w-none"
+          style={imgStyle}
+        />
+      )}
+
+      {labels.map((l, i) => (
+        <motion.span
+          key={l.text}
+          aria-hidden
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4, delay: 0.9 + i * 0.15, ease }}
+          className="absolute hidden sm:block"
+          style={{ left: `${l.x * 100}%`, top: `${l.y * 100}%` }}
+        >
+          <span className="absolute -left-1.5 -top-1.5 h-3 w-3 rounded-full border-2 border-white bg-magenta shadow" />
+          <span
+            className={`absolute -top-11 whitespace-nowrap rounded-xl bg-white px-3 py-1.5 text-xs font-bold text-text shadow-[0_8px_20px_-8px_rgba(18,48,71,0.45)] ${
+              l.side === "left" ? "right-2" : "left-2"
+            }`}
+          >
+            {l.text}
+          </span>
+        </motion.span>
       ))}
-    </span>
+
+      {/* Speech bubble over his head doubles as the interact button */}
+      <motion.button
+        type="button"
+        onClick={() => {
+          setVoiceOn(true);
+          say("intro", { now: true });
+        }}
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 1.6, ease }}
+        className="absolute right-[2%] top-[4%] rounded-2xl rounded-bl-sm bg-text px-4 py-2.5 text-sm font-semibold text-white shadow-lg transition-transform hover:-translate-y-0.5"
+      >
+        Hi! Click me for a quick intro
+      </motion.button>
+    </div>
   );
 }
 
 export default function HeroSection() {
-  const { setVoiceOn, stop } = useTalk();
+  const { setVoiceOn, say } = useTalk();
   const { setAskOpen } = useVirtualHuman();
-  const reduce = useReducedMotion();
-  const idle = useRef<HTMLVideoElement>(null);
-  const talk = useRef<HTMLVideoElement>(null);
-  const [talking, setTalking] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [ext, setExt] = useState("mp4");
-
-  useEffect(() => {
-    const v = document.createElement("video");
-    if (v.canPlayType('video/webm; codecs="vp9, opus"')) setExt("webm");
-  }, []);
-
-  function startIntro() {
-    const v = talk.current;
-    if (!v) return;
-    stop();
-    setVoiceOn(true);
-    setTalking(true);
-    v.currentTime = 0;
-    v.muted = false;
-    v.play().catch(() => {
-      v.muted = true;
-      v.play().catch(() => setTalking(false));
-    });
-  }
-
-  function endIntro() {
-    talk.current?.pause();
-    setTalking(false);
-    setProgress(0);
-  }
-
-  const words = intro.split(" ");
-  const shown = Math.ceil(words.length * Math.min(1, progress * 1.06));
 
   return (
-    <section id="home" aria-labelledby="hero-name" className="relative isolate overflow-hidden lg:min-h-[100svh]">
-      {/* Scene: still image, idle loop and talking clip share one frame */}
-      <div className="relative aspect-[4/5] w-full sm:aspect-[16/10] lg:absolute lg:inset-0 lg:aspect-auto">
-        <picture>
-          <source media="(max-width: 639px)" type="image/avif" srcSet="/assets/hero/scene-mobile.avif" />
-          <source media="(max-width: 639px)" type="image/webp" srcSet="/assets/hero/scene-mobile.webp" />
-          <source type="image/avif" srcSet="/assets/hero/scene-md.avif 960w, /assets/hero/scene.avif 1920w" sizes="100vw" />
-          <img
-            src="/assets/hero/scene.webp"
-            alt="Sheshadri N in a dark tech office, gesturing as he explains"
-            width={1920}
-            height={1072}
-            fetchPriority="high"
-            className="absolute inset-0 h-full w-full object-cover object-[78%_30%] sm:object-[70%_30%] lg:object-[64%_30%]"
-          />
-        </picture>
-        {!reduce && (
-          <video
-            ref={idle}
-            src={`/assets/hero/idle.${ext}`}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            aria-hidden
-            className={`absolute inset-0 hidden h-full w-full object-cover object-[70%_30%] transition-opacity duration-500 sm:block lg:object-[64%_30%] ${talking ? "opacity-0" : "opacity-100"}`}
-          />
-        )}
-        <video
-          ref={talk}
-          src={`/assets/hero/intro.${ext}`}
-          playsInline
-          preload="none"
-          aria-hidden
-          onTimeUpdate={(e) => {
-            const v = e.currentTarget;
-            if (v.duration) setProgress(v.currentTime / v.duration);
-          }}
-          onEnded={endIntro}
-          className={`absolute inset-0 h-full w-full object-cover object-[93%_30%] transition-opacity duration-500 sm:object-[70%_30%] lg:object-[64%_30%] ${talking ? "opacity-100" : "opacity-0"}`}
-        />
-        {/* Readability gradients */}
-        <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink via-ink/10 to-transparent lg:bg-gradient-to-r lg:from-ink lg:via-ink/75 lg:to-transparent" />
-        <div aria-hidden className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-ink/80 to-transparent" />
-        <div aria-hidden className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink to-transparent" />
-
-        {/* Interact controls, sitting over the avatar */}
-        <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-3 lg:bottom-[14%] lg:left-[64%]">
-          <motion.button
-            {...rise(0.9)}
-            type="button"
-            onClick={talking ? endIntro : startIntro}
-            aria-pressed={talking}
-            className="inline-flex min-h-12 items-center gap-3 rounded-full border border-white/15 bg-ink/70 px-5 text-sm font-semibold text-text shadow-[0_20px_40px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md transition-colors hover:border-magenta/60"
-          >
-            <span className="grid h-8 w-8 place-items-center rounded-full bg-magenta-strong text-white">
-              {talking ? <Square size={12} aria-hidden /> : <Wave active={false} />}
-            </span>
-            {talking ? "Stop" : "Click to interact"}
-            {talking && (
-              <span className="text-magenta">
-                <Wave active />
-              </span>
-            )}
-          </motion.button>
-        </div>
-      </div>
-
-      {/* Copy */}
-      <div className="container-x relative pb-16 pt-6 lg:flex lg:min-h-[100svh] lg:items-center lg:pb-12 lg:pt-28">
-        <div className="max-w-[40rem]">
-          <motion.p {...rise(0.05)} className="mb-5 inline-flex items-center gap-2 rounded-full border border-ice/25 bg-ice/[0.06] px-3 py-1 text-sm text-ice">
-            <span className="h-1.5 w-1.5 rounded-full bg-ice" aria-hidden />
-            Available for new opportunities
+    <section id="home" aria-labelledby="hero-name" className="relative overflow-hidden bg-[#cbf2f7] pt-24 lg:pt-20">
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-ink" />
+      <div className="container-x relative grid items-center gap-8 pb-14 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-4 lg:pb-16">
+        <div className="order-2 lg:order-1">
+          <motion.p {...rise(0.05)} className="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-sm font-bold text-text shadow-sm">
+            <span className="h-2 w-2 rounded-full bg-[#1f9d55]" aria-hidden />
+            Hi, I’m Sheshadri N
           </motion.p>
 
-          <motion.h1 id="hero-name" {...rise(0.1)} className="font-display text-[clamp(2.3rem,5.4vw,4.6rem)] font-extrabold leading-[0.95] tracking-[-0.03em]">
-            <span className="block">Hello!</span>
-            <span className="block sm:whitespace-nowrap">
-              I’m <span className="text-magenta">Sheshadri</span>
-            </span>
+          <motion.h1
+            id="hero-name"
+            {...rise(0.1)}
+            className="mt-5 font-display text-[clamp(2.6rem,5.6vw,4.9rem)] font-extrabold leading-[0.95] tracking-[-0.035em] text-text"
+          >
+            I keep the <span className="text-magenta">office tech</span> running.
           </motion.h1>
 
-          <motion.p {...rise(0.2)} className="mt-5 font-display text-[clamp(1.3rem,2.2vw,1.6rem)] font-semibold text-text">
+          <motion.p {...rise(0.18)} className="mt-5 font-display text-xl font-bold text-text sm:text-2xl">
             {person.title}
           </motion.p>
-          <motion.p {...rise(0.26)} className="mt-3 text-[0.95rem] leading-relaxed text-ice/90">
+          <motion.p {...rise(0.24)} className="mt-2 text-[0.95rem] font-medium text-ice">
             {person.positioning.join(" • ")}
           </motion.p>
-          <motion.p {...rise(0.32)} className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-[1.05rem]">
+          <motion.p {...rise(0.3)} className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-[1.05rem]">
             {person.intro}
           </motion.p>
 
-          {/* Live captions while he talks */}
-          <p className={`mt-5 min-h-[3rem] text-sm leading-relaxed ${talking ? "" : "sr-only"}`} aria-live="polite">
-            <span className="sr-only">{talking ? intro : ""}</span>
-            <span aria-hidden className="text-text">
-              {talking && words.slice(0, shown).join(" ")}
-              <span className="text-faint"> {talking && words.slice(shown).join(" ")}</span>
-            </span>
-          </p>
-
-          <motion.div {...rise(0.4)} className="mt-4 flex flex-wrap gap-2.5">
-            <a href={person.resume} download className="btn btn-primary">
-              <Download size={18} aria-hidden />
-              Download Resume
-            </a>
+          <motion.div {...rise(0.38)} className="mt-7 flex flex-wrap gap-2.5">
+            <button
+              type="button"
+              onClick={() => {
+                setVoiceOn(true);
+                say("intro", { now: true });
+              }}
+              className="btn btn-primary"
+            >
+              <Play size={17} aria-hidden />
+              Click to interact
+            </button>
             <a href="#projects" className="btn btn-ghost">
-              View Projects
+              See what I built
             </a>
-            <a href="#contact" className="btn btn-ghost">
-              Contact Me
+            <a href={person.resume} download className="btn btn-ghost">
+              <Download size={17} aria-hidden />
+              Resume
             </a>
           </motion.div>
 
-          <motion.div {...rise(0.46)} className="mt-6 flex flex-wrap items-center gap-2">
+          <motion.div {...rise(0.44)} className="mt-5 flex flex-wrap items-center gap-2">
             {socials.map(({ label, href, Icon }) => (
               <a
                 key={label}
@@ -204,7 +165,7 @@ export default function HeroSection() {
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel="noreferrer"
                 aria-label={label}
-                className="grid h-11 w-11 place-items-center rounded-xl border border-line bg-ink/40 text-muted transition-colors hover:border-magenta/60 hover:text-text"
+                className="grid h-11 w-11 place-items-center rounded-xl bg-white text-text shadow-sm transition-colors hover:text-magenta"
               >
                 <Icon size={18} aria-hidden />
               </a>
@@ -212,23 +173,32 @@ export default function HeroSection() {
             <button
               type="button"
               onClick={() => setAskOpen(true)}
-              className="ml-1 inline-flex min-h-11 items-center gap-2 rounded-xl border border-ice/40 bg-ice/[0.07] px-4 text-sm font-semibold text-ice transition-colors hover:bg-ice/15"
+              className="ml-1 inline-flex min-h-11 items-center gap-2 rounded-xl bg-white px-4 text-sm font-semibold text-ice shadow-sm transition-colors hover:text-text"
             >
               <MessageCircle size={17} aria-hidden />
               Ask Sheshadri
             </button>
           </motion.div>
 
-          <motion.dl {...rise(0.52)} className="mt-10 grid grid-cols-3 gap-3">
+          <motion.dl {...rise(0.5)} className="mt-9 grid max-w-xl grid-cols-3 gap-3">
             {stats.map((s) => (
-              <div key={s.label} className="rounded-[var(--radius-card)] border border-line bg-ink/50 px-4 py-4 backdrop-blur-sm">
+              <div key={s.label} className="rounded-[var(--radius-card)] bg-white/80 px-4 py-4 shadow-sm">
                 <dt className="sr-only">{s.label}</dt>
-                <dd className="font-display text-3xl font-bold leading-none text-text">{s.value}</dd>
+                <dd className="font-display text-3xl font-extrabold leading-none text-text">{s.value}</dd>
                 <dd className="mt-2 text-xs leading-snug text-muted">{s.label}</dd>
               </div>
             ))}
           </motion.dl>
         </div>
+
+        <motion.div
+          className="order-1 -mx-4 lg:order-2 lg:-mr-[max(3rem,calc((100vw-1280px)/2+3rem))] lg:ml-0"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.15, ease }}
+        >
+          <Scene />
+        </motion.div>
       </div>
     </section>
   );

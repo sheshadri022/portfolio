@@ -27,11 +27,11 @@ function DeskScene() {
         className="block aspect-[1100/923] h-auto w-full rounded-[var(--radius-panel)] border border-line object-cover"
       />
       {/* Real excerpt from the asset portal API */}
-      <div className="absolute -bottom-6 right-3 hidden w-[min(78%,360px)] sm:block rounded-[14px] border border-line-strong bg-[#0a0d1f]/95 p-4 font-mono text-[10px] leading-[1.7] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.9)] sm:-right-6 sm:text-[11px]">
-        <p className="mb-2 text-[10px] text-faint">api-server/src/routes/assets.ts</p>
-        <pre className="overflow-hidden whitespace-pre text-muted">
+      <div className="absolute -bottom-6 right-3 hidden w-[min(78%,360px)] sm:block rounded-[14px] border border-line-strong bg-[#12263a] p-4 font-mono text-[10px] leading-[1.7] text-[#c9d7e3] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.9)] sm:-right-6 sm:text-[11px]">
+        <p className="mb-2 text-[10px] text-[#8fa7ba]">api-server/src/routes/assets.ts</p>
+        <pre className="overflow-hidden whitespace-pre text-[#c9d7e3]">
           {code.map(([t, line], i) => (
-            <span key={i} className={`block ${t === "k" ? "text-ice" : t === "c" ? "text-faint" : ""}`}>
+            <span key={i} className={`block ${t === "k" ? "text-[#7fd8e8]" : t === "c" ? "text-[#8fa7ba]" : ""}`}>
               {line}
             </span>
           ))}

@@ -7,14 +7,14 @@ import SectionHeading from "./SectionHeading";
 
 function BrowserFrame({ url, children }: { url: string; children: React.ReactNode }) {
   return (
-    <div className="overflow-hidden rounded-[18px] border border-line-strong bg-[#0c1024] shadow-[0_40px_80px_-30px_rgba(0,0,0,0.9),0_0_0_1px_rgba(255,255,255,0.03)]">
+    <div className="overflow-hidden rounded-[18px] border border-line-strong bg-ink-2 shadow-[0_30px_60px_-30px_rgba(18,48,71,0.45)]">
       <div className="flex items-center gap-2 border-b border-line px-4 py-2.5">
         <span className="flex gap-1.5" aria-hidden>
           <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]/80" />
           <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]/80" />
           <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]/80" />
         </span>
-        <span className="mx-auto truncate rounded-md bg-white/[0.04] px-3 py-1 text-[11px] text-faint">{url}</span>
+        <span className="mx-auto truncate rounded-md bg-ink-3/70 px-3 py-1 text-[11px] text-faint">{url}</span>
       </div>
       {children}
     </div>
@@ -73,7 +73,7 @@ function StoreFrame({ project }: { project: Project }) {
   return (
     <figure>
       <BrowserFrame url="gkfashionsindia.com">
-        <div className="relative flex aspect-[16/10] flex-col bg-gradient-to-br from-[#1a1430] via-[#12162e] to-[#0c1024]">
+        <div className="relative flex aspect-[16/10] flex-col bg-gradient-to-br from-wine via-ink-2 to-ink-3">
           <nav aria-label="Store menu" className="flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-line px-6 py-4">
             <span className="mr-auto font-display font-bold">GK Fashions</span>
             {project.storeNav!.map((n) => (
@@ -110,12 +110,12 @@ function ProjectPanel({ project, onCase }: { project: Project; onCase: () => voi
       <div
         aria-hidden
         className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full"
-        style={{ background: "radial-gradient(closest-side, rgb(229 65 127 / 0.18), transparent)" }}
+        style={{ background: "radial-gradient(closest-side, rgb(255 215 200 / 0.8), transparent)" }}
       />
       <header className="relative flex flex-wrap items-end gap-x-6 gap-y-2">
         <span
           aria-hidden
-          className="font-display text-[clamp(4rem,9vw,7rem)] font-extrabold leading-[0.8] text-transparent [-webkit-text-stroke:1.5px_rgb(229_65_127/0.7)]"
+          className="font-display text-[clamp(4rem,9vw,7rem)] font-extrabold leading-[0.8] text-transparent [-webkit-text-stroke:1.5px_rgb(194_70_31/0.75)]"
         >
           {project.number}
         </span>
@@ -221,7 +221,7 @@ export default function FeaturedProjects() {
             aria-labelledby={`p-${p.id}`}
             className="mt-10 flex flex-col gap-6 rounded-[var(--radius-card)] border border-line p-6 sm:p-8 md:flex-row md:items-center"
           >
-            <span aria-hidden className="font-display text-5xl font-extrabold text-transparent [-webkit-text-stroke:1px_rgb(160_170_220/0.5)]">
+            <span aria-hidden className="font-display text-5xl font-extrabold text-transparent [-webkit-text-stroke:1px_rgb(18_48_71/0.35)]">
               {p.number}
             </span>
             <div className="flex-1">

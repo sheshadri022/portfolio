@@ -15,15 +15,8 @@ const lines: Partial<Record<VirtualHumanState, { text: string; point?: "left" }>
   contact: { text: "Email or LinkedIn both reach me." },
 };
 
-// One pose per state, from Sheshadri's avatar set.
-const pose: Record<VirtualHumanState, string> = {
-  idle: "/assets/avatars/profile.webp",
-  greeting: "/assets/avatars/greeting.webp",
-  explaining: "/assets/avatars/talking.webp",
-  projects: "/assets/avatars/presenting.webp",
-  skills: "/assets/avatars/interactive.webp",
-  contact: "/assets/avatars/greeting.webp",
-};
+// The guide is the 3D Sheshadri from the hero; the ring colour shows the state.
+const GUIDE = "/assets/hero3d/guide-face.webp";
 
 const ring: Record<VirtualHumanState, string> = {
   idle: "ring-line-strong",
@@ -121,22 +114,9 @@ export default function VirtualHumanDock() {
               whileTap={{ scale: 0.96 }}
               animate={state === "projects" ? { rotate: [-4, 0] } : state === "contact" ? { y: [0, -3, 0] } : { rotate: 0 }}
               transition={{ duration: 0.6 }}
-              className={`relative h-[84px] w-[64px] overflow-hidden rounded-2xl bg-ink-3 shadow-[0_12px_30px_-10px_rgba(0,0,0,0.8)] ring-2 transition-[box-shadow] ${ring[state]}`}
+              className={`relative h-16 w-16 overflow-hidden rounded-full bg-ink-3 shadow-[0_12px_30px_-10px_rgba(18,48,71,0.45)] ring-2 transition-[box-shadow] ${ring[state]}`}
             >
-              <AnimatePresence initial={false}>
-                <motion.img
-                  key={pose[state]}
-                  src={pose[state]}
-                  alt=""
-                  width={64}
-                  height={84}
-                  className="absolute inset-0 h-full w-full object-cover object-top"
-                  initial={{ opacity: 0, scale: 1.04 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.35 }}
-                />
-              </AnimatePresence>
+              <img src={GUIDE} alt="" width={64} height={64} className="absolute inset-0 h-full w-full object-cover" />
             </motion.button>
           </motion.div>
         )}
@@ -145,7 +125,7 @@ export default function VirtualHumanDock() {
       <AnimatePresence>
         {askOpen && (
           <motion.div
-            className="fixed inset-0 z-[60] flex items-end justify-center bg-black/60 p-3 sm:items-center sm:p-6"
+            className="fixed inset-0 z-[60] flex items-end justify-center bg-[#123047]/45 p-3 sm:items-center sm:p-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

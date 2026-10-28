@@ -1,11 +1,18 @@
-// Narration scripts for the talking avatar and skill explainers.
-// Every line is drawn from verified profile facts. The audio and video are
-// AI-generated (neutral AI voice, lip-sync from Sheshadri's real photo) and
-// the site says so in the voice toggle.
+// Narration scripts for the talking 3D guide and skill explainers.
+// Every line is drawn from verified profile facts. Audio and video are
+// AI-generated (neutral AI voice, a 3D character based on Sheshadri's photo)
+// and the player labels them as AI.
 
 export type Clip = { id: string; section: string; label: string; script: string };
 
 export const avatarClips: Clip[] = [
+  {
+    id: "intro",
+    section: "home",
+    label: "Hello!",
+    script:
+      "Hello! I'm Sheshadri, a Workplace Technology Specialist at Miles Education. I keep people, devices and accounts running, and I build internal tools with AI. Scroll down and I'll walk you through my work.",
+  },
   {
     id: "about",
     section: "about",

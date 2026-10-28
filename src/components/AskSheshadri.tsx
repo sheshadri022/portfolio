@@ -69,7 +69,7 @@ export default function AskSheshadri({ compact = false, autoFocus = false }: { c
     >
       <header className="flex items-center gap-3 border-b border-line px-5 py-4">
         <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full bg-ink-3 ring-1 ring-magenta/40">
-          <img src="/assets/avatars/profile.webp" alt="" width={44} height={44} className="h-full w-full object-cover object-[50%_22%]" />
+          <img src="/assets/hero3d/guide-face.webp" alt="" width={44} height={44} className="h-full w-full object-cover" />
           <span className="absolute bottom-0.5 right-0.5 h-2.5 w-2.5 rounded-full bg-ice ring-2 ring-ink-2" aria-hidden />
         </span>
         <div className="min-w-0">
@@ -145,7 +145,7 @@ export default function AskSheshadri({ compact = false, autoFocus = false }: { c
                   type="button"
                   onClick={() => send(q.label)}
                   disabled={busy}
-                  className="rounded-[10px] border border-line bg-white/[0.03] px-3 py-1.5 text-left text-xs text-muted transition-colors hover:border-magenta/50 hover:text-text disabled:opacity-50"
+                  className="rounded-[10px] border border-line bg-ink-2 px-3 py-1.5 text-left text-xs text-muted transition-colors hover:border-magenta/50 hover:text-text disabled:opacity-50"
                 >
                   {q.label}
                 </button>

@@ -62,7 +62,7 @@ export default function ContactSection() {
                   </span>
                   <span className="min-w-0">
                     <span className="block text-sm text-faint">{label}</span>
-                    <span className="block truncate font-semibold text-text group-hover:text-white">{value}</span>
+                    <span className="block truncate font-semibold text-text group-hover:text-magenta">{value}</span>
                   </span>
                 </a>
               </li>

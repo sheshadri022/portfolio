@@ -89,7 +89,7 @@ export default function SkillExplainer({
         })}
       </ol>
 
-      <div className="mt-4 h-1 overflow-hidden rounded-full bg-white/10" aria-hidden>
+      <div className="mt-4 h-1 overflow-hidden rounded-full bg-ink-3" aria-hidden>
         <div className="h-full bg-gradient-to-r from-magenta to-orchid transition-[width] duration-200" style={{ width: `${t * 100}%` }} />
       </div>
       <div className="mt-3 flex items-center gap-2">

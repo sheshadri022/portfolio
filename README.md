@@ -49,9 +49,13 @@ Out of the box, answers come from `src/data/profile.ts` with no network calls. T
 
 The browser only ever calls that endpoint. No API key is shipped in the frontend. If the endpoint fails, the local answers are used.
 
+## Look: Template 03, Isometric IT Desk
+
+Light sky-blue theme with deep navy text and a burnt-coral accent; display font Bricolage Grotesque. Colours live as tokens in `src/index.css`.
+
 ## Hero, ID card, skills table and proud moments
 
-- Hero (Template 4 style): Sheshadri in a dark tech office on the right, idling on a short silent loop. "Click to interact" plays his voiced introduction with live captions (`public/assets/hero/`). The scene is AI-generated from his real photo.
+- Hero: a 3D isometric Sheshadri working at a floating desk with the things he looks after (laptops, server, router), labelled. The scene idles on a short silent loop (`public/assets/hero3d/`). "Click to interact" (or the speech bubble) has his 3D guide give a voiced intro.
 - About: a flipping ID card on a lanyard (front: photo, name, title; back: what he does and how to reach him).
 - Skills: every skill from `profile.ts` as a periodic-table element, colour-coded by group with filters, plus "How it works" explainers.
 - Proud moments: milestones and certifications on one track that moves sideways as you scroll (swipe on phones).
@@ -59,8 +63,8 @@ The browser only ever calls that endpoint. No API key is shipped in the frontend
 ## Talking avatar and skill explainers
 
 - Point at a menu item (or a section heading once voice is on) and Sheshadri's avatar explains that section. "Meet Sheshadri" in the hero, or the speaker button in the navbar, turns the voice on. Browsers block sound until the visitor clicks once, so before that clips play muted with captions.
-- Poses: `public/assets/avatars/` holds his avatar set (about, developer, seated, mobile, profile, greeting, presenting, interactive, talking). The floating dock switches pose by section: presenting on Projects, interactive on Skills, talking while Ask is open, waving on Contact.
-- Clips: `public/assets/avatar/*.webm|mp4`, lip-synced from his real photo with a neutral AI voice (Higgsfield: Seed Audio voice "Julian", Wan 2.7). Scripts live in `src/data/voice.ts`; change a script there and regenerate its clip.
+- Poses: `public/assets/avatars/` holds his avatar set (about, developer, seated, mobile, profile, greeting, presenting, interactive, talking). Real-photo poses are used in About, Experience, Developer journey, Projects, Skills and Contact; the floating 3D guide changes its ring colour by section.
+- Clips: `public/assets/avatar/*.webm|mp4` (intro, about, experience, projects, skills, contact), lip-synced on a 3D character based on his photo with a neutral AI voice (Higgsfield: Seed Audio voice "Julian", Wan 2.7). Scripts live in `src/data/voice.ts`; change a script there and regenerate its clip.
 - Skills: each card has "How it works", a step-by-step explainer timed to an AI voice-over in `public/assets/voice/*.mp3`.
 - Everything loads only when played, and the site labels the voice and animation as AI.
 

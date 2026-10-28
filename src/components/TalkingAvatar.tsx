@@ -41,7 +41,7 @@ export default function TalkingAvatar() {
         <motion.aside
           key="talk"
           aria-label={`Sheshadri on ${clip.label}`}
-          className="fixed bottom-4 left-4 right-4 z-50 flex overflow-hidden rounded-[22px] border border-line-strong bg-ink-2 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.85)] sm:bottom-24 sm:left-auto sm:right-5 sm:w-[380px]"
+          className="fixed bottom-4 left-4 right-4 z-50 flex overflow-hidden rounded-[22px] border border-line-strong bg-ink-2 shadow-[0_24px_50px_-20px_rgba(18,48,71,0.45)] sm:bottom-24 sm:left-auto sm:right-5 sm:w-[380px]"
           initial={{ opacity: 0, y: 20, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20, scale: 0.96 }}
@@ -52,7 +52,7 @@ export default function TalkingAvatar() {
               ref={video}
               playsInline
               preload="none"
-              poster="/assets/avatar/poster.webp"
+              poster="/assets/hero3d/guide.webp"
               className="h-full w-full object-cover"
               onTimeUpdate={(e) => {
                 const v = e.currentTarget;
@@ -90,7 +90,7 @@ export default function TalkingAvatar() {
               <span className="text-faint"> {words.slice(shown).join(" ")}</span>
             </span>
             </p>
-            <div className="h-1 bg-white/10" aria-hidden>
+            <div className="h-1 bg-ink-3" aria-hidden>
               <div className="h-full bg-magenta transition-[width] duration-200" style={{ width: `${progress * 100}%` }} />
             </div>
           </div>

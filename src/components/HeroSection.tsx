@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Download, Github, Linkedin, Mail, MessageCircle, Play, Square } from "lucide-react";
 import { useTalk } from "@/context/Talk";
 import { useVirtualHuman } from "@/context/VirtualHuman";
@@ -222,9 +222,9 @@ function Copy({ talking, words, shown }: { talking: boolean; words: string[]; sh
         <span className="h-1.5 w-1.5 rounded-full bg-ice" aria-hidden />
         Available for new opportunities
       </motion.p>
-      <motion.p {...rise(0.4)} className="font-display text-[clamp(1.6rem,2.6vw,2.4rem)] uppercase leading-none tracking-wide text-text">
-        {person.title}
-      </motion.p>
+      <motion.div {...rise(0.4)}>
+        <RotatingTitle />
+      </motion.div>
       <motion.p {...rise(0.46)} className="mt-2 text-sm text-ice/90">
         {person.positioning.join(" • ")}
       </motion.p>
@@ -262,5 +262,46 @@ function Actions({ talking, start, end, compact }: { talking: boolean; start: ()
         Resume
       </a>
     </motion.div>
+  );
+}
+
+// Cycles through his titles every 3 seconds. All titles share one grid cell,
+// so the line keeps the height of the longest and nothing below it jumps.
+// Screen readers get all three once; reduced motion keeps the first title.
+function RotatingTitle() {
+  const reduce = useReducedMotion();
+  const [i, setI] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const titles = person.titles;
+
+  useEffect(() => {
+    if (reduce || paused) return;
+    const id = window.setInterval(() => setI((n) => (n + 1) % titles.length), 3000);
+    return () => window.clearInterval(id);
+  }, [reduce, paused, titles.length]);
+
+  const cls = "col-start-1 row-start-1 whitespace-nowrap font-display text-[clamp(1.1rem,6vw,2rem)] uppercase leading-none tracking-wide lg:text-[clamp(1.6rem,2.6vw,2.4rem)]";
+  return (
+    <p className="grid" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+      <span className="sr-only">{titles.join(", ")}</span>
+      {titles.map((t) => (
+        <span key={t} aria-hidden className={`${cls} invisible`}>
+          {t}
+        </span>
+      ))}
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.span
+          key={titles[i]}
+          aria-hidden
+          className={`${cls} text-text`}
+          initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          exit={{ opacity: 0, y: -14, filter: "blur(6px)" }}
+          transition={{ duration: 0.45, ease }}
+        >
+          {titles[i]}
+        </motion.span>
+      </AnimatePresence>
+    </p>
   );
 }

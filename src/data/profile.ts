@@ -5,6 +5,8 @@
 export const person = {
   name: "SHESHADRI N",
   title: "Workplace Technology Specialist",
+  // The hero cycles through these every 3 seconds, starting with the title.
+  titles: ["Workplace Technology Specialist", "IT Asset Management Specialist", "Google Workspace Admin"],
   positioning: [
     "IT Operations",
     "Google Workspace",

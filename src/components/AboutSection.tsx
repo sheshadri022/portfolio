@@ -1,33 +1,22 @@
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
 import { about } from "@/data/profile";
-import ResponsiveImage from "./ResponsiveImage";
+import IdCard from "./IdCard";
 import SectionHeading from "./SectionHeading";
 
 export default function AboutSection() {
   return (
     <section id="about" aria-labelledby="about-title" className="section">
       <div className="container-x grid items-start gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
-        <motion.figure
-          initial={{ opacity: 0, x: -24 }}
-          whileInView={{ opacity: 1, x: 0 }}
+        <motion.div
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-120px" }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto w-full max-w-[420px] lg:sticky lg:top-28"
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="lg:sticky lg:top-24"
         >
-          <ResponsiveImage
-            base="/assets/avatars/about"
-            alt="Sheshadri N with arms crossed"
-            width={720}
-            height={1170}
-            className="relative block aspect-[4/5] h-auto w-full rounded-[var(--radius-panel)] border border-line object-cover object-top"
-          />
-          <figcaption className="hand absolute right-2 bottom-[8%] rotate-[-6deg] sm:-right-3 rounded-xl bg-ink/70 px-3 py-2 text-2xl text-ice backdrop-blur" aria-hidden>
-            people, devices,
-            <br />
-            accounts, tools
-          </figcaption>
-        </motion.figure>
+          <IdCard />
+        </motion.div>
 
         <div>
           <SectionHeading id="about-title" title="About me" />

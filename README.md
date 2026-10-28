@@ -49,6 +49,13 @@ Out of the box, answers come from `src/data/profile.ts` with no network calls. T
 
 The browser only ever calls that endpoint. No API key is shipped in the frontend. If the endpoint fails, the local answers are used.
 
+## Hero, ID card, skills table and proud moments
+
+- Hero (Template 4 style): Sheshadri in a dark tech office on the right, idling on a short silent loop. "Click to interact" plays his voiced introduction with live captions (`public/assets/hero/`). The scene is AI-generated from his real photo.
+- About: a flipping ID card on a lanyard (front: photo, name, title; back: what he does and how to reach him).
+- Skills: every skill from `profile.ts` as a periodic-table element, colour-coded by group with filters, plus "How it works" explainers.
+- Proud moments: milestones and certifications on one track that moves sideways as you scroll (swipe on phones).
+
 ## Talking avatar and skill explainers
 
 - Point at a menu item (or a section heading once voice is on) and Sheshadri's avatar explains that section. "Meet Sheshadri" in the hero, or the speaker button in the navbar, turns the voice on. Browsers block sound until the visitor clicks once, so before that clips play muted with captions.

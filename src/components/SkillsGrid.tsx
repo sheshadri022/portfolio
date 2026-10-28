@@ -4,15 +4,14 @@ import { skillGroups } from "@/data/profile";
 import { skillExplainers } from "@/data/voice";
 import SectionHeading from "./SectionHeading";
 import SkillExplainer from "./SkillExplainer";
+import PeriodicSkills from "./PeriodicSkills";
 import { useTalk } from "@/context/Talk";
 
 const icons = [MonitorCog, Cloud, Code2, Bot];
 const accents = ["text-magenta", "text-ice", "text-orchid", "text-magenta"];
-const PREVIEW = 10;
 const audioFiles = ["workplace", "workspace", "dev", "ai"];
 
 export default function SkillsGrid() {
-  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
   const [playing, setPlaying] = useState<number | null>(null);
   const { stop } = useTalk();
 
@@ -29,12 +28,13 @@ export default function SkillsGrid() {
           Built through five years of hands-on workplace IT, and the apps that came out of it.
         </SectionHeading>
 
-        <div className="grid gap-5 md:grid-cols-2">
+        <PeriodicSkills />
+
+        <h3 className="mt-16 font-display text-2xl font-bold">How it works</h3>
+        <p className="mt-2 max-w-2xl text-muted">Pick a group to hear how that work actually runs, step by step.</p>
+        <div className="mt-6 grid gap-5 md:grid-cols-2">
           {skillGroups.map((g, i) => {
             const Icon = icons[i];
-            const open = expanded[g.title];
-            const items = open ? g.items : g.items.slice(0, PREVIEW);
-            const more = g.items.length - PREVIEW;
             const listId = `skills-${i}`;
             return (
               <article key={g.title} aria-labelledby={`${listId}-t`} className="glass rounded-[var(--radius-card)] p-6 sm:p-8">
@@ -54,9 +54,9 @@ export default function SkillsGrid() {
                     {playing === i ? "Close" : "How it works"}
                   </button>
                 </div>
-                <h3 id={`${listId}-t`} className="mt-4 font-display text-xl font-bold">
+                <h4 id={`${listId}-t`} className="mt-4 font-display text-xl font-bold">
                   {g.title}
-                </h3>
+                </h4>
                 <p className="mt-1 text-sm text-muted">{g.text}</p>
                 <div id={`${listId}-x`}>
                   {playing === i && (
@@ -68,24 +68,6 @@ export default function SkillsGrid() {
                     />
                   )}
                 </div>
-                <ul id={listId} className="mt-5 flex flex-wrap gap-2">
-                  {items.map((s) => (
-                    <li key={s} className="chip !text-text/85">
-                      {s}
-                    </li>
-                  ))}
-                </ul>
-                {more > 0 && (
-                  <button
-                    type="button"
-                    aria-expanded={!!open}
-                    aria-controls={listId}
-                    onClick={() => setExpanded((e) => ({ ...e, [g.title]: !open }))}
-                    className="mt-4 text-sm text-ice underline-offset-4 hover:underline"
-                  >
-                    {open ? "Show fewer" : `Show ${more} more`}
-                  </button>
-                )}
               </article>
             );
           })}

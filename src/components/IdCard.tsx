@@ -41,13 +41,13 @@ export default function IdCard() {
             style={{ backfaceVisibility: "hidden" }}
           >
             <span className="flex items-center justify-between px-5 pt-5 text-xs text-faint">
-              <span className="font-display font-bold text-text">SNS</span>
+              <span className="font-display text-sm text-text">SN</span>
               <span>Workplace Technology</span>
             </span>
             <span className="mx-5 mt-4 block overflow-hidden rounded-2xl border border-line">
               <picture>
-                <source type="image/avif" srcSet="/assets/avatars/about.avif" />
-                <img src="/assets/avatars/about.webp" alt="" width={720} height={1170} className="block aspect-square w-full object-cover object-[50%_18%]" />
+                <source type="image/avif" srcSet="/assets/avatars/id-front.avif" />
+                <img src="/assets/avatars/id-front.webp" alt="" width={613} height={613} className="block aspect-square w-full object-cover" />
               </picture>
             </span>
             <span className="mt-4 px-5">

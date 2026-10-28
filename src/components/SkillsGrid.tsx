@@ -40,16 +40,6 @@ export default function SkillsGrid() {
         <SectionHeading
           id="skills-title"
           title="Skills & Expertise"
-          aside={
-            <img
-              src="/assets/avatars/interactive.webp"
-              alt="Sheshadri pointing at Work, Automate, Build and Support"
-              width={340}
-              height={366}
-              loading="lazy"
-              className="h-[260px] w-auto rounded-[22px] border border-line object-cover"
-            />
-          }
         >
           Built through five years of hands-on workplace IT, and the apps that came out of it.{" "}
           <span className="text-magenta">Click any card and I’ll explain it.</span>

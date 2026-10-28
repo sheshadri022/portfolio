@@ -69,7 +69,7 @@ Deep navy theme with magenta as the main accent and cyan for status and data; di
 ## Talking avatar and skill explainers
 
 - Point at a menu item (or a section heading once voice is on) and Sheshadri's avatar explains that section. "Click to interact" in the hero, or the speaker button in the navbar, turns the voice on. Browsers block sound until the visitor clicks once, so before that clips play muted with captions.
-- Poses: `public/assets/avatars/` holds his avatar set (id-front, seated, developer, interactive). Real-photo poses are used in About (ID card), Experience, Developer journey and Skills; the floating 3D guide changes its ring colour by section.
+- Poses: `public/assets/avatars/` holds his avatar set (id-front, seated, developer). Real-photo poses are used in About (ID card), Experience and Developer journey; the floating 3D guide changes its ring colour by section.
 - Clips: `public/assets/avatar/*.webm|mp4` (about, experience, projects, skills, contact), lip-synced on a 3D character based on his photo with a neutral AI voice (Higgsfield: Seed Audio voice "Julian", Wan 2.7). Scripts live in `src/data/voice.ts`; change a script there and regenerate its clip.
 - Skills: each card's panel plays a step-by-step explainer timed to an AI voice-over in `public/assets/voice/*.mp3`.
 - Everything loads only when played, and the site labels the voice and animation as AI.

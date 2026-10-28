@@ -130,6 +130,7 @@ export default function HeroSection() {
             {...rise(0.1)}
             className="mt-5 font-display text-[clamp(2.3rem,5.6vw,4.9rem)] font-extrabold leading-[0.95] tracking-[-0.035em] text-text"
           >
+            <span className="sr-only">Sheshadri N: </span>
             I keep the <span className="text-magenta">office tech</span> running.
           </motion.h1>
 

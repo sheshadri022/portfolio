@@ -53,6 +53,10 @@ To change content, edit `src/data/profile.ts`. Only verified facts go there.
 
 The "5+ years" figures are not typed anywhere. `src/lib/career.ts` holds the start date (`CAREER_START`, Oct 2021) and works out the whole years every time a visitor opens the page, so the hero stat, About intro, Experience line, Skills intro and the dock bubble move to 6, 7, and so on on each October anniversary, with no edit or redeploy. The talking guide's clips avoid year counts ("at Miles Education since 2021"), so they never go stale. The one place that does not update itself is `public/resume.pdf`, a fixed file: regenerate it when the count changes.
 
+### Search engines
+
+`index.html` carries what Google and Bing read first: the title "Sheshadri N | Workplace Technology Specialist, Bengaluru", a description, Person + WebSite + ProfilePage structured data (photo at `/sheshadri-n.jpg`, LinkedIn and GitHub in `sameAs`), and a plain-HTML summary of the profile inside `#root` that the React app replaces when it starts (it is also what visitors without JavaScript see). `public/sitemap.xml` and `public/robots.txt` point crawlers at the site. Ranking also needs Google Search Console and Bing Webmaster Tools set up for snscloud.in, and links to snscloud.in from LinkedIn and GitHub.
+
 ### Making any other change
 
 Edit the file, commit and push to `main`. Render rebuilds and publishes snscloud.in automatically in a few minutes. Facts live in `src/data/` (`profile.ts`, `services.ts`, `skills.ts`, `voice.ts`); the components only display them.

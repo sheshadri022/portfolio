@@ -150,46 +150,35 @@ export type Project = {
   github?: string;
   architecture?: { label: string; detail: string }[];
   privacyNote?: string;
+  /** Screens and details withheld under company policy. */
+  confidential?: boolean;
+  /** Text in the browser bar above the screenshots. */
+  shotsLabel?: string;
 };
 
 export const projects: Project[] = [
   {
     id: "itam",
     number: "01",
-    name: "Miles IT Asset & Helpdesk Portal",
-    category: "Internal enterprise application",
+    name: "Internal IT Asset & Helpdesk Portal",
+    category: "Internal tool, details confidential",
     summary:
-      "An internal IT operations platform created for Miles Education to bring IT assets, employee allocations and helpdesk requests into one place.",
+      "An internal IT operations tool I built for my workplace, bringing IT assets, employee allocations and helpdesk requests into one place. Company policy keeps its screens, data and setup private, so this is only the outline.",
     problem:
       "Asset records, who holds which device, and employee support requests were handled by one IT function across several entities. The team needed one place to see and act on all of it.",
     solution:
       "I designed the workflow from my own day-to-day IT work and built a two-portal web app with AI-assisted development: an admin portal for the IT team and a self-service portal for employees.",
     capabilities: [
-      "Asset inventory with category, status, condition, location and warranty",
-      "Purchase date and price recorded per asset",
-      "Assign and track devices against employees",
-      "Helpdesk tickets with status and priority",
-      "Employee directory with assigned equipment",
-      "Dashboard with asset breakdown and ticket trends",
-      "Employee self-service: raise tickets, track them, view my assets",
-      "Separate admin and end-user sign-in",
+      "Used by the IT team in daily operations",
+      "Assets, who holds them, and support requests in one place",
+      "Admin portal for IT, self-service portal for employees",
+      "Designed from my own IT workflow, built with AI-assisted development",
     ],
-    stack: ["React 19", "TypeScript", "Tailwind CSS", "Node.js", "Express", "REST API (OpenAPI)", "PostgreSQL", "Drizzle ORM", "Render", "GitHub", "Replit"],
-    shots: [
-      { src: "/assets/projects/techops-dashboard.webp", srcSm: "/assets/projects/techops-dashboard-sm.webp", alt: "Dashboard of the public demo showing asset breakdown and ticket trends with demo data" },
-      { src: "/assets/projects/techops-assets.webp", srcSm: "/assets/projects/techops-assets-sm.webp", alt: "Hardware fleet list in the public demo with demo assets" },
-      { src: "/assets/projects/techops-tickets.webp", srcSm: "/assets/projects/techops-tickets-sm.webp", alt: "Helpdesk ticket queue in the public demo with demo tickets" },
-    ],
-    internalLabel: "Internal Enterprise Application",
-    live: { label: "Public demo", href: "https://techops-portal.onrender.com/" },
-    github: "https://github.com/sheshadri022/techops-demo-portal",
-    architecture: [
-      { label: "React app", detail: "Admin and self-service portals, static site on Render" },
-      { label: "REST API", detail: "Express, contract-first with OpenAPI-generated hooks" },
-      { label: "PostgreSQL", detail: "Drizzle ORM, hosted on Render PostgreSQL or Supabase" },
-    ],
+    stack: [],
+    confidential: true,
+    internalLabel: "Internal application",
     privacyNote:
-      "The production portal is internal. Screenshots and the public demo use sample data only: no employee names, emails, serial numbers or internal URLs.",
+      "The production portal is internal to my employer. Its screens, data, code and hosting are not shared here. The public demo in the Product section is a separate build that uses sample data only.",
   },
   {
     id: "gk",
@@ -215,17 +204,25 @@ export const projects: Project[] = [
     id: "portfolio",
     number: "03",
     name: "This portfolio",
-    category: "Personal project",
-    summary: "The site you are on. Built with AI-assisted development and deployed from GitHub to Render.",
+    category: "Personal project, live",
+    summary: "The site you are on. Built with AI-assisted development and deployed from GitHub to Render, with a 3D guide that explains each part as you go.",
     problem: "A resume page did not show the building side of my work.",
-    solution: "A fast, accessible single-page site with an Ask Sheshadri panel that answers from my real profile data.",
+    solution: "A fast, accessible single-page site with an Ask Sheshadri panel that answers from my real profile data, and a talking 3D guide.",
     capabilities: [
-      "Ask Sheshadri panel, ready for a server-side AI endpoint",
-      "Section-aware virtual presence",
-      "Responsive images in AVIF and WebP",
-      "Reduced-motion support",
+      "3D guide that explains each section as you scroll or point",
+      "Ask Sheshadri panel that answers from my real profile data",
+      "Click any skill or certificate to have it explained",
+      "Services with a contact form that pre-selects the right option",
+      "Responsive images in AVIF and WebP, reduced-motion support",
     ],
-    stack: ["React", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion", "Render"],
+    stack: ["React 19", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion", "Higgsfield (AI voice & animation)", "GitHub", "Render"],
+    shotsLabel: "snscloud.in",
+    shots: [
+      { src: "/assets/projects/portfolio-hero.webp", srcSm: "/assets/projects/portfolio-hero-sm.webp", alt: "Portfolio home: Sheshadri's 3D character at an isometric IT desk with the headline I keep the office tech running" },
+      { src: "/assets/projects/portfolio-guide.webp", srcSm: "/assets/projects/portfolio-guide-sm.webp", alt: "The 3D guide explaining the Services section, with captions" },
+      { src: "/assets/projects/portfolio-skills.webp", srcSm: "/assets/projects/portfolio-skills-sm.webp", alt: "Skills section with click-to-explain skill cards" },
+      { src: "/assets/projects/portfolio-certs.webp", srcSm: "/assets/projects/portfolio-certs-sm.webp", alt: "Certifications section with certificate cards" },
+    ],
     live: { label: "Live site", href: "https://snscloud.in/" },
     github: "https://github.com/sheshadri022/portfolio",
   },

@@ -1,7 +1,6 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Check, Clock, ExternalLink, Info, Rocket, Sparkles } from "lucide-react";
 import { prefillContact, product, services, type Service } from "@/data/services";
-import { projects } from "@/data/profile";
 import SectionHeading from "./SectionHeading";
 
 // "Services I Provide" plus the IT Asset & Helpdesk product block.
@@ -21,7 +20,7 @@ const toneHover = {
   sun: "hover:border-[#9a5b00]/45",
 } as const;
 
-const shot = projects.find((p) => p.id === "itam")?.shots?.[0];
+const shot = product.shot;
 
 export default function ServicesSection() {
   const reduce = useReducedMotion();
@@ -81,7 +80,12 @@ export default function ServicesSection() {
                     Discuss Deployment
                   </a>
                 </div>
-                <p className="mt-3 text-xs text-faint">The free demo server can take about 30 seconds to wake up.</p>
+                <p className="mt-3 text-xs text-faint">
+                  The free demo server can take about 30 seconds to wake up.{" "}
+                  <a href={product.demoCode} target="_blank" rel="noreferrer" className="font-medium text-ice underline underline-offset-2 hover:text-text">
+                    Demo code on GitHub
+                  </a>
+                </p>
               </div>
 
               {shot && (

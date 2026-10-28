@@ -3,7 +3,13 @@ import { motion } from "framer-motion";
 import { ArrowRight, ShieldCheck, X } from "lucide-react";
 import type { Project } from "@/data/profile";
 
-export default function ProjectCaseStudy({ project, onClose }: { project: Project; onClose: () => void }) {
+export default function ProjectCaseStudy({
+  project,
+  onClose,
+}: {
+  project: Project;
+  onClose: () => void;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -69,7 +75,10 @@ export default function ProjectCaseStudy({ project, onClose }: { project: Projec
         <p className="text-sm text-magenta">
           Project {project.number}, {project.category.toLowerCase()}
         </p>
-        <h3 id={titleId} className="mt-2 pr-10 font-display text-3xl font-bold leading-tight">
+        <h3
+          id={titleId}
+          className="mt-2 pr-10 font-display text-3xl font-bold leading-tight"
+        >
           {project.name}
         </h3>
 
@@ -80,7 +89,9 @@ export default function ProjectCaseStudy({ project, onClose }: { project: Projec
           </div>
           <div>
             <h4 className="font-semibold text-text">What I built</h4>
-            <p className="mt-2 leading-relaxed text-muted">{project.solution}</p>
+            <p className="mt-2 leading-relaxed text-muted">
+              {project.solution}
+            </p>
           </div>
         </div>
 
@@ -92,10 +103,16 @@ export default function ProjectCaseStudy({ project, onClose }: { project: Projec
                 <li key={a.label} className="flex flex-1 items-center gap-3">
                   <div className="h-full flex-1 rounded-[var(--radius-card)] border border-line bg-ink-3/60 p-4">
                     <p className="font-display font-bold text-ice">{a.label}</p>
-                    <p className="mt-1 text-sm leading-snug text-muted">{a.detail}</p>
+                    <p className="mt-1 text-sm leading-snug text-muted">
+                      {a.detail}
+                    </p>
                   </div>
                   {i < project.architecture!.length - 1 && (
-                    <ArrowRight size={18} className="hidden shrink-0 text-faint sm:block" aria-hidden />
+                    <ArrowRight
+                      size={18}
+                      className="hidden shrink-0 text-faint sm:block"
+                      aria-hidden
+                    />
                   )}
                 </li>
               ))}
@@ -104,31 +121,45 @@ export default function ProjectCaseStudy({ project, onClose }: { project: Projec
         )}
 
         <div className="mt-10">
-          <h4 className="font-semibold text-text">What it does</h4>
+          <h4 className="font-semibold text-text">
+            {project.confidential ? "What I can share" : "What it does"}
+          </h4>
           <ul className="mt-3 grid gap-2 sm:grid-cols-2">
             {project.capabilities.map((c) => (
-              <li key={c} className="flex gap-2 text-sm leading-relaxed text-muted">
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-magenta" aria-hidden />
+              <li
+                key={c}
+                className="flex gap-2 text-sm leading-relaxed text-muted"
+              >
+                <span
+                  className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-magenta"
+                  aria-hidden
+                />
                 {c}
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="mt-10">
-          <h4 className="font-semibold text-text">Built with</h4>
-          <ul className="mt-3 flex flex-wrap gap-2">
-            {project.stack.map((s) => (
-              <li key={s} className="chip">
-                {s}
-              </li>
-            ))}
-          </ul>
-        </div>
+        {project.stack.length > 0 && (
+          <div className="mt-10">
+            <h4 className="font-semibold text-text">Built with</h4>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {project.stack.map((s) => (
+                <li key={s} className="chip">
+                  {s}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {project.privacyNote && (
           <p className="mt-10 flex gap-3 rounded-[var(--radius-card)] border border-ice/25 bg-ice/[0.05] p-4 text-sm leading-relaxed text-muted">
-            <ShieldCheck size={18} className="mt-0.5 shrink-0 text-ice" aria-hidden />
+            <ShieldCheck
+              size={18}
+              className="mt-0.5 shrink-0 text-ice"
+              aria-hidden
+            />
             {project.privacyNote}
           </p>
         )}

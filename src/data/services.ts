@@ -127,6 +127,11 @@ export const product = {
   positioning: "A lightweight IT Asset Management and Helpdesk platform for startups and growing organisations.",
   origin: "Built from my day-to-day IT work. A version runs internally at Miles Education; the public demo uses sample data only.",
   demo: "https://techops-portal.onrender.com/",
+  demoCode: "https://github.com/sheshadri022/techops-demo-portal",
+  shot: {
+    src: "/assets/projects/techops-dashboard.webp",
+    alt: "Dashboard of the public demo showing asset breakdown and ticket trends with sample data",
+  },
   modules: [
     {
       title: "Asset Inventory",

@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
-import { BookOpen, ExternalLink, Github, Lock } from "lucide-react";
+import { ArrowDown, BookOpen, ExternalLink, Github, Lock } from "lucide-react";
 import { projects, type Project } from "@/data/profile";
 import ProjectCaseStudy from "./ProjectCaseStudy";
 import SectionHeading from "./SectionHeading";
@@ -26,7 +26,7 @@ function Screens({ project }: { project: Project }) {
   const shots = project.shots!;
   return (
     <div>
-      <BrowserFrame url="TechOps Portal, public demo">
+      <BrowserFrame url={project.shotsLabel ?? project.name}>
         <div className="relative aspect-[16/10] bg-white">
           <AnimatePresence initial={false} mode="popLayout">
             <motion.picture
@@ -66,6 +66,57 @@ function Screens({ project }: { project: Project }) {
         ))}
       </div>
     </div>
+  );
+}
+
+// The internal portal stays private under company policy, so instead of
+// screenshots it gets an abstract, data-free outline of an app and a pointer
+// to the public demo.
+function ConfidentialFrame() {
+  return (
+    <BrowserFrame url="Internal app, private">
+      <div className="relative aspect-[16/10] overflow-hidden bg-white">
+        <div aria-hidden className="absolute inset-0 flex blur-[3px]">
+          <div className="w-[18%] bg-[#2b2140] p-3">
+            <div className="h-3 w-8 rounded bg-white/25" />
+            {[0, 1, 2, 3, 4].map((k) => (
+              <div key={k} className="mt-3 h-2 rounded bg-white/15" style={{ width: `${70 - k * 8}%` }} />
+            ))}
+          </div>
+          <div className="flex-1 p-4">
+            <div className="h-3 w-1/3 rounded bg-ink-3" />
+            <div className="mt-4 grid grid-cols-4 gap-3">
+              {[0, 1, 2, 3].map((k) => (
+                <div key={k} className="h-12 rounded-lg border border-line bg-ink" />
+              ))}
+            </div>
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <div className="flex h-28 items-end gap-2 rounded-lg border border-line bg-ink p-3">
+                {[60, 85, 40, 70, 30, 55].map((h, k) => (
+                  <div key={k} className="flex-1 rounded-t bg-[#c9c3dc]" style={{ height: `${h}%` }} />
+                ))}
+              </div>
+              <div className="h-28 rounded-lg border border-line bg-ink" />
+            </div>
+          </div>
+        </div>
+        <div className="absolute inset-0 grid place-items-center bg-white/55 p-4">
+          <div className="max-w-sm rounded-2xl border border-line-strong bg-ink-2 p-5 text-center shadow-[0_20px_40px_-20px_rgba(18,48,71,0.45)] sm:p-6">
+            <span className="mx-auto grid h-11 w-11 place-items-center rounded-full bg-ice/10 text-ice">
+              <Lock size={20} aria-hidden />
+            </span>
+            <p className="mt-3 font-display text-lg font-bold text-text">Screens kept private</p>
+            <p className="mt-1 text-sm leading-relaxed text-muted">
+              Company policy keeps this internal app’s screens and data off public sites. The public demo shows the same idea with sample data.
+            </p>
+            <a href="#product" className="btn btn-ghost mt-4 !min-h-10 text-sm">
+              See the public demo
+              <ArrowDown size={14} aria-hidden />
+            </a>
+          </div>
+        </div>
+      </div>
+    </BrowserFrame>
   );
 }
 
@@ -133,11 +184,17 @@ function ProjectPanel({ project, onCase }: { project: Project; onCase: () => voi
 
       <div className="relative mt-10 grid gap-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] lg:gap-12">
         <motion.div ref={ref} style={{ rotateX, y, opacity, transformPerspective: 1200, transformOrigin: "50% 100%" }}>
-          {project.shots ? <Screens project={project} /> : <StoreFrame project={project} />}
+          {project.confidential ? (
+            <ConfidentialFrame />
+          ) : project.shots ? (
+            <Screens project={project} />
+          ) : (
+            <StoreFrame project={project} />
+          )}
         </motion.div>
 
         <div className="flex flex-col">
-          <h4 className="font-semibold text-text">Key capabilities</h4>
+          <h4 className="font-semibold text-text">{project.confidential ? "What I can share" : "Key capabilities"}</h4>
           <ul className="mt-3 space-y-2.5">
             {project.capabilities.map((c) => (
               <li key={c} className="flex gap-3 text-[0.95rem] leading-relaxed text-muted">
@@ -147,22 +204,32 @@ function ProjectPanel({ project, onCase }: { project: Project; onCase: () => voi
             ))}
           </ul>
 
-          <h4 className="mt-8 font-semibold text-text">Technology</h4>
-          <ul className="mt-3 flex flex-wrap gap-2">
-            {project.stack.map((s) => (
-              <li key={s} className="chip">
-                {s}
-              </li>
-            ))}
-          </ul>
+          {project.stack.length > 0 && (
+            <>
+              <h4 className="mt-8 font-semibold text-text">Technology</h4>
+              <ul className="mt-3 flex flex-wrap gap-2">
+                {project.stack.map((s) => (
+                  <li key={s} className="chip">
+                    {s}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
 
           {project.internalLabel && (
             <p className="mt-8 flex items-center gap-2 text-sm text-muted lg:mt-auto lg:pt-8">
               <Lock size={15} className="text-ice" aria-hidden />
-              {project.internalLabel}. The production app is private.
+              {project.internalLabel}. Screens, data, code and hosting stay private under company policy.
             </p>
           )}
           <div className={`flex flex-wrap gap-3 ${project.internalLabel ? "mt-4" : "mt-8 lg:mt-auto lg:pt-8"}`}>
+            {project.confidential && (
+              <a href="#product" className="btn btn-primary">
+                <ArrowDown size={16} aria-hidden />
+                See the public demo
+              </a>
+            )}
             {project.live && (
               <a href={project.live.href} target="_blank" rel="noreferrer" className="btn btn-primary">
                 <ExternalLink size={16} aria-hidden />
@@ -189,7 +256,6 @@ function ProjectPanel({ project, onCase }: { project: Project; onCase: () => voi
 export default function FeaturedProjects() {
   const [open, setOpen] = useState<Project | null>(null);
   const close = useCallback(() => setOpen(null), []);
-  const [main, rest] = [projects.slice(0, 2), projects.slice(2)];
 
   return (
     <section id="projects" aria-labelledby="projects-title" className="section">
@@ -202,47 +268,11 @@ export default function FeaturedProjects() {
         </SectionHeading>
 
         <div className="flex flex-col gap-10">
-          {main.map((p) => (
+          {projects.map((p) => (
             <ProjectPanel key={p.id} project={p} onCase={() => setOpen(p)} />
           ))}
         </div>
 
-        {rest.map((p) => (
-          <article
-            key={p.id}
-            aria-labelledby={`p-${p.id}`}
-            className="mt-10 flex flex-col gap-6 rounded-[var(--radius-card)] border border-line p-6 sm:p-8 md:flex-row md:items-center"
-          >
-            <span aria-hidden className="font-display text-5xl font-extrabold text-transparent [-webkit-text-stroke:1px_rgb(18_48_71/0.35)]">
-              {p.number}
-            </span>
-            <div className="flex-1">
-              <h3 id={`p-${p.id}`} className="font-display text-xl font-bold">
-                {p.name}
-              </h3>
-              <p className="mt-1 text-muted">{p.summary}</p>
-              <ul className="mt-3 flex flex-wrap gap-2">
-                {p.stack.map((s) => (
-                  <li key={s} className="chip">
-                    {s}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              {p.github && (
-                <a href={p.github} target="_blank" rel="noreferrer" className="btn btn-ghost">
-                  <Github size={16} aria-hidden />
-                  GitHub
-                </a>
-              )}
-              <button type="button" onClick={() => setOpen(p)} className="btn btn-ghost">
-                <BookOpen size={16} aria-hidden />
-                Case Study
-              </button>
-            </div>
-          </article>
-        ))}
       </div>
 
       <AnimatePresence>{open && <ProjectCaseStudy project={open} onClose={close} />}</AnimatePresence>

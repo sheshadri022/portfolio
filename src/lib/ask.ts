@@ -1,4 +1,4 @@
-import { person, projects, entities } from "@/data/profile";
+import { person, entities } from "@/data/profile";
 import { product } from "@/data/services";
 
 // Ask Sheshadri answers come from a provider. Today the local provider
@@ -12,7 +12,6 @@ export type Answer = { text: string; links?: { label: string; href: string }[] }
 
 export type Question = { id: string; label: string; keywords: string[]; answer: Answer };
 
-const itam = projects.find((p) => p.id === "itam")!;
 
 export const questions: Question[] = [
   {
@@ -52,9 +51,9 @@ export const questions: Question[] = [
     label: "What IT projects have you built?",
     keywords: ["project", "built", "build", "portal", "helpdesk", "tool"],
     answer: {
-      text: "The Miles IT Asset & Helpdesk Portal (public demo: TechOps Portal), the GK Fashions e-commerce website, and Google Workspace setups for two businesses.",
+      text: "An internal IT Asset & Helpdesk Portal for my workplace (details stay private; a public demo with sample data is on this site), the GK Fashions e-commerce website, and Google Workspace setups for two businesses.",
       links: [
-        { label: "Public demo", href: itam.live!.href },
+        { label: "Public demo", href: product.demo },
         { label: "See projects", href: "#projects" },
       ],
     },
@@ -72,8 +71,8 @@ export const questions: Question[] = [
     label: "What full-stack applications have you built?",
     keywords: ["full-stack", "full stack", "application", "app", "react", "api", "database"],
     answer: {
-      text: "The IT Asset & Helpdesk Portal: a React 19 and TypeScript frontend, an Express REST API and PostgreSQL with Drizzle ORM, deployed on Render. It has an admin portal and an employee self-service portal. This portfolio is the second one.",
-      links: [{ label: "GitHub", href: itam.github! }],
+      text: "The IT Asset & Helpdesk platform, shown here as a public demo: a React 19 and TypeScript frontend, an Express REST API and PostgreSQL with Drizzle ORM, deployed on Render. It has an admin portal and an employee self-service portal. This portfolio is the second one.",
+      links: [{ label: "Demo code on GitHub", href: product.demoCode }],
     },
   },
   {

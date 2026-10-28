@@ -4,6 +4,23 @@ Personal portfolio of **Sheshadri N**, Workplace Technology Specialist at Miles 
 
 Live: [snscloud.in](https://snscloud.in) · LinkedIn: [sheshadri-n](https://www.linkedin.com/in/sheshadri-n) · GitHub: [sheshadri022](https://github.com/sheshadri022)
 
+## Screenshots
+
+![Home: Sheshadri's 3D character at an isometric IT desk](public/assets/projects/portfolio-hero.webp)
+
+| | |
+|---|---|
+| ![The 3D guide explaining the Services section](public/assets/projects/portfolio-guide.webp) | ![Services I provide](docs/screenshots/services.webp) |
+| **3D guide** explains each section as you scroll or point | **Services** with a contact form that pre-selects the right option |
+| ![IT Asset & Helpdesk product block with the public demo](docs/screenshots/product.webp) | ![Featured projects](docs/screenshots/projects.webp) |
+| **Product**: the public demo (sample data), what works today and the roadmap | **Projects**: the internal portal is shown as an outline only |
+| ![Skills with click-to-explain cards](public/assets/projects/portfolio-skills.webp) | ![Certifications](public/assets/projects/portfolio-certs.webp) |
+| **Skills**: click any card to have it explained | **Certifications** with verify links |
+| ![About me with the ID card](docs/screenshots/about.webp) | ![Experience](docs/screenshots/experience.webp) |
+| **About** with the ID card | **Experience** across the group's companies |
+
+![Mobile: home, services and projects](docs/screenshots/mobile.webp)
+
 ## Stack
 
 React 19, TypeScript, Vite 7, Tailwind CSS 4, Framer Motion, Lucide icons. Fonts are self-hosted through Fontsource (Syne, Inter, Caveat). Static site on Render, built from GitHub.
@@ -25,7 +42,8 @@ src/
 public/assets/
   profile/   photo variants (full, hero, about, avatar, mobile) in AVIF + WebP
   logos/     Miles Education, MOJO Campus, AgencyM, MilesSOBA
-  projects/  TechOps public demo screenshots (sample data only)
+  projects/  public demo dashboard (sample data only) and screenshots of this site
+docs/screenshots/  README pictures (not deployed)
   certs/     certificate images
 ```
 
@@ -54,6 +72,8 @@ The browser only ever calls that endpoint. No API key is shipped in the frontend
 Light sky-blue theme with deep navy text, a burnt-coral accent and teal for links and data; display font Bricolage Grotesque, body font Inter. Colours live as tokens in `src/index.css`.
 
 ## Services and product
+
+- The internal IT Asset & Helpdesk Portal is confidential under company policy: the Projects section shows only an outline (no screenshots, data, code or hosting details) and points to the public demo. The public demo (sample data) appears once, in the Product block, with its code at github.com/sheshadri022/techops-demo-portal.
 
 - Services I Provide (`src/data/services.ts`): Laptop Repair & Upgrade Services, Business Website Development, IT Asset & Helpdesk SaaS and Google Workspace & IT Setup. Each card's button jumps to Contact with "What do you need?" already picked.
 - Product block (`#product`): the IT Asset & Helpdesk platform. "IT Asset & Helpdesk SaaS" is a working name, set once in `PRODUCT_NAME`. Module items are marked available only where the public demo's code has them (techops-demo-portal); everything else, and the SaaS roadmap (multi-company, plans, roles, customer onboarding), is shown as planned.

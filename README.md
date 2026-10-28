@@ -49,6 +49,14 @@ docs/screenshots/  README pictures (not deployed)
 
 To change content, edit `src/data/profile.ts`. Only verified facts go there.
 
+### Years of experience update themselves
+
+The "5+ years" figures are not typed anywhere. `src/lib/career.ts` holds the start date (`CAREER_START`, Oct 2021) and works out the whole years every time a visitor opens the page, so the hero stat, About intro, Experience line, Skills intro and the dock bubble move to 6, 7, and so on on each October anniversary, with no edit or redeploy. The talking guide's clips avoid year counts ("at Miles Education since 2021"), so they never go stale. The one place that does not update itself is `public/resume.pdf`, a fixed file: regenerate it when the count changes.
+
+### Making any other change
+
+Edit the file, commit and push to `main`. Render rebuilds and publishes snscloud.in automatically in a few minutes. Facts live in `src/data/` (`profile.ts`, `services.ts`, `skills.ts`, `voice.ts`); the components only display them.
+
 ## Run locally
 
 ```bash

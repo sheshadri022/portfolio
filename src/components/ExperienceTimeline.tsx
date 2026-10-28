@@ -1,6 +1,7 @@
 import { motion, useScroll, useSpring } from "framer-motion";
 import { useRef } from "react";
 import { CheckCircle2 } from "lucide-react";
+import { years } from "@/lib/career";
 import { roles, scopeTrack } from "@/data/profile";
 import EntityStrip from "./EntityStrip";
 import SectionHeading from "./SectionHeading";
@@ -23,7 +24,7 @@ export default function ExperienceTimeline() {
         <div className="mt-24 grid gap-12 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:gap-16">
           <div className="lg:sticky lg:top-28 lg:self-start">
             <h3 className="font-display text-[clamp(1.75rem,3.2vw,2.5rem)] font-bold leading-tight">My Professional Journey</h3>
-            <p className="mt-3 text-muted">Miles Education Pvt Ltd, Oct 2021 – Present, 5 years.</p>
+            <p className="mt-3 text-muted">Miles Education Pvt Ltd, Oct 2021 – Present, {years} years.</p>
             <picture>
               <source type="image/avif" srcSet="/assets/avatars/seated.avif" />
               <img

@@ -1,3 +1,4 @@
+import { years } from "@/lib/career";
 // Single source of truth for every fact shown on the site and used by
 // "Ask Sheshadri". Keep this file factual: if something is not verified,
 // it does not go here.
@@ -19,7 +20,7 @@ export const person = {
   headline:
     "I manage workplace technology, repair and optimise devices, administer Google Workspace, and build practical software solutions for real business operations.",
   intro:
-    "Workplace Technology professional with 5+ years of experience across IT operations, Google Workspace administration, endpoint support, IT asset management and hardware servicing. I also design and deploy websites, internal tools and SaaS applications using AI-assisted full-stack development workflows.",
+    `Workplace Technology professional with ${years}+ years of experience across IT operations, Google Workspace administration, endpoint support, IT asset management and hardware servicing. I also design and deploy websites, internal tools and SaaS applications using AI-assisted full-stack development workflows.`,
   location: "Bengaluru, Karnataka",
   email: "sheshadri022@gmail.com",
   phone: "+91 8190062144",
@@ -31,7 +32,7 @@ export const person = {
 };
 
 export const stats = [
-  { value: "5+", label: "Years in workplace IT", note: "Miles Education, Oct 2021 to now" },
+  { value: `${years}+`, label: "Years in workplace IT", note: "Miles Education, Oct 2021 to now" },
   { value: "3", label: "Entities supported", note: "One IT function, three companies" },
   { value: "AI", label: "Internal tools, built and shipped", note: "Asset & helpdesk portal for Miles Education" },
 ];

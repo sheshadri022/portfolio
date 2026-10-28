@@ -18,7 +18,7 @@ export const avatarClips: Clip[] = [
     section: "about",
     label: "About me",
     script:
-      "Hi, I'm Sheshadri. I keep workplaces running: people, devices, accounts and tools. Five years at Miles Education, from network support to owning IT assets and Google Workspace.",
+      "Hi, I'm Sheshadri. I keep workplaces running: people, devices, accounts and tools. At Miles Education since 2021, from network support to owning IT assets and Google Workspace.",
   },
   {
     id: "experience",

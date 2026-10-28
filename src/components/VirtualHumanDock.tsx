@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
+import { YearsWord } from "@/lib/career";
 import { useVirtualHuman, type VirtualHumanState } from "@/context/VirtualHuman";
 import AskSheshadri from "./AskSheshadri";
 import { useTalk } from "@/context/Talk";
@@ -10,7 +11,7 @@ import { useTalk } from "@/context/Talk";
 // collapses) and opens Ask Sheshadri as a dialog.
 
 const lines: Partial<Record<VirtualHumanState, { text: string; point?: "left" }>> = {
-  idle: { text: "Five years, one IT function, three entities." },
+  idle: { text: `${YearsWord} years, one IT function, three entities.` },
   projects: { text: "These are apps I built and shipped.", point: "left" },
   skills: { text: "Click any card to see more." },
   contact: { text: "Email or LinkedIn both reach me." },

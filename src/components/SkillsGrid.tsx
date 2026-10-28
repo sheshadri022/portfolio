@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, X } from "lucide-react";
+import { yearsWord } from "@/lib/career";
 import { skillCards, type SkillCard, type Tone } from "@/data/skills";
 import SectionHeading from "./SectionHeading";
 import SkillExplainer from "./SkillExplainer";
@@ -41,7 +42,7 @@ export default function SkillsGrid() {
           id="skills-title"
           title="Skills & Expertise"
         >
-          Built through five years of hands-on workplace IT, and the apps that came out of it.{" "}
+          Built through {yearsWord} years of hands-on workplace IT, and the apps that came out of it.{" "}
           <span className="text-magenta">Click any card and I’ll explain it.</span>
         </SectionHeading>
 

@@ -22,7 +22,7 @@ const toneTile: Record<Tone, string> = {
   sun: "bg-[#facc15]/10 border-[#facc15]/25",
 };
 const toneGlow: Record<Tone, string> = {
-  magenta: "hover:border-magenta/50 hover:shadow-[0_20px_50px_-24px_rgb(236_72_153/0.55)]",
+  magenta: "hover:border-magenta/50 hover:shadow-[0_20px_50px_-24px_rgb(229_65_127/0.55)]",
   ice: "hover:border-ice/50 hover:shadow-[0_20px_50px_-24px_rgb(103_232_249/0.45)]",
   orchid: "hover:border-orchid/50 hover:shadow-[0_20px_50px_-24px_rgb(180_140_255/0.5)]",
   sun: "hover:border-[#facc15]/50 hover:shadow-[0_20px_50px_-24px_rgb(250_204_21/0.4)]",
@@ -134,13 +134,13 @@ function SkillDialog({ card, onClose }: { card: SkillCard; onClose: () => void }
     >
       <div className="relative p-6 sm:p-8">
         <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-magenta/60 to-transparent" />
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex items-center gap-4">
+        <div className="relative">
+          <div className="flex min-w-0 flex-col items-start gap-3 pr-0 sm:flex-row sm:items-center sm:gap-4 sm:pr-14">
             <span className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl border ${toneTile[card.tone]} ${toneText[card.tone]}`}>
               <Icon size={26} aria-hidden />
             </span>
-            <div>
-              <h3 id="skill-dialog-title" className="font-display text-2xl uppercase leading-none tracking-wide sm:text-3xl">
+            <div className="min-w-0">
+              <h3 id="skill-dialog-title" className="font-display text-xl leading-tight break-words sm:text-3xl">
                 {card.title}
               </h3>
               <p className="mt-1.5 text-sm text-muted">{card.subtitle}</p>
@@ -150,7 +150,7 @@ function SkillDialog({ card, onClose }: { card: SkillCard; onClose: () => void }
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-line text-muted transition-colors hover:text-text"
+            className="absolute right-0 top-0 grid h-10 w-10 place-items-center rounded-full border border-line text-muted transition-colors hover:text-text"
           >
             <X size={18} aria-hidden />
           </button>

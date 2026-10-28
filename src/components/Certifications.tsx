@@ -29,7 +29,7 @@ export default function Certifications() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.45, delay: i * 0.06 }}
-              className="group flex flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-ink-2/70 transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-magenta/45 hover:shadow-[0_24px_60px_-28px_rgb(236_72_153/0.5)]"
+              className="group flex flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-ink-2/70 transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-magenta/45 hover:shadow-[0_24px_60px_-28px_rgb(229_65_127/0.5)]"
             >
               <button
                 type="button"

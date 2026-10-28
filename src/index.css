@@ -1,32 +1,31 @@
 @import "tailwindcss";
 
-/* Design tokens: Template 07 "Aura Glow". Near-black ground, a pink-to-violet
-   aura as the one loud accent, cyan kept for links and data. Anton carries the
-   poster headings; Inter does the reading. */
+/* Design tokens: Template 02 "Night Studio 3D". Deep navy ground, magenta as
+   the one loud accent, cyan for status and data. Syne (800) carries the
+   headings; Inter does the reading. */
 @theme {
-  --color-ink: #07070b;
-  --color-ink-2: #111018;
-  --color-ink-3: #1b1925;
-  --color-line: rgb(245 243 250 / 0.12);
-  --color-line-strong: rgb(245 243 250 / 0.24);
-  --color-text: #f5f3fa;
-  --color-muted: #b9b4c8;
-  --color-faint: #9590a8;
-  --color-wine: #5b1640;
-  --color-magenta: #f472b6;
-  --color-magenta-strong: #db2777;
+  --color-ink: #0b1030;
+  --color-ink-2: #121a42;
+  --color-ink-3: #1b2453;
+  --color-line: rgb(238 240 248 / 0.12);
+  --color-line-strong: rgb(238 240 248 / 0.24);
+  --color-text: #eef0f8;
+  --color-muted: #a3aac6;
+  --color-faint: #8f97b8;
+  --color-wine: #4a1840;
+  --color-magenta: #f0609a;
+  --color-magenta-strong: #c42e68;
   --color-orchid: #b48cff;
-  --color-ice: #67e8f9;
+  --color-ice: #63d5e8;
 
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Anton", "Impact", "Arial Narrow", sans-serif;
+  --font-display: "Syne", "Inter Variable", ui-sans-serif, sans-serif;
   --font-hand: "Caveat", "Segoe Print", cursive;
 
-  --radius-panel: 28px;
-  --radius-card: 18px;
+  --radius-panel: 24px;
+  --radius-card: 16px;
   --radius-chip: 10px;
 }
-
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -45,15 +44,14 @@
   }
   h1, h2, h3 {
     font-family: var(--font-display);
-    letter-spacing: 0.01em;
+    font-weight: 800;
+    letter-spacing: -0.02em;
   }
-  /* Anton ships one weight; never let the browser fake bold on it. */
-  h1, h2, h3, .font-display {
-    font-weight: 400 !important;
-    font-synthesis: none;
+  .font-display {
+    letter-spacing: -0.02em;
   }
   ::selection {
-    background: rgb(236 72 153 / 0.4);
+    background: rgb(229 65 127 / 0.45);
     color: #fff;
   }
   :focus-visible {
@@ -65,13 +63,13 @@
 
 @layer components {
   .glass {
-    background: rgb(20 18 30 / 0.62);
+    background: rgb(18 26 66 / 0.62);
     border: 1px solid var(--color-line);
     backdrop-filter: blur(14px) saturate(1.2);
     -webkit-backdrop-filter: blur(14px) saturate(1.2);
   }
   @media (max-width: 767px) {
-    .glass { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgb(20 18 30 / 0.92); }
+    .glass { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgb(18 26 66 / 0.94); }
   }
 
   .btn {
@@ -86,19 +84,18 @@
     transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
   }
   .btn-primary {
-    background: linear-gradient(90deg, #db2777, #9333ea);
+    background: var(--color-magenta-strong);
+    border: 1px solid var(--color-magenta-strong);
     color: #fff;
-    border-radius: 999px;
-    box-shadow: 0 10px 30px -10px rgb(236 72 153 / 0.7);
+    box-shadow: 0 12px 30px -12px rgb(229 65 127 / 0.75);
   }
-  .btn-primary:hover { filter: brightness(1.12); }
+  .btn-primary:hover { background: #d63a76; border-color: #d63a76; }
   .btn-ghost {
-    border: 1px solid var(--color-line-strong);
+    border: 1px solid rgb(255 255 255 / 0.2);
     color: var(--color-text);
-    background: rgb(255 255 255 / 0.04);
-    border-radius: 999px;
+    background: rgb(255 255 255 / 0.03);
   }
-  .btn-ghost:hover { border-color: rgb(236 72 153 / 0.6); color: #fff; }
+  .btn-ghost:hover { border-color: rgb(229 65 127 / 0.65); color: #fff; }
 
   .chip {
     display: inline-flex;
@@ -127,10 +124,4 @@
     margin-inline: auto;
     padding-inline: clamp(1rem, 4vw, 3rem);
   }
-}
-
-/* Aura Glow: the pink/violet light behind the hero name breathes slowly. */
-@keyframes aura {
-  0%, 100% { opacity: 0.75; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.06); }
 }

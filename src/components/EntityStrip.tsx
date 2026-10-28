@@ -10,7 +10,7 @@ export default function EntityStrip() {
           <li key={e.legalName} className="flex flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-ink-2/60">
             <div
               className={`flex h-28 items-center justify-center gap-5 px-6 ${
-                e.logos[0].plate === "light" ? "bg-[#f4f6fb]" : "bg-[#14121c]"
+                e.logos[0].plate === "light" ? "bg-[#f4f6fb]" : "bg-[#0e1538]"
               }`}
             >
               {e.logos.map((l) => (

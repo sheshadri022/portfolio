@@ -51,7 +51,7 @@ export default function ServicesSection() {
 
       <section id="product" aria-labelledby="product-title" className="section pt-0">
         <div className="container-x">
-          <div className="relative overflow-hidden rounded-[28px] border border-line-strong bg-gradient-to-br from-[#1d1530] via-ink-2 to-ink-2 p-6 sm:p-10">
+          <div className="relative overflow-hidden rounded-[28px] border border-line-strong bg-gradient-to-br from-[#1a2358] via-ink-2 to-ink-2 p-6 sm:p-10">
             <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-orchid/20 blur-3xl" />
             <div aria-hidden className="pointer-events-none absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-magenta/15 blur-3xl" />
 
@@ -63,7 +63,7 @@ export default function ServicesSection() {
                   </span>
                   <span className="rounded-full border border-line px-3 py-1 text-faint">Working name</span>
                 </p>
-                <h2 id="product-title" className="mt-4 font-display text-[clamp(2rem,4.4vw,3.25rem)] uppercase leading-[1.02]">
+                <h2 id="product-title" className="mt-4 font-display text-[clamp(2rem,4.4vw,3.25rem)] leading-[1.02]">
                   {product.name}
                 </h2>
                 <p className="mt-4 text-lg leading-relaxed text-text/90">{product.positioning}</p>
@@ -109,7 +109,7 @@ export default function ServicesSection() {
             <ul className="relative mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {product.modules.map((m) => (
                 <li key={m.title} className="rounded-2xl border border-line bg-ink/55 p-5">
-                  <h3 className="font-display text-lg uppercase tracking-wide text-text">{m.title}</h3>
+                  <h3 className="font-display text-lg text-text">{m.title}</h3>
                   <ul className="mt-3 space-y-2 text-sm">
                     {m.items.map((it) => (
                       <li key={it.label} className={`flex items-start gap-2 ${it.live ? "text-text/90" : "text-muted"}`}>
@@ -130,9 +130,9 @@ export default function ServicesSection() {
             </ul>
 
             <div className="relative mt-8 rounded-2xl border border-dashed border-line-strong p-5 sm:p-6">
-              <h3 className="flex items-center gap-2 font-display text-lg uppercase tracking-wide">
+              <h3 className="flex items-center gap-2 font-display text-lg">
                 <Rocket size={18} className="text-orchid" aria-hidden /> SaaS roadmap
-                <span className="ml-1 rounded-full bg-white/5 px-2.5 py-0.5 font-sans text-xs normal-case tracking-normal text-faint">Planned, not built yet</span>
+                <span className="ml-1 rounded-full bg-white/5 px-2.5 py-0.5 font-sans text-xs font-normal tracking-normal text-faint">Planned, not built yet</span>
               </h3>
               <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                 {product.roadmap.map((r) => (
@@ -159,7 +159,7 @@ function ServiceCard({ s }: { s: Service }) {
       <span className={`grid h-14 w-14 place-items-center rounded-2xl border ${toneTile[s.tone]} ${toneText[s.tone]}`}>
         <Icon size={26} aria-hidden />
       </span>
-      <h3 className="mt-5 font-display text-2xl uppercase leading-tight tracking-wide">{s.title}</h3>
+      <h3 className="mt-5 font-display text-xl leading-tight break-words sm:text-2xl">{s.title}</h3>
       <p className="mt-2 leading-relaxed text-muted">{s.description}</p>
 
       <ul className="mt-5 flex flex-wrap gap-2" aria-label={`${s.title}: what's included`}>

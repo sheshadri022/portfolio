@@ -52,7 +52,7 @@ export default function TalkingAvatar() {
               ref={video}
               playsInline
               preload="none"
-              poster="/assets/aura/guide.webp"
+              poster="/assets/guide/guide.webp"
               className="h-full w-full object-cover"
               onTimeUpdate={(e) => {
                 const v = e.currentTarget;

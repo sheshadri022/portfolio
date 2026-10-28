@@ -16,7 +16,7 @@ const lines: Partial<Record<VirtualHumanState, { text: string; point?: "left" }>
 };
 
 // The guide is the 3D Sheshadri from the hero; the ring colour shows the state.
-const GUIDE = "/assets/aura/guide-face.webp";
+const GUIDE = "/assets/guide/guide-face.webp";
 
 const ring: Record<VirtualHumanState, string> = {
   idle: "ring-line-strong",

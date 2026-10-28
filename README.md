@@ -49,9 +49,9 @@ Out of the box, answers come from `src/data/profile.ts` with no network calls. T
 
 The browser only ever calls that endpoint. No API key is shipped in the frontend. If the endpoint fails, the local answers are used.
 
-## Look: Template 07, Aura Glow
+## Look: Template 02, Night Studio 3D
 
-Dark theme (near-black ink) with a magenta-to-violet glow and an ice-cyan accent; display font Anton, body font Inter. Colours live as tokens in `src/index.css`.
+Deep navy theme with magenta as the main accent and cyan for status and data; display font Syne (800), body font Inter. Colours live as tokens in `src/index.css`.
 
 ## Services and product
 
@@ -61,7 +61,7 @@ Dark theme (near-black ink) with a magenta-to-violet glow and an ice-cyan accent
 
 ## Hero, ID card, skills and certifications
 
-- Hero: a 3D Sheshadri at his desk in a dark room with code on the monitors. "I'M SHESHADRI" is set huge *behind* him: the scene, the name and a transparent cut-out of him are stacked (`public/assets/aura/`), with a pink and violet aura breathing behind the name. "Click to interact" crossfades to a lip-synced clip of the same shot (`aura/intro.webm|mp4`) with his spoken intro and live captions.
+- Hero: a 3D Sheshadri waves from beside his desk in a navy studio (`public/assets/night/`), with "Hello! I'm Sheshadri", the rotating titles and the CTAs on the left. A speech bubble by his head ("Hi! Want the 30-second tour?") or "Click to interact" crossfades to a lip-synced clip of the same shot (`night/intro.webm|mp4`) with his spoken intro and live captions. The bubble sits on a stage sized like the picture, so it stays next to his head at every screen size.
 - About: a flipping ID card on a lanyard (front: photo, name, title; back: what he does and how to reach him).
 - Skills & Expertise: seven skill cards (`src/data/skills.ts`). Clicking a card opens a panel that explains the skill: a short summary, a step-by-step "How it works" narrated by an AI voice, and everything the skill covers.
 - Certifications: a card grid with the certificate image (click to view it full size), platform, Verify link, what it covers, date and hours.

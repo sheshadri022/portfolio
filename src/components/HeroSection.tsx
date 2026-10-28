@@ -1,15 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Download, Github, Linkedin, Mail, MessageCircle, Play, Square } from "lucide-react";
 import { useTalk } from "@/context/Talk";
 import { useVirtualHuman } from "@/context/VirtualHuman";
 import { person, stats } from "@/data/profile";
 
-// Template 07, "Aura Glow". A 3D Sheshadri sits at his desk in a dark room.
-// His name is set huge *behind* him: the scene, the name and a cut-out of
-// him are stacked, all sized the same way so they line up. A pink and violet
-// aura breathes behind the name. "Click to interact" crossfades to a
-// lip-synced clip of the same shot with his spoken intro and captions.
+// Template 02, "Night Studio 3D". A 3D Sheshadri waves from beside his desk
+// in a deep navy studio. Copy sits on the left over a navy shade. A speech
+// bubble near his head offers the tour; it (or "Click to interact") crossfades
+// to a lip-synced clip of the same shot with his spoken intro and captions.
 
 const ease = [0.22, 1, 0.36, 1] as const;
 const rise = (delay: number) => ({
@@ -27,7 +26,22 @@ const socials = [
 const intro =
   "Hello! I'm Sheshadri, a Workplace Technology Specialist at Miles Education. I keep people, devices and accounts running, and I build internal tools with AI. Scroll down and I'll walk you through my work.";
 
-const layer = "absolute inset-0 h-full w-full object-cover object-[50%_35%]";
+// The scene's own aspect ratio. The "stage" is sized like object-fit: cover,
+// so anything placed on it in % stays pinned to the same spot in the picture.
+const AR = 2752 / 1536;
+const stage: CSSProperties = {
+  width: `max(100cqw, calc(100cqh * ${AR}))`,
+  height: `max(100cqh, calc(100cqw / ${AR}))`,
+  left: `calc((100cqw - max(100cqw, calc(100cqh * ${AR}))) * var(--px))`,
+  top: `calc((100cqh - max(100cqh, calc(100cqw / ${AR}))) * var(--py, 0.5))`,
+};
+function Stage({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return (
+    <div className={`absolute ${className}`} style={stage}>
+      {children}
+    </div>
+  );
+}
 
 export default function HeroSection() {
   const { setVoiceOn, stop } = useTalk();
@@ -66,123 +80,105 @@ export default function HeroSection() {
 
   return (
     <section id="home" aria-labelledby="hero-name" className="relative">
-      <div className="relative mt-16 aspect-[5/4] w-full overflow-hidden sm:mt-0 bg-ink sm:aspect-[16/10] lg:aspect-auto lg:h-[100svh] lg:min-h-[640px]">
-        {/* 1. Scene */}
-        <picture>
-          <source type="image/avif" srcSet="/assets/aura/scene-md.avif 1000w, /assets/aura/scene.avif 1920w" sizes="100vw" />
-          <img
-            src="/assets/aura/scene.webp"
-            alt="3D illustration of Sheshadri sitting at his desk in a dark room with code on the monitors"
-            width={1920}
-            height={1072}
-            fetchPriority="high"
-            className={`${layer} brightness-[0.7]`}
+      <div
+        className="relative mt-16 aspect-[4/3] w-full overflow-hidden bg-ink [--px:0.8] [--py:0.5] sm:aspect-[16/10] sm:[--px:0.74] lg:mt-0 lg:aspect-auto lg:h-[100svh] lg:min-h-[660px] lg:[--px:0.7] lg:[--py:0.2]"
+        style={{ containerType: "size" }}
+      >
+        {/* Scene and the talking clip of the same shot */}
+        <Stage>
+          <picture>
+            <source type="image/avif" srcSet="/assets/night/scene-md.avif 1000w, /assets/night/scene.avif 1920w" sizes="100vw" />
+            <img
+              src="/assets/night/scene.webp"
+              srcSet="/assets/night/scene-md.webp 1000w, /assets/night/scene.webp 1920w"
+              sizes="100vw"
+              alt="3D illustration of Sheshadri waving hello beside his desk with dashboards on the screens, in a navy studio"
+              width={1920}
+              height={1072}
+              fetchPriority="high"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </picture>
+          <video
+            ref={video}
+            src={`/assets/night/intro.${ext}`}
+            playsInline
+            preload="none"
+            aria-hidden
+            onTimeUpdate={(e) => {
+              const v = e.currentTarget;
+              if (v.duration) setProgress(v.currentTime / v.duration);
+            }}
+            onEnded={end}
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${talking ? "opacity-100" : "opacity-0"}`}
           />
-        </picture>
+        </Stage>
 
-        {/* 2. Aura */}
+        {/* Navy shade so the copy reads (large screens), soft fades top and bottom */}
         <div
           aria-hidden
-          className={`absolute inset-0 mix-blend-screen ${reduce ? "" : "motion-safe:animate-[aura_6s_ease-in-out_infinite]"}`}
-          style={{
-            background:
-              "radial-gradient(30% 26% at 50% 40%, rgb(236 72 153 / 0.55), transparent 70%)," +
-              "radial-gradient(24% 20% at 24% 76%, rgb(147 51 234 / 0.35), transparent 70%)," +
-              "radial-gradient(24% 20% at 78% 70%, rgb(56 189 248 / 0.2), transparent 70%)",
-          }}
+          className="pointer-events-none absolute inset-0 hidden lg:block"
+          style={{ background: "linear-gradient(90deg, #0b1030 0%, rgb(11 16 48 / 0.86) 36%, rgb(11 16 48 / 0) 60%)" }}
         />
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink to-transparent" />
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-ink/70 to-transparent" />
 
-        {/* 3. Name, behind him */}
-        <motion.h1
-          id="hero-name"
-          initial={{ opacity: 0, scale: 1.06 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.1, ease }}
-          className="absolute inset-x-0 top-[12%] whitespace-nowrap text-center font-display text-[16.5vw] uppercase leading-none text-text sm:top-[16%] sm:text-[15vw] lg:top-[17%]"
-          style={{ textShadow: "0 0 3vw rgb(236 72 153 / 0.55)" }}
-        >
-          I’m Sheshadri
-        </motion.h1>
+        {/* Speech bubble, pinned next to his head */}
+        <Stage className="pointer-events-none">
+          <AnimatePresence>
+            {!talking ? (
+              <motion.button
+                key="ask"
+                type="button"
+                onClick={start}
+                initial={reduce ? false : { opacity: 0, scale: 0.85, y: 8 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.45, delay: reduce ? 0 : 1, ease }}
+                style={{ right: "23.6%", top: "13%", transformOrigin: "100% 100%" }}
+                className="pointer-events-auto absolute flex items-center gap-2 rounded-[18px] rounded-br-[4px] bg-white px-3 py-2 text-left text-[13px] font-semibold leading-snug text-[#14162b] shadow-[0_18px_40px_-14px_rgb(0_0_0/0.7)] transition-transform hover:scale-[1.03] sm:px-4 sm:py-2.5 sm:text-[15px]"
+              >
+                <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-magenta-strong text-white sm:h-7 sm:w-7">
+                  <Play size={12} aria-hidden />
+                </span>
+                Hi! Want the 30-second tour?
+              </motion.button>
+            ) : (
+              <motion.span
+                key="label"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                style={{ right: "23.6%", top: "13%" }}
+                className="absolute rounded-full bg-ink/70 px-3 py-1 text-xs text-muted backdrop-blur"
+              >
+                AI voice &amp; animation
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </Stage>
 
-        {/* 4. Him, in front of the name */}
-        <img
-          src="/assets/aura/cut.webp"
-          srcSet="/assets/aura/cut-md.webp 1000w, /assets/aura/cut.webp 1920w"
-          sizes="100vw"
-          alt=""
-          aria-hidden
-          width={1920}
-          height={1072}
-          className={`${layer} pointer-events-none`}
-        />
-
-        {/* 5. Talking clip of the same shot */}
-        <video
-          ref={video}
-          src={`/assets/aura/intro.${ext}`}
-          playsInline
-          preload="none"
-          aria-hidden
-          onTimeUpdate={(e) => {
-            const v = e.currentTarget;
-            if (v.duration) setProgress(v.currentTime / v.duration);
-          }}
-          onEnded={end}
-          className={`${layer} transition-opacity duration-500 ${talking ? "opacity-100" : "opacity-0"}`}
-        />
-        {talking && (
-          <span className="absolute left-1/2 top-20 -translate-x-1/2 rounded-full bg-ink/70 px-3 py-1 text-xs text-muted backdrop-blur sm:top-24">
-            AI voice &amp; animation
-          </span>
-        )}
-
-        {/* Orb */}
-        {!reduce && (
-          <motion.span
-            aria-hidden
-            className="absolute right-[7%] top-[46%] hidden h-14 w-14 rounded-full sm:block"
-            style={{ background: "radial-gradient(circle at 35% 35%, #fff, #ec4899 45%, #7e22ce 80%)", boxShadow: "0 0 40px #ec4899" }}
-            animate={{ y: [0, -12, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          />
-        )}
-
-        <div aria-hidden className="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-ink via-ink/70 to-transparent" />
-        <div aria-hidden className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-ink/80 to-transparent" />
-
-        {/* Copy over the scene on large screens */}
-        <div className="absolute inset-x-0 bottom-0 hidden lg:block">
-          <div className="container-x flex items-end justify-between gap-10 pb-10">
-            <Copy talking={talking} words={words} shown={shown} />
-            <Actions talking={talking} start={start} end={end} />
+        {/* Copy on the left (large screens) */}
+        <div className="pointer-events-none absolute inset-0 hidden items-center lg:flex">
+          <div className="container-x pt-10">
+            <Copy talking={talking} words={words} shown={shown} start={start} end={end} />
           </div>
-        </div>
-
-        {/* Small screens: one compact control over the scene */}
-        <div className="absolute inset-x-0 bottom-4 flex justify-center lg:hidden">
-          <button type="button" onClick={talking ? end : start} aria-pressed={talking} className="btn btn-primary">
-            {talking ? <Square size={14} aria-hidden /> : <Play size={16} aria-hidden />}
-            {talking ? "Stop" : "Click to interact"}
-          </button>
         </div>
       </div>
 
       {/* Small screens: copy below the scene */}
-      <div className="container-x pb-4 pt-6 lg:hidden">
-        <Copy talking={talking} words={words} shown={shown} />
-        <div className="mt-6">
-          <Actions talking={talking} start={start} end={end} compact />
-        </div>
+      <div className="container-x pb-2 pt-6 lg:hidden">
+        <Copy talking={talking} words={words} shown={shown} start={start} end={end} />
       </div>
 
-      {/* Stats, socials and Ask */}
-      <div className="container-x pb-6 pt-6 lg:pt-8">
+      {/* Stats, socials, resume and Ask */}
+      <div className="container-x pb-6 pt-6">
         <div className="flex flex-col gap-5 border-t border-line pt-6 md:flex-row md:items-center md:justify-between">
           <dl className="grid grid-cols-3 gap-3 md:max-w-xl md:flex-1">
             {stats.map((s) => (
               <div key={s.label}>
                 <dt className="sr-only">{s.label}</dt>
-                <dd className="font-display text-4xl leading-none text-text">{s.value}</dd>
+                <dd className="font-display text-4xl font-extrabold leading-none text-text">{s.value}</dd>
                 <dd className="mt-1.5 text-xs leading-snug text-muted">{s.label}</dd>
               </div>
             ))}
@@ -195,7 +191,7 @@ export default function HeroSection() {
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel="noreferrer"
                 aria-label={label}
-                className="grid h-11 w-11 place-items-center rounded-full border border-line text-muted transition-colors hover:border-magenta/60 hover:text-text"
+                className="grid h-11 w-11 place-items-center rounded-xl border border-line text-muted transition-colors hover:border-magenta/60 hover:text-text"
               >
                 <Icon size={18} aria-hidden />
               </a>
@@ -203,7 +199,7 @@ export default function HeroSection() {
             <a
               href={person.resume}
               download
-              className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line px-4 text-sm font-semibold text-muted transition-colors hover:border-magenta/60 hover:text-text"
+              className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-line px-4 text-sm font-semibold text-muted transition-colors hover:border-magenta/60 hover:text-text"
             >
               <Download size={16} aria-hidden />
               Resume
@@ -211,7 +207,7 @@ export default function HeroSection() {
             <button
               type="button"
               onClick={() => setAskOpen(true)}
-              className="inline-flex min-h-11 items-center gap-2 rounded-full border border-ice/40 px-4 text-sm font-semibold text-ice transition-colors hover:bg-ice/10"
+              className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-ice/40 px-4 text-sm font-semibold text-ice transition-colors hover:bg-ice/10"
             >
               <MessageCircle size={17} aria-hidden />
               Ask Sheshadri
@@ -223,21 +219,42 @@ export default function HeroSection() {
   );
 }
 
-function Copy({ talking, words, shown }: { talking: boolean; words: string[]; shown: number }) {
+function Copy({
+  talking,
+  words,
+  shown,
+  start,
+  end,
+}: {
+  talking: boolean;
+  words: string[];
+  shown: number;
+  start: () => void;
+  end: () => void;
+}) {
   return (
-    <div className="max-w-xl">
-      <motion.p {...rise(0.3)} className="mb-3 inline-flex items-center gap-2 rounded-full border border-ice/30 bg-ink/50 px-3 py-1 text-sm text-ice backdrop-blur">
+    <div className="pointer-events-auto max-w-[36rem]">
+      <motion.p {...rise(0.2)} className="inline-flex items-center gap-2 rounded-full border border-ice/45 px-3 py-1 text-sm text-ice">
         <span className="h-1.5 w-1.5 rounded-full bg-ice" aria-hidden />
         Available for new opportunities
       </motion.p>
-      <motion.div {...rise(0.4)}>
+      <motion.h1
+        {...rise(0.3)}
+        id="hero-name"
+        className="mt-5 font-display text-[clamp(2.1rem,11vw,3.6rem)] font-extrabold leading-[0.95] tracking-[-0.03em] text-text lg:text-[clamp(3.4rem,5.4vw,5.4rem)]"
+      >
+        Hello!
+        <br />
+        I’m <span className="text-[#ec5a93]">Sheshadri</span>
+      </motion.h1>
+      <motion.div {...rise(0.4)} className="mt-4">
         <RotatingTitle />
       </motion.div>
       <motion.p {...rise(0.46)} className="mt-2 text-sm text-ice/90">
         {person.positioning.join(" • ")}
       </motion.p>
       {talking ? (
-        <p className="mt-3 min-h-[4.5rem] text-[0.95rem] leading-relaxed" aria-live="polite">
+        <p className="mt-4 min-h-[5rem] text-[1.02rem] leading-relaxed" aria-live="polite">
           <span className="sr-only">{words.join(" ")}</span>
           <span aria-hidden className="text-text">
             {words.slice(0, shown).join(" ")}
@@ -245,29 +262,11 @@ function Copy({ talking, words, shown }: { talking: boolean; words: string[]; sh
           </span>
         </p>
       ) : (
-        <motion.p {...rise(0.52)} className="mt-3 text-[1.02rem] leading-relaxed text-text/85">
+        <motion.p {...rise(0.52)} className="mt-4 text-[1.02rem] leading-relaxed text-muted">
           {person.headline}
         </motion.p>
       )}
-    </div>
-  );
-}
-
-function Actions({ talking, start, end, compact }: { talking: boolean; start: () => void; end: () => void; compact?: boolean }) {
-  return (
-    <motion.div {...rise(0.6)} className={`flex flex-col gap-3 ${compact ? "" : "items-end"}`}>
-      {!compact && (
-        <button
-          type="button"
-          onClick={talking ? end : start}
-          aria-pressed={talking}
-          className="inline-flex min-h-10 items-center gap-2 rounded-full border border-ice/45 bg-ink/50 px-4 text-sm font-semibold text-ice backdrop-blur transition-colors hover:bg-ice/10"
-        >
-          {talking ? <Square size={13} aria-hidden /> : <Play size={14} aria-hidden />}
-          {talking ? "Stop" : "Click to interact"}
-        </button>
-      )}
-      <div className="flex flex-wrap gap-2.5">
+      <motion.div {...rise(0.6)} className="mt-7 flex flex-wrap items-center gap-2.5">
         <a href="#projects" className="btn btn-primary">
           View My Work
           <ArrowRight size={16} aria-hidden />
@@ -278,8 +277,17 @@ function Actions({ talking, start, end, compact }: { talking: boolean; start: ()
         <a href="#contact" className="btn btn-ghost">
           Contact Me
         </a>
-      </div>
-    </motion.div>
+        <button
+          type="button"
+          onClick={talking ? end : start}
+          aria-pressed={talking}
+          className="inline-flex min-h-11 items-center gap-2 px-2 text-sm font-semibold text-ice hover:underline"
+        >
+          {talking ? <Square size={13} aria-hidden /> : <Play size={14} aria-hidden />}
+          {talking ? "Stop" : "Click to interact"}
+        </button>
+      </motion.div>
+    </div>
   );
 }
 
@@ -298,7 +306,8 @@ function RotatingTitle() {
     return () => window.clearInterval(id);
   }, [reduce, paused, titles.length]);
 
-  const cls = "col-start-1 row-start-1 whitespace-nowrap font-display text-[clamp(1.1rem,6vw,2rem)] uppercase leading-none tracking-wide lg:text-[clamp(1.6rem,2.6vw,2.4rem)]";
+  const cls =
+    "col-start-1 row-start-1 whitespace-nowrap font-display font-bold leading-tight text-[clamp(0.95rem,4.4vw,1.6rem)] lg:text-[clamp(1.3rem,1.9vw,1.85rem)]";
   return (
     <p className="grid" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <span className="sr-only">{titles.join(", ")}</span>
@@ -312,9 +321,9 @@ function RotatingTitle() {
           key={titles[i]}
           aria-hidden
           className={`${cls} text-text`}
-          initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
+          initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          exit={{ opacity: 0, y: -14, filter: "blur(6px)" }}
+          exit={{ opacity: 0, y: -12, filter: "blur(6px)" }}
           transition={{ duration: 0.45, ease }}
         >
           {titles[i]}

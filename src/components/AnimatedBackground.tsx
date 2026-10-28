@@ -10,17 +10,17 @@ export default function AnimatedBackground() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(45% 40% at 50% 10%, rgb(236 72 153 / 0.18), transparent 70%)," +
-            "radial-gradient(40% 40% at 6% 40%, rgb(147 51 234 / 0.14), transparent 70%)," +
-            "radial-gradient(45% 35% at 92% 85%, rgb(103 232 249 / 0.07), transparent 70%)," +
-            "linear-gradient(180deg, #0a0910 0%, #07070b 50%, #050508 100%)",
+            "radial-gradient(45% 40% at 50% 8%, rgb(229 65 127 / 0.14), transparent 70%)," +
+            "radial-gradient(40% 40% at 6% 40%, rgb(79 70 229 / 0.16), transparent 70%)," +
+            "radial-gradient(45% 35% at 92% 85%, rgb(99 213 232 / 0.08), transparent 70%)," +
+            "linear-gradient(180deg, #0d1338 0%, #0b1030 50%, #090d29 100%)",
         }}
       />
       <div
         className="absolute inset-0 opacity-[0.35]"
         style={{
           backgroundImage:
-            "linear-gradient(rgb(245 243 250 / 0.04) 1px, transparent 1px), linear-gradient(90deg, rgb(245 243 250 / 0.04) 1px, transparent 1px)",
+            "linear-gradient(rgb(238 240 248 / 0.04) 1px, transparent 1px), linear-gradient(90deg, rgb(238 240 248 / 0.04) 1px, transparent 1px)",
           backgroundSize: "72px 72px",
           maskImage: "radial-gradient(ellipse 70% 60% at 50% 30%, black 20%, transparent 75%)",
           WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 30%, black 20%, transparent 75%)",

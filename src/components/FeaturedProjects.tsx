@@ -110,12 +110,12 @@ function ProjectPanel({ project, onCase }: { project: Project; onCase: () => voi
       <div
         aria-hidden
         className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full"
-        style={{ background: "radial-gradient(closest-side, rgb(236 72 153 / 0.22), transparent)" }}
+        style={{ background: "radial-gradient(closest-side, rgb(229 65 127 / 0.22), transparent)" }}
       />
       <header className="relative flex flex-wrap items-end gap-x-6 gap-y-2">
         <span
           aria-hidden
-          className="font-display text-[clamp(4rem,9vw,7rem)] font-extrabold leading-[0.8] text-transparent [-webkit-text-stroke:1.5px_rgb(244_114_182/0.8)]"
+          className="font-display text-[clamp(4rem,9vw,7rem)] font-extrabold leading-[0.8] text-transparent [-webkit-text-stroke:1.5px_rgb(240_96_154/0.85)]"
         >
           {project.number}
         </span>
@@ -213,7 +213,7 @@ export default function FeaturedProjects() {
             aria-labelledby={`p-${p.id}`}
             className="mt-10 flex flex-col gap-6 rounded-[var(--radius-card)] border border-line p-6 sm:p-8 md:flex-row md:items-center"
           >
-            <span aria-hidden className="font-display text-5xl font-extrabold text-transparent [-webkit-text-stroke:1px_rgb(245_243_250/0.4)]">
+            <span aria-hidden className="font-display text-5xl font-extrabold text-transparent [-webkit-text-stroke:1px_rgb(238_240_248/0.4)]">
               {p.number}
             </span>
             <div className="flex-1">

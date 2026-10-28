@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { useVirtualHuman, type VirtualHumanState } from "@/context/VirtualHuman";
 import AskSheshadri from "./AskSheshadri";
+import { useTalk } from "@/context/Talk";
 
 // Small, section-aware presence once the hero has scrolled away.
 // It reacts to where the reader is (one short line, then it quietly
@@ -29,6 +30,7 @@ const ring: Record<VirtualHumanState, string> = {
 
 export default function VirtualHumanDock() {
   const { state, section, askOpen, setAskOpen } = useVirtualHuman();
+  const { voiceOn } = useTalk();
   const [bubble, setBubble] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -37,11 +39,14 @@ export default function VirtualHumanDock() {
 
   // Show the line briefly whenever the state changes.
   useEffect(() => {
-    if (!visible || !line || askOpen) return;
+    if (!visible || !line || askOpen || voiceOn) {
+      setBubble(false);
+      return;
+    }
     setBubble(true);
     const t = setTimeout(() => setBubble(false), 4200);
     return () => clearTimeout(t);
-  }, [state, visible, askOpen]);
+  }, [state, visible, askOpen, voiceOn]);
 
   useEffect(() => {
     if (!askOpen) return;
@@ -74,6 +79,7 @@ export default function VirtualHumanDock() {
       <AnimatePresence>
         {visible && !askOpen && (
           <motion.div
+            data-guide-ignore
             className="fixed bottom-5 right-5 z-40 hidden items-end gap-3 sm:flex"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}

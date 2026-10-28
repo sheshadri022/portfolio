@@ -19,6 +19,7 @@ const ContactSection = lazy(() => import("@/components/ContactSection"));
 const Footer = lazy(() => import("@/components/Footer"));
 const VirtualHumanDock = lazy(() => import("@/components/VirtualHumanDock"));
 const TalkingAvatar = lazy(() => import("@/components/TalkingAvatar"));
+const GuideFollower = lazy(() => import("@/components/GuideFollower"));
 
 export default function App() {
   return (
@@ -48,6 +49,7 @@ export default function App() {
           <Footer />
           <VirtualHumanDock />
           <TalkingAvatar />
+          <GuideFollower />
         </Suspense>
         </TalkProvider>
       </VirtualHumanProvider>

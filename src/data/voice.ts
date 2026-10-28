@@ -42,6 +42,41 @@ export const avatarClips: Clip[] = [
       "My skills come in four groups: workplace technology, Google Workspace, development and automation, and the AI tools I build with. Play any card to see how it works.",
   },
   {
+    id: "services",
+    section: "services",
+    label: "Services",
+    script:
+      "Here's what I offer: laptop repairs and upgrades, business websites, Google Workspace setup for growing teams, and my IT asset and helpdesk platform. Pick a service and the contact form is ready for you.",
+  },
+  {
+    id: "product",
+    section: "product",
+    label: "The platform",
+    script:
+      "This is my IT asset and helpdesk platform: devices, who has them, and support tickets. Ticks show what works in the demo today. Clocks show what's next.",
+  },
+  {
+    id: "journey",
+    section: "journey",
+    label: "How I build",
+    script:
+      "I didn't start as a developer. I saw real problems in IT operations, mapped the workflow, and built the tools with AI-assisted development. The building comes out of the support work.",
+  },
+  {
+    id: "education",
+    section: "education",
+    label: "Education",
+    script:
+      "I studied commerce, with a B.Com from Periyar University, after my higher secondary in Hosur. I speak Tamil, Kannada, Telugu and English.",
+  },
+  {
+    id: "certifications",
+    section: "certifications",
+    label: "Certifications",
+    script:
+      "My certifications: Google Workspace admin and IT asset management from Udemy, Technical Support Fundamentals by Google, and Replit's Beginner Builder. Click any certificate to see it.",
+  },
+  {
     id: "contact",
     section: "contact",
     label: "Contact",

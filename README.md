@@ -53,12 +53,12 @@ The browser only ever calls that endpoint. No API key is shipped in the frontend
 
 Dark theme (near-black ink) with a magenta-to-violet glow and an ice-cyan accent; display font Anton, body font Inter. Colours live as tokens in `src/index.css`.
 
-## Hero, ID card, skills table and proud moments
+## Hero, ID card, skills and certifications
 
 - Hero: a 3D Sheshadri at his desk in a dark room with code on the monitors. "I'M SHESHADRI" is set huge *behind* him: the scene, the name and a transparent cut-out of him are stacked (`public/assets/aura/`), with a pink and violet aura breathing behind the name. "Click to interact" crossfades to a lip-synced clip of the same shot (`aura/intro.webm|mp4`) with his spoken intro and live captions.
 - About: a flipping ID card on a lanyard (front: photo, name, title; back: what he does and how to reach him).
 - Skills & Expertise: seven skill cards (`src/data/skills.ts`). Clicking a card opens a panel that explains the skill: a short summary, a step-by-step "How it works" narrated by an AI voice, and everything the skill covers.
-- Proud moments: milestones and certifications on one track that moves sideways as you scroll (swipe on phones).
+- Certifications: a card grid with the certificate image (click to view it full size), platform, Verify link, what it covers, date and hours.
 
 ## Talking avatar and skill explainers
 

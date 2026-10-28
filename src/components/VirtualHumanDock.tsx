@@ -11,7 +11,7 @@ import AskSheshadri from "./AskSheshadri";
 const lines: Partial<Record<VirtualHumanState, { text: string; point?: "left" }>> = {
   idle: { text: "Five years, one IT function, three entities." },
   projects: { text: "These are apps I built and shipped.", point: "left" },
-  skills: { text: "Grouped the way I use them at work." },
+  skills: { text: "Click any card to see more." },
   contact: { text: "Email or LinkedIn both reach me." },
 };
 

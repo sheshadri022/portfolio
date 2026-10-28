@@ -16,7 +16,7 @@ const lines: Partial<Record<VirtualHumanState, { text: string; point?: "left" }>
 };
 
 // The guide is the 3D Sheshadri from the hero; the ring colour shows the state.
-const GUIDE = "/assets/hero3d/guide-face.webp";
+const GUIDE = "/assets/aura/guide-face.webp";
 
 const ring: Record<VirtualHumanState, string> = {
   idle: "ring-line-strong",
@@ -114,7 +114,7 @@ export default function VirtualHumanDock() {
               whileTap={{ scale: 0.96 }}
               animate={state === "projects" ? { rotate: [-4, 0] } : state === "contact" ? { y: [0, -3, 0] } : { rotate: 0 }}
               transition={{ duration: 0.6 }}
-              className={`relative h-16 w-16 overflow-hidden rounded-full bg-ink-3 shadow-[0_12px_30px_-10px_rgba(18,48,71,0.45)] ring-2 transition-[box-shadow] ${ring[state]}`}
+              className={`relative h-16 w-16 overflow-hidden rounded-full bg-ink-3 shadow-[0_12px_30px_-10px_rgba(0,0,0,0.45)] ring-2 transition-[box-shadow] ${ring[state]}`}
             >
               <img src={GUIDE} alt="" width={64} height={64} className="absolute inset-0 h-full w-full object-cover" />
             </motion.button>
@@ -125,7 +125,7 @@ export default function VirtualHumanDock() {
       <AnimatePresence>
         {askOpen && (
           <motion.div
-            className="fixed inset-0 z-[60] flex items-end justify-center bg-[#123047]/45 p-3 sm:items-center sm:p-6"
+            className="fixed inset-0 z-[60] flex items-end justify-center bg-black/65 p-3 sm:items-center sm:p-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

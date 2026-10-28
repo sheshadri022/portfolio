@@ -1,13 +1,15 @@
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Download, Github, Linkedin, Mail, MessageCircle, Play } from "lucide-react";
+import { Download, Github, Linkedin, Mail, MessageCircle, Play, Square } from "lucide-react";
 import { useTalk } from "@/context/Talk";
 import { useVirtualHuman } from "@/context/VirtualHuman";
 import { person, stats } from "@/data/profile";
 
-// Template 03, "Isometric IT Desk". A 3D Sheshadri works at a floating desk
-// surrounded by the things he looks after. Labels name each one. The scene
-// idles on a short silent loop; "Click to interact" has his 3D guide give a
-// voiced introduction (see TalkingAvatar).
+// Template 07, "Aura Glow". A 3D Sheshadri sits at his desk in a dark room.
+// His name is set huge *behind* him: the scene, the name and a cut-out of
+// him are stacked, all sized the same way so they line up. A pink and violet
+// aura breathes behind the name. "Click to interact" crossfades to a
+// lip-synced clip of the same shot with his spoken intro and captions.
 
 const ease = [0.22, 1, 0.36, 1] as const;
 const rise = (delay: number) => ({
@@ -22,142 +24,170 @@ const socials = [
   { label: "Email", href: `mailto:${person.email}`, Icon: Mail },
 ];
 
-// Positions are fractions of the cropped scene box (the image's right 65%).
-const labels = [
-  { text: "Servers & network", x: 0.2, y: 0.55, side: "left" as const },
-  { text: "IT asset lifecycle", x: 0.33, y: 0.37, side: "left" as const },
-  { text: "Google Workspace", x: 0.5, y: 0.47, side: "right" as const },
-  { text: "Helpdesk", x: 0.6, y: 0.58, side: "right" as const },
-];
+const intro =
+  "Hello! I'm Sheshadri, a Workplace Technology Specialist at Miles Education. I keep people, devices and accounts running, and I build internal tools with AI. Scroll down and I'll walk you through my work.";
 
-const SCENE_SHOWN = 0.65; // share of the image width kept in view
-
-function Scene() {
-  const reduce = useReducedMotion();
-  const { setVoiceOn, say } = useTalk();
-  const imgStyle = { width: `${100 / SCENE_SHOWN}%`, left: `${(-(1 - SCENE_SHOWN) / SCENE_SHOWN) * 100}%` };
-
-  return (
-    <div className="relative aspect-[1789/1536] w-full overflow-hidden">
-      <picture>
-        <source type="image/avif" srcSet="/assets/hero3d/scene-md.avif 960w, /assets/hero3d/scene.avif 1920w" sizes="(min-width: 1024px) 60vw, 100vw" />
-        <img
-          src="/assets/hero3d/scene.webp"
-          alt="3D illustration of Sheshadri at a floating desk with a laptop, a stack of laptops, a server rack, a router and a plant"
-          width={1920}
-          height={1072}
-          fetchPriority="high"
-          className="absolute top-0 h-full max-w-none"
-          style={imgStyle}
-        />
-      </picture>
-      {!reduce && (
-        <video
-          src="/assets/hero3d/idle.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-hidden
-          className="absolute top-0 h-full max-w-none"
-          style={imgStyle}
-        />
-      )}
-
-      {labels.map((l, i) => (
-        <motion.span
-          key={l.text}
-          aria-hidden
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4, delay: 0.9 + i * 0.15, ease }}
-          className="absolute hidden sm:block"
-          style={{ left: `${l.x * 100}%`, top: `${l.y * 100}%` }}
-        >
-          <span className="absolute -left-1.5 -top-1.5 h-3 w-3 rounded-full border-2 border-white bg-magenta shadow" />
-          <span
-            className={`absolute -top-11 whitespace-nowrap rounded-xl bg-white px-3 py-1.5 text-xs font-bold text-text shadow-[0_8px_20px_-8px_rgba(18,48,71,0.45)] ${
-              l.side === "left" ? "right-2" : "left-2"
-            }`}
-          >
-            {l.text}
-          </span>
-        </motion.span>
-      ))}
-
-      {/* Speech bubble over his head doubles as the interact button */}
-      <motion.button
-        type="button"
-        onClick={() => {
-          setVoiceOn(true);
-          say("intro", { now: true });
-        }}
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 1.6, ease }}
-        className="absolute right-[2%] top-[4%] rounded-2xl rounded-bl-sm bg-text px-4 py-2.5 text-sm font-semibold text-white shadow-lg transition-transform hover:-translate-y-0.5"
-      >
-        Hi! Click me for a quick intro
-      </motion.button>
-    </div>
-  );
-}
+const layer = "absolute inset-0 h-full w-full object-cover object-[50%_35%]";
 
 export default function HeroSection() {
-  const { setVoiceOn, say } = useTalk();
+  const { setVoiceOn, stop } = useTalk();
   const { setAskOpen } = useVirtualHuman();
+  const reduce = useReducedMotion();
+  const video = useRef<HTMLVideoElement>(null);
+  const [talking, setTalking] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [ext, setExt] = useState("mp4");
+
+  useEffect(() => {
+    if (document.createElement("video").canPlayType('video/webm; codecs="vp9, opus"')) setExt("webm");
+  }, []);
+
+  function start() {
+    const v = video.current;
+    if (!v) return;
+    stop();
+    setVoiceOn(true);
+    setTalking(true);
+    v.currentTime = 0;
+    v.muted = false;
+    v.play().catch(() => {
+      v.muted = true;
+      v.play().catch(() => setTalking(false));
+    });
+  }
+  function end() {
+    video.current?.pause();
+    setTalking(false);
+    setProgress(0);
+  }
+
+  const words = intro.split(" ");
+  const shown = Math.ceil(words.length * Math.min(1, progress * 1.06));
 
   return (
-    <section id="home" aria-labelledby="hero-name" className="relative overflow-hidden bg-[#cbf2f7] pt-24 lg:pt-20">
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-ink" />
-      <div className="container-x relative grid items-center gap-8 pb-14 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-4 lg:pb-16">
-        <div className="order-2 lg:order-1">
-          <motion.p {...rise(0.05)} className="inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 text-sm font-bold text-text shadow-sm">
-            <span className="h-2 w-2 rounded-full bg-[#1f9d55]" aria-hidden />
-            Hi, I’m Sheshadri N
-          </motion.p>
+    <section id="home" aria-labelledby="hero-name" className="relative">
+      <div className="relative mt-16 aspect-[5/4] w-full overflow-hidden sm:mt-0 bg-ink sm:aspect-[16/10] lg:aspect-auto lg:h-[100svh] lg:min-h-[640px]">
+        {/* 1. Scene */}
+        <picture>
+          <source type="image/avif" srcSet="/assets/aura/scene-md.avif 1000w, /assets/aura/scene.avif 1920w" sizes="100vw" />
+          <img
+            src="/assets/aura/scene.webp"
+            alt="3D illustration of Sheshadri sitting at his desk in a dark room with code on the monitors"
+            width={1920}
+            height={1072}
+            fetchPriority="high"
+            className={`${layer} brightness-[0.7]`}
+          />
+        </picture>
 
-          <motion.h1
-            id="hero-name"
-            {...rise(0.1)}
-            className="mt-5 font-display text-[clamp(2.6rem,5.6vw,4.9rem)] font-extrabold leading-[0.95] tracking-[-0.035em] text-text"
-          >
-            I keep the <span className="text-magenta">office tech</span> running.
-          </motion.h1>
+        {/* 2. Aura */}
+        <div
+          aria-hidden
+          className={`absolute inset-0 mix-blend-screen ${reduce ? "" : "motion-safe:animate-[aura_6s_ease-in-out_infinite]"}`}
+          style={{
+            background:
+              "radial-gradient(30% 26% at 50% 40%, rgb(236 72 153 / 0.55), transparent 70%)," +
+              "radial-gradient(24% 20% at 24% 76%, rgb(147 51 234 / 0.35), transparent 70%)," +
+              "radial-gradient(24% 20% at 78% 70%, rgb(56 189 248 / 0.2), transparent 70%)",
+          }}
+        />
 
-          <motion.p {...rise(0.18)} className="mt-5 font-display text-xl font-bold text-text sm:text-2xl">
-            {person.title}
-          </motion.p>
-          <motion.p {...rise(0.24)} className="mt-2 text-[0.95rem] font-medium text-ice">
-            {person.positioning.join(" • ")}
-          </motion.p>
-          <motion.p {...rise(0.3)} className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-[1.05rem]">
-            {person.intro}
-          </motion.p>
+        {/* 3. Name, behind him */}
+        <motion.h1
+          id="hero-name"
+          initial={{ opacity: 0, scale: 1.06 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.1, ease }}
+          className="absolute inset-x-0 top-[12%] whitespace-nowrap text-center font-display text-[16.5vw] uppercase leading-none text-text sm:top-[16%] sm:text-[15vw] lg:top-[17%]"
+          style={{ textShadow: "0 0 3vw rgb(236 72 153 / 0.55)" }}
+        >
+          I’m Sheshadri
+        </motion.h1>
 
-          <motion.div {...rise(0.38)} className="mt-7 flex flex-wrap gap-2.5">
-            <button
-              type="button"
-              onClick={() => {
-                setVoiceOn(true);
-                say("intro", { now: true });
-              }}
-              className="btn btn-primary"
-            >
-              <Play size={17} aria-hidden />
-              Click to interact
-            </button>
-            <a href="#projects" className="btn btn-ghost">
-              See what I built
-            </a>
-            <a href={person.resume} download className="btn btn-ghost">
-              <Download size={17} aria-hidden />
-              Resume
-            </a>
-          </motion.div>
+        {/* 4. Him, in front of the name */}
+        <img
+          src="/assets/aura/cut.webp"
+          srcSet="/assets/aura/cut-md.webp 1000w, /assets/aura/cut.webp 1920w"
+          sizes="100vw"
+          alt=""
+          aria-hidden
+          width={1920}
+          height={1072}
+          className={`${layer} pointer-events-none`}
+        />
 
-          <motion.div {...rise(0.44)} className="mt-5 flex flex-wrap items-center gap-2">
+        {/* 5. Talking clip of the same shot */}
+        <video
+          ref={video}
+          src={`/assets/aura/intro.${ext}`}
+          playsInline
+          preload="none"
+          aria-hidden
+          onTimeUpdate={(e) => {
+            const v = e.currentTarget;
+            if (v.duration) setProgress(v.currentTime / v.duration);
+          }}
+          onEnded={end}
+          className={`${layer} transition-opacity duration-500 ${talking ? "opacity-100" : "opacity-0"}`}
+        />
+        {talking && (
+          <span className="absolute left-1/2 top-20 -translate-x-1/2 rounded-full bg-ink/70 px-3 py-1 text-xs text-muted backdrop-blur sm:top-24">
+            AI voice &amp; animation
+          </span>
+        )}
+
+        {/* Orb */}
+        {!reduce && (
+          <motion.span
+            aria-hidden
+            className="absolute right-[7%] top-[46%] hidden h-14 w-14 rounded-full sm:block"
+            style={{ background: "radial-gradient(circle at 35% 35%, #fff, #ec4899 45%, #7e22ce 80%)", boxShadow: "0 0 40px #ec4899" }}
+            animate={{ y: [0, -12, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          />
+        )}
+
+        <div aria-hidden className="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-ink via-ink/70 to-transparent" />
+        <div aria-hidden className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-ink/80 to-transparent" />
+
+        {/* Copy over the scene on large screens */}
+        <div className="absolute inset-x-0 bottom-0 hidden lg:block">
+          <div className="container-x flex items-end justify-between gap-10 pb-10">
+            <Copy talking={talking} words={words} shown={shown} />
+            <Actions talking={talking} start={start} end={end} />
+          </div>
+        </div>
+
+        {/* Small screens: one compact control over the scene */}
+        <div className="absolute inset-x-0 bottom-4 flex justify-center lg:hidden">
+          <button type="button" onClick={talking ? end : start} aria-pressed={talking} className="btn btn-primary">
+            {talking ? <Square size={14} aria-hidden /> : <Play size={16} aria-hidden />}
+            {talking ? "Stop" : "Click to interact"}
+          </button>
+        </div>
+      </div>
+
+      {/* Small screens: copy below the scene */}
+      <div className="container-x pb-4 pt-6 lg:hidden">
+        <Copy talking={talking} words={words} shown={shown} />
+        <div className="mt-6">
+          <Actions talking={talking} start={start} end={end} compact />
+        </div>
+      </div>
+
+      {/* Stats, socials and Ask */}
+      <div className="container-x pb-6 pt-6 lg:pt-8">
+        <div className="flex flex-col gap-5 border-t border-line pt-6 md:flex-row md:items-center md:justify-between">
+          <dl className="grid grid-cols-3 gap-3 md:max-w-xl md:flex-1">
+            {stats.map((s) => (
+              <div key={s.label}>
+                <dt className="sr-only">{s.label}</dt>
+                <dd className="font-display text-4xl leading-none text-text">{s.value}</dd>
+                <dd className="mt-1.5 text-xs leading-snug text-muted">{s.label}</dd>
+              </div>
+            ))}
+          </dl>
+          <div className="flex flex-wrap items-center gap-2">
             {socials.map(({ label, href, Icon }) => (
               <a
                 key={label}
@@ -165,7 +195,7 @@ export default function HeroSection() {
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel="noreferrer"
                 aria-label={label}
-                className="grid h-11 w-11 place-items-center rounded-xl bg-white text-text shadow-sm transition-colors hover:text-magenta"
+                className="grid h-11 w-11 place-items-center rounded-full border border-line text-muted transition-colors hover:border-magenta/60 hover:text-text"
               >
                 <Icon size={18} aria-hidden />
               </a>
@@ -173,33 +203,64 @@ export default function HeroSection() {
             <button
               type="button"
               onClick={() => setAskOpen(true)}
-              className="ml-1 inline-flex min-h-11 items-center gap-2 rounded-xl bg-white px-4 text-sm font-semibold text-ice shadow-sm transition-colors hover:text-text"
+              className="inline-flex min-h-11 items-center gap-2 rounded-full border border-ice/40 px-4 text-sm font-semibold text-ice transition-colors hover:bg-ice/10"
             >
               <MessageCircle size={17} aria-hidden />
               Ask Sheshadri
             </button>
-          </motion.div>
-
-          <motion.dl {...rise(0.5)} className="mt-9 grid max-w-xl grid-cols-3 gap-3">
-            {stats.map((s) => (
-              <div key={s.label} className="rounded-[var(--radius-card)] bg-white/80 px-4 py-4 shadow-sm">
-                <dt className="sr-only">{s.label}</dt>
-                <dd className="font-display text-3xl font-extrabold leading-none text-text">{s.value}</dd>
-                <dd className="mt-2 text-xs leading-snug text-muted">{s.label}</dd>
-              </div>
-            ))}
-          </motion.dl>
+          </div>
         </div>
-
-        <motion.div
-          className="order-1 -mx-4 lg:order-2 lg:-mr-[max(3rem,calc((100vw-1280px)/2+3rem))] lg:ml-0"
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.15, ease }}
-        >
-          <Scene />
-        </motion.div>
       </div>
     </section>
+  );
+}
+
+function Copy({ talking, words, shown }: { talking: boolean; words: string[]; shown: number }) {
+  return (
+    <div className="max-w-xl">
+      <motion.p {...rise(0.3)} className="mb-3 inline-flex items-center gap-2 rounded-full border border-ice/30 bg-ink/50 px-3 py-1 text-sm text-ice backdrop-blur">
+        <span className="h-1.5 w-1.5 rounded-full bg-ice" aria-hidden />
+        Available for new opportunities
+      </motion.p>
+      <motion.p {...rise(0.4)} className="font-display text-[clamp(1.6rem,2.6vw,2.4rem)] uppercase leading-none tracking-wide text-text">
+        {person.title}
+      </motion.p>
+      <motion.p {...rise(0.46)} className="mt-2 text-sm text-ice/90">
+        {person.positioning.join(" • ")}
+      </motion.p>
+      {talking ? (
+        <p className="mt-3 min-h-[4.5rem] text-[0.95rem] leading-relaxed" aria-live="polite">
+          <span className="sr-only">{words.join(" ")}</span>
+          <span aria-hidden className="text-text">
+            {words.slice(0, shown).join(" ")}
+            <span className="text-faint"> {words.slice(shown).join(" ")}</span>
+          </span>
+        </p>
+      ) : (
+        <motion.p {...rise(0.52)} className="mt-3 text-[0.95rem] leading-relaxed text-muted">
+          {person.intro}
+        </motion.p>
+      )}
+    </div>
+  );
+}
+
+function Actions({ talking, start, end, compact }: { talking: boolean; start: () => void; end: () => void; compact?: boolean }) {
+  return (
+    <motion.div {...rise(0.6)} className="flex flex-wrap gap-2.5">
+      {!compact && (
+        <button type="button" onClick={talking ? end : start} aria-pressed={talking} className="btn btn-primary">
+          {talking ? <Square size={14} aria-hidden /> : <Play size={16} aria-hidden />}
+          {talking ? "Stop" : "Click to interact"}
+        </button>
+      )}
+      <a href="#projects" className="btn btn-ghost">
+        View Projects
+      </a>
+      <a href={person.resume} download className="btn btn-ghost">
+        <Download size={17} aria-hidden />
+        Resume
+      </a>
+    </motion.div>
   );
 }

@@ -35,7 +35,7 @@ const groupStyle = [
   { tile: "border-magenta/40 bg-magenta/[0.07]", sym: "text-magenta", dot: "bg-magenta" },
   { tile: "border-ice/40 bg-ice/[0.06]", sym: "text-ice", dot: "bg-ice" },
   { tile: "border-orchid/45 bg-orchid/[0.08]", sym: "text-orchid", dot: "bg-orchid" },
-  { tile: "border-[#a15c07]/40 bg-[#f6c96b]/[0.18]", sym: "text-[#8a4d05]", dot: "bg-[#c47a10]" },
+  { tile: "border-[#facc15]/40 bg-[#facc15]/[0.07]", sym: "text-[#fde047]", dot: "bg-[#facc15]" },
 ];
 
 type El = { n: number; symbol: string; name: string; group: number };

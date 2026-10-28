@@ -79,8 +79,8 @@ function Card({ m, onOpen }: { m: Moment; onOpen: (c: Cert) => void }) {
   }
   const Icon = m.kind === "step" ? Briefcase : Hammer;
   return (
-    <li className={`${base} justify-between border-line-strong bg-gradient-to-br ${m.kind === "step" ? "from-wine" : "from-[#dcd3ff]"} to-ink-2 p-6`}>
-      <span className="font-display text-6xl font-extrabold leading-none text-transparent [-webkit-text-stroke:1.5px_rgb(194_70_31/0.75)]">{m.when}</span>
+    <li className={`${base} justify-between border-line-strong bg-gradient-to-br ${m.kind === "step" ? "from-wine" : "from-[#2e1a52]"} to-ink-2 p-6`}>
+      <span className="font-display text-6xl font-extrabold leading-none text-transparent [-webkit-text-stroke:1.5px_rgb(244_114_182/0.8)]">{m.when}</span>
       <div>
         <Icon size={20} className="text-ice" aria-hidden />
         <h3 className="mt-3 font-display text-xl font-bold leading-snug">{m.title}</h3>

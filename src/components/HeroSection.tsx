@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Download, Github, Linkedin, Mail, MapPin } from "lucide-react";
+import { Download, Github, Linkedin, Mail, MapPin, Volume2 } from "lucide-react";
+import { useTalk } from "@/context/Talk";
 import { person, stats } from "@/data/profile";
 import VirtualHuman from "./VirtualHuman";
 import AskSheshadri from "./AskSheshadri";
@@ -19,6 +20,7 @@ const socials = [
 ];
 
 export default function HeroSection() {
+  const { setVoiceOn, say } = useTalk();
   return (
     <section id="home" aria-labelledby="hero-name" className="relative overflow-hidden pb-16 pt-28 lg:min-h-[100svh] lg:pb-10 lg:pt-28">
       <div className="container-x grid items-start gap-x-10 gap-y-8 lg:grid-cols-[minmax(0,1fr)_330px] xl:grid-cols-[minmax(0,1.2fr)_330px_minmax(0,0.8fr)] xl:gap-x-8">
@@ -80,6 +82,17 @@ export default function HeroSection() {
                 </li>
               ))}
             </ul>
+            <button
+              type="button"
+              onClick={() => {
+                setVoiceOn(true);
+                say("about", { now: true });
+              }}
+              className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-ice/40 bg-ice/[0.07] px-4 text-sm font-semibold text-ice transition-colors hover:bg-ice/15"
+            >
+              <Volume2 size={17} aria-hidden />
+              Meet Sheshadri
+            </button>
             <span className="inline-flex items-center gap-1.5 text-sm text-faint">
               <MapPin size={15} aria-hidden />
               {person.location}

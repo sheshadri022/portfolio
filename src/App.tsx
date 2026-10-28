@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { MotionConfig } from "framer-motion";
 import { VirtualHumanProvider } from "@/context/VirtualHuman";
+import { TalkProvider } from "@/context/Talk";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import ResponsiveNavbar from "@/components/ResponsiveNavbar";
 import HeroSection from "@/components/HeroSection";
@@ -16,11 +17,13 @@ const Education = lazy(() => import("@/components/Education"));
 const ContactSection = lazy(() => import("@/components/ContactSection"));
 const Footer = lazy(() => import("@/components/Footer"));
 const VirtualHumanDock = lazy(() => import("@/components/VirtualHumanDock"));
+const TalkingAvatar = lazy(() => import("@/components/TalkingAvatar"));
 
 export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <VirtualHumanProvider>
+        <TalkProvider>
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] btn btn-primary">
           Skip to content
         </a>
@@ -42,7 +45,9 @@ export default function App() {
         <Suspense fallback={null}>
           <Footer />
           <VirtualHumanDock />
+          <TalkingAvatar />
         </Suspense>
+        </TalkProvider>
       </VirtualHumanProvider>
     </MotionConfig>
   );

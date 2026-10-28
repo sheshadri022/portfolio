@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Download, Menu, X } from "lucide-react";
+import { Download, Menu, Volume2, VolumeX, X } from "lucide-react";
 import { person } from "@/data/profile";
 import { useVirtualHuman } from "@/context/VirtualHuman";
+import { useTalk } from "@/context/Talk";
 
 const links = [
   { name: "Home", id: "home" },
@@ -20,6 +21,7 @@ const alias: Record<string, string> = { journey: "projects" };
 
 export default function ResponsiveNavbar() {
   const { section } = useVirtualHuman();
+  const { voiceOn, setVoiceOn, say, cancel, stop } = useTalk();
   const active = alias[section] ?? section;
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -67,6 +69,9 @@ export default function ResponsiveNavbar() {
                 <li key={l.id}>
                   <a
                     href={`#${l.id}`}
+                    onMouseEnter={() => say(l.id)}
+                    onMouseLeave={cancel}
+                    onFocus={() => say(l.id)}
                     aria-current={isActive ? "true" : undefined}
                     className={`relative block rounded-lg px-3 py-2 text-sm transition-colors ${
                       isActive ? "text-text" : "text-muted hover:text-text"
@@ -88,6 +93,23 @@ export default function ResponsiveNavbar() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => {
+              const next = !voiceOn;
+              setVoiceOn(next);
+              if (next) say(alias[section] ?? (section === "home" ? "about" : section), { now: true });
+              else stop();
+            }}
+            aria-pressed={voiceOn}
+            aria-label={voiceOn ? "Turn off Sheshadri's voice" : "Turn on Sheshadri's voice"}
+            title={voiceOn ? "Voice on: point at a menu item to hear me" : "Turn on my voice"}
+            className={`grid h-11 w-11 place-items-center rounded-xl border transition-colors ${
+              voiceOn ? "border-ice/60 bg-ice/10 text-ice" : "border-line text-muted hover:text-text"
+            }`}
+          >
+            {voiceOn ? <Volume2 size={18} aria-hidden /> : <VolumeX size={18} aria-hidden />}
+          </button>
           <a href={person.resume} download className="btn btn-primary hidden sm:inline-flex !min-h-10 !px-4 text-sm">
             <Download size={16} aria-hidden />
             Download Resume
@@ -122,7 +144,10 @@ export default function ResponsiveNavbar() {
                 <li key={l.id}>
                   <a
                     href={`#${l.id}`}
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                      setOpen(false);
+                      say(l.id, { now: true });
+                    }}
                     className={`block border-b border-line py-4 font-display text-2xl ${
                       active === l.id ? "text-magenta" : "text-text"
                     }`}

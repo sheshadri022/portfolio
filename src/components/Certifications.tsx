@@ -48,7 +48,7 @@ export default function Certifications() {
               </button>
 
               <div className="flex flex-1 flex-col p-6">
-                <div className="flex items-start justify-between gap-3">
+                <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
                   <span className="whitespace-nowrap rounded-full border border-magenta/35 bg-magenta/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-magenta">
                     {c.platform}
                   </span>

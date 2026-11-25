@@ -34,8 +34,8 @@ export const person = {
 
 export const stats = [
   { value: `${years}+`, label: "Years in workplace IT", note: "Miles Education, Oct 2021 to now" },
-  { value: "1,200", label: "Employees supported", note: "Across three group companies" },
-  { value: "13", label: "Office locations", note: "One IT function, every location" },
+  { value: "3", label: "Entities supported", note: "One IT function, three companies" },
+  { value: "AI", label: "Internal tools, built and shipped", note: "Including the SNS Cloud IT Asset & Helpdesk Portal" },
 ];
 
 export type Entity = {

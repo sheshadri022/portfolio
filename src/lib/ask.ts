@@ -108,8 +108,9 @@ export const questions: Question[] = [
     label: "How can I contact you?",
     keywords: ["contact", "reach", "email", "phone", "call", "hire", "linkedin"],
     answer: {
-      text: `Email ${person.email} or call ${person.phone}. I am also on LinkedIn.`,
+      text: `WhatsApp or call ${person.phone}, or email ${person.email}. I am also on LinkedIn.`,
       links: [
+        { label: "WhatsApp", href: person.whatsapp },
         { label: "Email", href: `mailto:${person.email}` },
         { label: "LinkedIn", href: person.linkedin },
       ],

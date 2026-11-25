@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Download, Github, Linkedin, Mail, MessageCircle, Play } from "lucide-react";
+import { ArrowDown, ArrowRight, Download, Github, Linkedin, Mail, MessageCircle, Play } from "lucide-react";
 import { useTalk } from "@/context/Talk";
 import { useVirtualHuman } from "@/context/VirtualHuman";
 import { person, stats } from "@/data/profile";
@@ -92,6 +92,26 @@ function Scene() {
           </span>
         </motion.span>
       ))}
+
+      {/* Clickable hotspot for the product */}
+      <motion.a
+        href="#product"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4, delay: 1.5, ease }}
+        className="group absolute hidden items-start gap-1.5 sm:inline-flex"
+        style={{ left: "calc(37% - 8px)", top: "calc(75% - 8px)" }}
+        aria-label="SNS Cloud IT Asset and Helpdesk Portal: see the product"
+      >
+        <span className="relative flex h-4 w-4 shrink-0 items-center justify-center" aria-hidden>
+          {!reduce && <span className="absolute h-full w-full animate-ping rounded-full bg-ice/60" />}
+          <span className="relative h-3 w-3 rounded-full border-2 border-white bg-ice shadow" />
+        </span>
+        <span className="mt-2.5 inline-flex items-center gap-1.5 whitespace-nowrap rounded-xl bg-text px-3 py-1.5 text-xs font-bold text-white shadow-[0_8px_20px_-8px_rgba(18,48,71,0.6)] transition-transform group-hover:-translate-y-0.5">
+          My product: SNS Cloud
+          <ArrowDown size={13} aria-hidden />
+        </span>
+      </motion.a>
 
       {/* Speech bubble over his head doubles as the interact button */}
       <motion.button

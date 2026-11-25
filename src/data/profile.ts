@@ -25,6 +25,7 @@ export const person = {
   email: "sheshadri022@gmail.com",
   phone: "+91 8190062144",
   phoneHref: "tel:+918190062144",
+  whatsapp: "https://wa.me/918190062144?text=" + encodeURIComponent("Hi Sheshadri, I found you on snscloud.in."),
   linkedin: "https://www.linkedin.com/in/sheshadri-n",
   github: "https://github.com/sheshadri022",
   resume: "/resume.pdf",

@@ -1,10 +1,11 @@
 import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
-import { Github, Linkedin, Mail, Phone, Send } from "lucide-react";
+import { Github, Linkedin, Mail, MessageCircle, Phone, Send } from "lucide-react";
 import { person } from "@/data/profile";
 import { needs, type Need } from "@/data/services";
 import SectionHeading from "./SectionHeading";
 
 const channels = [
+  { label: "WhatsApp", value: "Chat with me on WhatsApp", href: person.whatsapp, Icon: MessageCircle },
   { label: "Email", value: person.email, href: `mailto:${person.email}`, Icon: Mail },
   { label: "Phone", value: person.phone, href: person.phoneHref, Icon: Phone },
   { label: "LinkedIn", value: "Sheshadri N on LinkedIn", href: person.linkedin, Icon: Linkedin },
@@ -14,11 +15,14 @@ const channels = [
 const field =
   "w-full rounded-xl border border-line bg-ink-2/70 px-4 py-3 text-text placeholder:text-faint transition-colors focus:border-magenta/70";
 
-// There is no backend for the form: sending opens the visitor's email app
-// with the message filled in, so nothing is lost silently.
+// The form sends through Web3Forms (free) when VITE_WEB3FORMS_KEY is set at
+// build time; the key is a public form key, safe to ship. Without a key, or if
+// sending fails, it falls back to opening the visitor's email app.
+const FORM_KEY = import.meta.env.VITE_WEB3FORMS_KEY as string | undefined;
+type Status = "idle" | "sending" | "sent" | "mailto" | "error";
 export default function ContactSection() {
   const [form, setForm] = useState({ name: "", email: "", need: "", message: "" });
-  const [opened, setOpened] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
 
   // Service and demo buttons elsewhere on the page preselect "What do you need?".
   useEffect(() => {
@@ -30,12 +34,42 @@ export default function ContactSection() {
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const subject = `${form.need || "Portfolio enquiry"}: ${form.name}`;
     const body = `${form.need ? `What I need: ${form.need}\n\n` : ""}${form.message}\n\n${form.name}\n${form.email}`;
-    window.location.href = `mailto:${person.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setOpened(true);
+    const openMail = () => {
+      window.location.href = `mailto:${person.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    };
+    if (!FORM_KEY) {
+      openMail();
+      setStatus("mailto");
+      return;
+    }
+    const bot = (e.currentTarget.elements.namedItem("botcheck") as HTMLInputElement | null)?.checked;
+    if (bot) return;
+    setStatus("sending");
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: FORM_KEY,
+          subject: `snscloud.in: ${subject}`,
+          from_name: "snscloud.in portfolio",
+          name: form.name,
+          email: form.email,
+          need: form.need || "Not chosen",
+          message: form.message,
+        }),
+      });
+      const data = (await res.json()) as { success?: boolean };
+      if (!res.ok || !data.success) throw new Error("send failed");
+      setStatus("sent");
+      setForm({ name: "", email: "", need: "", message: "" });
+    } catch {
+      setStatus("error");
+    }
   }
 
   return (
@@ -99,13 +133,24 @@ export default function ContactSection() {
               </label>
               <textarea id="c-msg" name="message" required rows={5} value={form.message} onChange={onChange} className={`${field} resize-none`} />
             </div>
-            <p className="text-sm text-faint">Sending opens your email app with this message ready to go.</p>
-            <button type="submit" className="btn btn-primary justify-center">
-              <Send size={18} aria-hidden />
-              Send message
-            </button>
-            <p role="status" className="text-sm text-ice">
-              {opened ? "Your email app should be open with the message. If it didn’t open, email me directly at " + person.email + "." : ""}
+            <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden />
+            <p className="text-sm text-faint">
+              {FORM_KEY ? "Your message comes straight to my inbox. I usually reply within a day." : "Sending opens your email app with this message ready to go."}
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <button type="submit" disabled={status === "sending"} className="btn btn-primary flex-1 justify-center disabled:opacity-60">
+                <Send size={18} aria-hidden />
+                {status === "sending" ? "Sending…" : "Send message"}
+              </button>
+              <a href={person.whatsapp} target="_blank" rel="noreferrer" className="btn btn-ghost flex-1 justify-center">
+                <MessageCircle size={18} aria-hidden />
+                WhatsApp me
+              </a>
+            </div>
+            <p role="status" className={`text-sm ${status === "error" ? "text-magenta" : "text-ice"}`}>
+              {status === "sent" && "Thanks, your message is on its way. I’ll get back to you soon."}
+              {status === "mailto" && `Your email app should be open with the message. If it didn’t open, email me at ${person.email}.`}
+              {status === "error" && `That didn’t go through. Please email me at ${person.email} or message me on WhatsApp.`}
             </p>
           </form>
         </div>

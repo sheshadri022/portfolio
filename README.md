@@ -115,3 +115,4 @@ Render static site. Build command: `npm install && npm run build`. Publish direc
 | Name | Required | Purpose |
 |------|----------|---------|
 | `VITE_ASK_ENDPOINT` | No | URL of a server-side Ask endpoint. Leave unset to use local answers. |
+| `VITE_WEB3FORMS_KEY` | No | Free Web3Forms access key so the contact form emails you directly. Leave unset and the form opens the visitor's email app instead. |

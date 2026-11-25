@@ -11,7 +11,7 @@ export const avatarClips: Clip[] = [
     section: "home",
     label: "Hello!",
     script:
-      "Hello! I'm Sheshadri, a Workplace Technology Specialist at Miles Education. I keep people, devices and accounts running, and I build internal tools with AI. Scroll down and I'll walk you through my work.",
+      "Hello! I'm Sheshadri. I keep people, devices and accounts running, and I build tools with AI. Scroll down and I'll walk you through my work.",
   },
   {
     id: "about",
@@ -27,11 +27,12 @@ export const avatarClips: Clip[] = [
     script:
       "I support one IT function across three companies: Miles Education, MOJO Campus and MilesSOBA. That covers onboarding, Google Workspace, laptops and helpdesk support.",
   },
-  // "projects" clip is off until it is regenerated: the old recording named
-  // projects that are no longer on the site. New script, ready to record:
-  // "These are things I built with AI-assisted development: my SNS Cloud IT Asset
-  // and Helpdesk Portal, with a free demo, Google Workspace setups for two
-  // businesses, and this portfolio."
+  {
+    id: "projects",
+    section: "projects",
+    label: "Projects",
+    script: "These are apps I built with AI-assisted development: the IT Asset and Helpdesk Portal.",
+  },
   {
     id: "skills",
     section: "skills",

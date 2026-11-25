@@ -93,7 +93,7 @@ Laptop repairs carry the note "Hardware repairs are subject to inspection, parts
 
 Hero, ID card, skills and certifications
 
-- Hero: a 3D isometric Sheshadri working at a floating desk with the things he looks after (laptops, server, router), labelled. The scene idles on a short silent loop (`public/assets/hero3d/`), its edges faded into the background. "I keep the office tech running.", the rotating titles, the business message and the CTAs sit on the left. The speech bubble ("Hi! Click me for a quick intro") or "Click to interact" has his 3D guide give a voiced intro.
+- Hero: a 3D isometric Sheshadri working at a floating desk with the things he looks after (laptops, server, router), labelled. The scene idles on a short silent loop (`public/assets/hero3d/`), its edges faded into the background. "I keep the office tech running.", the rotating titles, the business message and the CTAs sit on the left. The speech bubble ("Hi! Click me for a quick intro") or "Click to interact" has him look up from the laptop and introduce himself right there in the scene, with the words shown in the speech bubble, then look back down (`public/assets/hero3d/intro-sitting.webm|mp4`). The corner guide takes over for the other sections.
 - About: a flipping ID card on a lanyard (front: photo, name, title; back: what he does and how to reach him).
 - Skills & Expertise: seven skill cards (`src/data/skills.ts`). Clicking a card opens a panel that explains the skill: a short summary, a step-by-step "How it works" narrated by an AI voice, and everything the skill covers.
 - Certifications: a card grid with the certificate image (click to view it full size), platform, Verify link, what it covers, date and hours.
@@ -102,7 +102,8 @@ Hero, ID card, skills and certifications
 
 - Once the guide is started (speech bubble, Click to interact or the speaker button), it stays docked while you scroll: each section is explained once when you settle on it, and resting the mouse on a section explains that section (`src/components/GuideFollower.tsx`). It stays quiet while a skill or certificate dialog is open, and the X turns it off. Pointing at a menu item also explains that section. "Click to interact" in the hero, or the speaker button in the navbar, turns the voice on. Browsers block sound until the visitor clicks once, so before that clips play muted with captions.
 - Poses: `public/assets/avatars/` holds his avatar set (id-front, seated, developer). Real-photo poses are used in About (ID card), Experience and Developer journey; the floating 3D guide changes its ring colour by section.
-- Clips: `public/assets/avatar/*.webm|mp4` (intro, about, services, projects, journey, experience, education, skills, certifications, contact), lip-synced on a 3D character based on his photo with a neutral AI voice (Higgsfield: Seed Audio voice "Julian", Wan 2.7). Scripts live in `src/data/voice.ts`; change a script there and regenerate its clip.
+- Hero intro: the seated desk scene with only the head animated (looks up, talks, looks down), made from the original intro clip and its voice with the open-source LivePortrait model, then blended back into the scene. Captions use the `intro` script in `src/data/voice.ts`.
+- Clips: `public/assets/avatar/*.webm|mp4` (about, services, projects, journey, experience, education, skills, certifications, contact), lip-synced on a 3D character based on his photo with a neutral AI voice (Higgsfield: Seed Audio voice "Julian", Wan 2.7). Scripts live in `src/data/voice.ts`; change a script there and regenerate its clip.
 - Skills: each card's panel plays a step-by-step explainer timed to an AI voice-over in `public/assets/voice/*.mp3`.
 - Everything loads only when played, and the site labels the voice and animation as AI.
 

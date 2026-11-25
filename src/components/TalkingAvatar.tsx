@@ -14,10 +14,11 @@ export default function TalkingAvatar() {
   const { current, take, voiceOn, setVoiceOn, stop } = useTalk();
   const video = useRef<HTMLVideoElement>(null);
   const [progress, setProgress] = useState(0);
-  const clip = avatarClips.find((c) => c.id === current) ?? null;
+  // The intro plays inside the hero scene (HeroSection), not in this dock.
+  const clip = avatarClips.find((c) => c.id === current && c.id !== "intro") ?? null;
   const words = clip ? clip.script.split(" ") : [];
   const shown = Math.max(1, Math.ceil(words.length * Math.min(1, progress * 1.08)));
-  const open = !!clip || voiceOn;
+  const open = (!!clip || voiceOn) && current !== "intro";
 
   useEffect(() => {
     const v = video.current;

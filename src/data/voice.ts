@@ -3,7 +3,8 @@
 // AI-generated (neutral AI voice, a 3D character based on Sheshadri's photo)
 // and the player labels them as AI.
 
-export type Clip = { id: string; section: string; label: string; script: string };
+// `cues` are caption lines with the second each one starts at in the clip.
+export type Clip = { id: string; section: string; label: string; script: string; cues?: { at: number; text: string }[] };
 
 export const avatarClips: Clip[] = [
   {
@@ -12,6 +13,13 @@ export const avatarClips: Clip[] = [
     label: "Hello!",
     script:
       "Hello! I'm Sheshadri. I keep people, devices and accounts running, and I build tools with AI. Scroll down and I'll walk you through my work.",
+    // Timed against public/assets/hero3d/intro-sitting.* (he looks up first, then speaks).
+    cues: [
+      { at: 0, text: "Hello! I'm Sheshadri." },
+      { at: 2.7, text: "I keep people, devices and accounts running," },
+      { at: 5.55, text: "and I build tools with AI." },
+      { at: 7.9, text: "Scroll down and I'll walk you through my work." },
+    ],
   },
   {
     id: "about",

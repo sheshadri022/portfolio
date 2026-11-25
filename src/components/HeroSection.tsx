@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, ArrowRight, Download, Github, Linkedin, Mail, MessageCircle, Play } from "lucide-react";
 import { useTalk } from "@/context/Talk";
 import { useVirtualHuman } from "@/context/VirtualHuman";
 import { person, stats } from "@/data/profile";
+import { avatarClips } from "@/data/voice";
 
 // Template 03, "Isometric IT Desk". A 3D Sheshadri works at a floating desk
 // surrounded by the things he looks after. Labels name each one. The scene
 // idles on a short silent loop; the speech bubble or "Click to interact" has
-// his 3D guide give a voiced introduction (see TalkingAvatar).
+// him look up from the laptop and introduce himself right in the scene.
 
 const ease = [0.22, 1, 0.36, 1] as const;
 const rise = (delay: number) => ({
@@ -35,9 +36,46 @@ const SCENE_SHOWN = 0.65; // share of the image width kept in view
 const fade = "linear-gradient(to right, transparent, #000 7%, #000 93%, transparent), linear-gradient(to bottom, transparent, #000 7%, #000 90%, transparent)";
 const sceneMask = { maskImage: fade, WebkitMaskImage: fade, maskComposite: "intersect", WebkitMaskComposite: "source-in" } as const;
 
+const introClip = avatarClips.find((c) => c.id === "intro");
+const introScript = introClip?.script ?? "";
+const introCues = introClip?.cues ?? [{ at: 0, text: introScript }];
+
 function Scene() {
   const reduce = useReducedMotion();
-  const { setVoiceOn, say } = useTalk();
+  const { setVoiceOn, say, current, take, voiceOn, stop } = useTalk();
+  const intro = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(false);
+  const [cue, setCue] = useState(0);
+
+  useEffect(() => {
+    const v = intro.current;
+    if (!v) return;
+    if (current === "intro") {
+      // On phones the scene sits below the buttons: bring it into view first.
+      const r = v.getBoundingClientRect();
+      const seen = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+      if (seen < r.height * 0.6) v.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
+      setCue(0);
+      v.currentTime = 0;
+      v.muted = !voiceOn;
+      setPlaying(true);
+      v.play().catch(() => {
+        v.muted = true;
+        v.play().catch(() => {
+          setPlaying(false);
+          stop();
+        });
+      });
+    } else {
+      v.pause();
+      setPlaying(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [current, take]);
+
+  useEffect(() => {
+    if (intro.current) intro.current.muted = !voiceOn;
+  }, [voiceOn]);
   const imgStyle = { width: `${100 / SCENE_SHOWN}%`, left: `${(-(1 - SCENE_SHOWN) / SCENE_SHOWN) * 100}%` };
 
   return (
@@ -70,6 +108,31 @@ function Scene() {
           style={imgStyle}
         />
       )}
+      {/* Intro: he looks up from the laptop and introduces himself, then
+          looks back down. Plays here instead of in the corner guide. */}
+      <video
+        ref={intro}
+        playsInline
+        preload="metadata"
+        aria-hidden
+        onTimeUpdate={(e) => {
+          const t = e.currentTarget.currentTime;
+          let k = 0;
+          introCues.forEach((c, i) => {
+            if (t >= c.at) k = i;
+          });
+          setCue(k);
+        }}
+        onEnded={() => {
+          setPlaying(false);
+          stop();
+        }}
+        className={`absolute top-0 h-full max-w-none transition-opacity duration-500 ${playing ? "opacity-100" : "pointer-events-none opacity-0"}`}
+        style={imgStyle}
+      >
+        <source src="/assets/hero3d/intro-sitting.webm" type='video/webm; codecs="vp9, opus"' />
+        <source src="/assets/hero3d/intro-sitting.mp4" type="video/mp4" />
+      </video>
       </div>
 
       {labels.map((l, i) => (
@@ -113,20 +176,38 @@ function Scene() {
         </span>
       </motion.a>
 
-      {/* Speech bubble over his head doubles as the interact button */}
-      <motion.button
-        type="button"
-        onClick={() => {
-          setVoiceOn(true);
-          say("intro", { now: true });
-        }}
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 1.6, ease }}
-        className="absolute right-[2%] top-[4%] rounded-2xl rounded-bl-sm bg-text px-4 py-2.5 text-sm font-semibold text-white shadow-lg transition-transform hover:-translate-y-0.5"
-      >
-        Hi! Click me for a quick intro
-      </motion.button>
+      {/* Speech bubble over his head is the interact button. While the intro
+          plays it makes way for captions under the desk, so his face stays clear. */}
+      {playing ? (
+        <div className="absolute inset-x-[4%] bottom-[3%] flex justify-center">
+          <div className="max-w-full rounded-2xl bg-text/95 px-4 py-2 text-white shadow-lg">
+            <p className="text-center text-[13px] font-medium leading-snug sm:text-[15px]">
+              <span className="sr-only">{introScript}</span>
+              <span aria-hidden>{introCues[cue].text}</span>
+            </p>
+            <p className="mt-1 flex items-center justify-center gap-3 text-[11px] text-white/60">
+              AI voice &amp; animation
+              <button type="button" onClick={stop} className="rounded-full bg-white/10 px-2.5 py-0.5 font-semibold text-white/90 hover:bg-white/20">
+                Stop
+              </button>
+            </p>
+          </div>
+        </div>
+      ) : (
+        <motion.button
+          type="button"
+          onClick={() => {
+            setVoiceOn(true);
+            say("intro", { now: true });
+          }}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 1.6, ease }}
+          className="absolute right-[2%] top-[4%] rounded-2xl rounded-bl-sm bg-text px-4 py-2.5 text-sm font-semibold text-white shadow-lg transition-transform hover:-translate-y-0.5"
+        >
+          Hi! Click me for a quick intro
+        </motion.button>
+      )}
     </div>
   );
 }

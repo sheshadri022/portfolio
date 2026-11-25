@@ -4,7 +4,7 @@ import { prefillContact, product, services, type Service } from "@/data/services
 import SectionHeading from "./SectionHeading";
 
 // "Services I Provide" plus the IT Asset & Helpdesk product block.
-// Product items marked live are in the public demo today; the rest is roadmap.
+// Product items marked live are in the SNS Cloud portal today; the rest is roadmap.
 
 const toneText = { magenta: "text-magenta", ice: "text-ice", orchid: "text-orchid", sun: "text-[#9a5b00]" } as const;
 const toneTile = {
@@ -60,7 +60,7 @@ export default function ServicesSection() {
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-orchid/40 bg-orchid/10 px-3 py-1 font-semibold text-orchid">
                     <Sparkles size={14} aria-hidden /> Product
                   </span>
-                  <span className="rounded-full border border-line px-3 py-1 text-faint">Working name</span>
+                  <span className="rounded-full border border-line px-3 py-1 text-faint">Live, free 7-day demo</span>
                 </p>
                 <h2 id="product-title" className="mt-4 font-display text-[clamp(2rem,4.4vw,3.25rem)] leading-[1.02]">
                   {product.name}
@@ -70,20 +70,21 @@ export default function ServicesSection() {
 
                 <div className="mt-7 flex flex-wrap gap-2.5">
                   <a href={product.demo} target="_blank" rel="noreferrer" className="btn btn-primary">
-                    View Demo <ExternalLink size={15} aria-hidden />
+                    Start free demo <ExternalLink size={15} aria-hidden />
                     <span className="sr-only"> (opens in a new tab)</span>
                   </a>
-                  <a href="#contact" onClick={() => prefillContact("IT Asset & Helpdesk demo")} className="btn btn-ghost">
-                    Request Demo
+                  <a href={product.site} target="_blank" rel="noreferrer" className="btn btn-ghost">
+                    Product website
+                    <span className="sr-only"> (opens in a new tab)</span>
                   </a>
                   <a href="#contact" onClick={() => prefillContact("IT Asset & Helpdesk deployment")} className="btn btn-ghost">
                     Discuss Deployment
                   </a>
                 </div>
                 <p className="mt-3 text-xs text-faint">
-                  The free demo server can take about 30 seconds to wake up.{" "}
-                  <a href={product.demoCode} target="_blank" rel="noreferrer" className="font-medium text-ice underline underline-offset-2 hover:text-text">
-                    Demo code on GitHub
+                  No credit card. The demo company resets every night.{" "}
+                  <a href={product.pricing} target="_blank" rel="noreferrer" className="font-medium text-ice underline underline-offset-2 hover:text-text">
+                    See pricing
                   </a>
                 </p>
               </div>
@@ -94,7 +95,7 @@ export default function ServicesSection() {
                     <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
                     <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
                     <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-                    <span className="ml-3 truncate rounded-md bg-white/5 px-3 py-0.5 text-[11px] text-faint">Public demo, sample data</span>
+                    <span className="ml-3 truncate rounded-md bg-white/5 px-3 py-0.5 text-[11px] text-faint">assetdesk.snscloud.in · demo company</span>
                   </div>
                   <img src={shot.src} alt={shot.alt} loading="lazy" className="block w-full" />
                 </figure>
@@ -103,7 +104,7 @@ export default function ServicesSection() {
 
             <div className="relative mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted">
               <span className="inline-flex items-center gap-1.5">
-                <Check size={15} className="text-ice" aria-hidden /> Available now, in the demo
+                <Check size={15} className="text-ice" aria-hidden /> Available now
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <Clock size={15} className="text-faint" aria-hidden /> On the roadmap
@@ -135,11 +136,10 @@ export default function ServicesSection() {
 
             <div className="relative mt-8 rounded-2xl border border-dashed border-line-strong p-5 sm:p-6">
               <h3 className="flex items-center gap-2 font-display text-lg">
-                <Rocket size={18} className="text-orchid" aria-hidden /> SaaS features
-                <span className="ml-1 rounded-full bg-white/5 px-2.5 py-0.5 font-sans text-xs font-normal tracking-normal text-faint">Built, in internal use</span>
+                <Rocket size={18} className="text-orchid" aria-hidden /> Plans and demo
               </h3>
               <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                {product.roadmap.map((r) => (
+                {product.plans.map((r) => (
                   <li key={r.title} className="text-sm">
                     <span className="block font-semibold text-text">{r.title}</span>
                     <span className="mt-0.5 block text-muted">{r.detail}</span>

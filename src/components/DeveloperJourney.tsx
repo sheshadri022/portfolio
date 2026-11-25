@@ -4,7 +4,7 @@ import { journey } from "@/data/profile";
 import ResponsiveImage from "./ResponsiveImage";
 import SectionHeading from "./SectionHeading";
 
-// An excerpt from the real API in the TechOps demo repository.
+// An excerpt from the API in the public sample-data repository (techops-demo-portal).
 const code = [
   ["k", 'router.get("/assets", async (req, res) => {'],
   ["", "  const qp = ListAssetsQueryParams.safeParse(req.query);"],

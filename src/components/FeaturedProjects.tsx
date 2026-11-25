@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from "react";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown, BookOpen, ExternalLink, Github, Lock } from "lucide-react";
+import { BookOpen, CheckCircle2, ExternalLink, Github, PlayCircle } from "lucide-react";
 import { projects, type Project } from "@/data/profile";
 import ProjectCaseStudy from "./ProjectCaseStudy";
 import SectionHeading from "./SectionHeading";
@@ -69,83 +69,23 @@ function Screens({ project }: { project: Project }) {
   );
 }
 
-// The internal portal stays private under company policy, so instead of
-// screenshots it gets an abstract, data-free outline of an app and a pointer
-// to the public demo.
-function ConfidentialFrame() {
+// Projects without screenshots (client work) show the setup as a checklist.
+function ChecklistFrame({ project }: { project: Project }) {
   return (
-    <BrowserFrame url="Internal app, private">
-      <div className="relative aspect-[16/10] overflow-hidden bg-white">
-        <div aria-hidden className="absolute inset-0 flex blur-[3px]">
-          <div className="w-[18%] bg-[#2b2140] p-3">
-            <div className="h-3 w-8 rounded bg-white/25" />
-            {[0, 1, 2, 3, 4].map((k) => (
-              <div key={k} className="mt-3 h-2 rounded bg-white/15" style={{ width: `${70 - k * 8}%` }} />
-            ))}
-          </div>
-          <div className="flex-1 p-4">
-            <div className="h-3 w-1/3 rounded bg-ink-3" />
-            <div className="mt-4 grid grid-cols-4 gap-3">
-              {[0, 1, 2, 3].map((k) => (
-                <div key={k} className="h-12 rounded-lg border border-line bg-ink" />
-              ))}
-            </div>
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              <div className="flex h-28 items-end gap-2 rounded-lg border border-line bg-ink p-3">
-                {[60, 85, 40, 70, 30, 55].map((h, k) => (
-                  <div key={k} className="flex-1 rounded-t bg-[#c9c3dc]" style={{ height: `${h}%` }} />
-                ))}
-              </div>
-              <div className="h-28 rounded-lg border border-line bg-ink" />
-            </div>
-          </div>
-        </div>
-        <div className="absolute inset-0 grid place-items-center bg-white/55 p-4">
-          <div className="max-w-sm rounded-2xl border border-line-strong bg-ink-2 p-5 text-center shadow-[0_20px_40px_-20px_rgba(18,48,71,0.45)] sm:p-6">
-            <span className="mx-auto grid h-11 w-11 place-items-center rounded-full bg-ice/10 text-ice">
-              <Lock size={20} aria-hidden />
-            </span>
-            <p className="mt-3 font-display text-lg font-bold text-text">Screens kept private</p>
-            <p className="mt-1 text-sm leading-relaxed text-muted">
-              Company policy keeps this internal app’s screens and data off public sites. The public demo shows the same idea with sample data.
-            </p>
-            <a href="#product" className="btn btn-ghost mt-4 !min-h-10 text-sm">
-              See the public demo
-              <ArrowDown size={14} aria-hidden />
-            </a>
-          </div>
-        </div>
+    <BrowserFrame url="admin.google.com">
+      <div className="relative flex aspect-[16/10] flex-col justify-center gap-3 bg-gradient-to-br from-[#e8f4ff] via-ink-2 to-ink-3 px-6 sm:px-10">
+        <p className="font-display text-[clamp(1.25rem,2.6vw,1.9rem)] font-bold leading-tight text-text">Workspace setup checklist</p>
+        <ul className="grid gap-2.5 sm:grid-cols-2">
+          {project.checklist!.map((c) => (
+            <li key={c} className="flex items-center gap-2.5 rounded-xl border border-line bg-white/80 px-3.5 py-2.5 text-sm font-medium text-text">
+              <CheckCircle2 size={18} className="shrink-0 text-ice" aria-hidden />
+              {c}
+            </li>
+          ))}
+        </ul>
+        <p className="text-xs text-faint">Done for two businesses.</p>
       </div>
     </BrowserFrame>
-  );
-}
-
-function StoreFrame({ project }: { project: Project }) {
-  return (
-    <figure>
-      <BrowserFrame url="gkfashionsindia.com">
-        <div className="relative flex aspect-[16/10] flex-col bg-gradient-to-br from-wine via-ink-2 to-ink-3">
-          <nav aria-label="Store menu" className="flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-line px-6 py-4">
-            <span className="mr-auto font-display font-bold">GK Fashions</span>
-            {project.storeNav!.map((n) => (
-              <span key={n} className="text-sm text-muted">
-                {n}
-              </span>
-            ))}
-          </nav>
-          <div className="flex flex-1 flex-col items-start justify-center gap-4 px-6 sm:px-10">
-            <p className="font-display text-[clamp(1.5rem,3vw,2.25rem)] font-bold leading-tight">
-              Clothing for men, women and kids, plus NCC uniforms.
-            </p>
-            <a href={project.live!.href} target="_blank" rel="noreferrer" className="btn btn-ghost !min-h-10 text-sm">
-              Visit the live store
-              <ExternalLink size={14} aria-hidden />
-            </a>
-          </div>
-        </div>
-      </BrowserFrame>
-      <figcaption className="mt-3 text-xs text-faint">A sketch of the store’s menu structure. The live site is one click away.</figcaption>
-    </figure>
   );
 }
 
@@ -184,17 +124,11 @@ function ProjectPanel({ project, onCase }: { project: Project; onCase: () => voi
 
       <div className="relative mt-10 grid gap-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)] lg:gap-12">
         <motion.div ref={ref} style={{ rotateX, y, opacity, transformPerspective: 1200, transformOrigin: "50% 100%" }}>
-          {project.confidential ? (
-            <ConfidentialFrame />
-          ) : project.shots ? (
-            <Screens project={project} />
-          ) : (
-            <StoreFrame project={project} />
-          )}
+          {project.shots ? <Screens project={project} /> : <ChecklistFrame project={project} />}
         </motion.div>
 
         <div className="flex flex-col">
-          <h4 className="font-semibold text-text">{project.confidential ? "What I can share" : "Key capabilities"}</h4>
+          <h4 className="font-semibold text-text">Key capabilities</h4>
           <ul className="mt-3 space-y-2.5">
             {project.capabilities.map((c) => (
               <li key={c} className="flex gap-3 text-[0.95rem] leading-relaxed text-muted">
@@ -217,21 +151,15 @@ function ProjectPanel({ project, onCase }: { project: Project; onCase: () => voi
             </>
           )}
 
-          {project.internalLabel && (
-            <p className="mt-8 flex items-center gap-2 text-sm text-muted lg:mt-auto lg:pt-8">
-              <Lock size={15} className="text-ice" aria-hidden />
-              {project.internalLabel}. Screens, data, code and hosting stay private under company policy.
-            </p>
-          )}
-          <div className={`flex flex-wrap gap-3 ${project.internalLabel ? "mt-4" : "mt-8 lg:mt-auto lg:pt-8"}`}>
-            {project.confidential && (
-              <a href="#product" className="btn btn-primary">
-                <ArrowDown size={16} aria-hidden />
-                See the public demo
+          <div className="mt-8 flex flex-wrap gap-3 lg:mt-auto lg:pt-8">
+            {project.demo && (
+              <a href={project.demo.href} target="_blank" rel="noreferrer" className="btn btn-primary">
+                <PlayCircle size={16} aria-hidden />
+                {project.demo.label}
               </a>
             )}
             {project.live && (
-              <a href={project.live.href} target="_blank" rel="noreferrer" className="btn btn-primary">
+              <a href={project.live.href} target="_blank" rel="noreferrer" className={`btn ${project.demo ? "btn-ghost" : "btn-primary"}`}>
                 <ExternalLink size={16} aria-hidden />
                 {project.live.label}
               </a>
@@ -264,7 +192,7 @@ export default function FeaturedProjects() {
           id="projects-title"
           title="Featured projects"
         >
-          Real applications, built from problems I saw in IT operations.
+          Real products and setups, built from problems I saw in IT operations.
         </SectionHeading>
 
         <div className="flex flex-col gap-10">

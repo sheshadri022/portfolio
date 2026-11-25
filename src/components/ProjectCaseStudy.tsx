@@ -122,7 +122,7 @@ export default function ProjectCaseStudy({
 
         <div className="mt-10">
           <h4 className="font-semibold text-text">
-            {project.confidential ? "What I can share" : "What it does"}
+            What it does
           </h4>
           <ul className="mt-3 grid gap-2 sm:grid-cols-2">
             {project.capabilities.map((c) => (

@@ -1,9 +1,8 @@
 import type { LucideIcon } from "lucide-react";
 import { Boxes, Cloud, Globe, Laptop } from "lucide-react";
 
-// Services and the IT Asset & Helpdesk product. Facts only: the product's
-// "available" items are checked against the public demo's code
-// (github.com/sheshadri022/techops-demo-portal); everything else is roadmap.
+// Services and the SNS Cloud IT Asset & Helpdesk Portal. Facts only: the
+// product's "available" items match assetdesk.snscloud.in; everything else is roadmap.
 
 // Contact form options. Service CTAs preselect one of these.
 export const needs = [
@@ -34,8 +33,7 @@ export type Service = {
   tone: "magenta" | "ice" | "orchid" | "sun";
 };
 
-// Working name, not final. Change it here only, once the name is confirmed.
-export const PRODUCT_NAME = "IT Asset & Helpdesk SaaS";
+export const PRODUCT_NAME = "SNS Cloud IT Asset & Helpdesk Portal";
 
 export const services: Service[] = [
   {
@@ -83,7 +81,7 @@ export const services: Service[] = [
       "Website maintenance",
       "Performance optimisation",
     ],
-    // Only tools used in his own projects (GK Fashions, this site, the asset portal).
+    // Only tools used in his own projects (this site, the asset portal, client builds).
     tech: ["GitHub", "Render", "Supabase", "WordPress", "Hostinger"],
     cta: { label: "Start a website", need: "Business website", href: "#contact" },
     tone: "ice",
@@ -92,8 +90,8 @@ export const services: Service[] = [
     id: "saas",
     icon: Boxes,
     title: PRODUCT_NAME,
-    description: "A lightweight IT Asset Management and Helpdesk platform for startups and growing organisations.",
-    capabilities: ["Asset inventory", "Allocation", "Asset lifecycle", "Helpdesk", "Employees", "Onboarding", "Offboarding", "Reports"],
+    description: "My IT asset, helpdesk and procurement platform for Indian companies, set up to each company's workflows. Try it free for 7 days.",
+    capabilities: ["Asset inventory", "Helpdesk & SLAs", "Procurement & POs", "Device agent", "Multiple locations", "Reports", "SSO & email OTP", "DPDP privacy controls"],
     cta: { label: "See the product", href: "#product" },
     tone: "orchid",
   },
@@ -124,54 +122,53 @@ const later = (label: string): ModuleItem => ({ label, live: false });
 
 export const product = {
   name: PRODUCT_NAME,
-  positioning: "A lightweight IT Asset Management and Helpdesk platform for startups and growing organisations.",
-  origin: "Built from my day-to-day IT work. A version runs internally at Miles Education; the public demo uses sample data only.",
-  demo: "https://techops-portal.onrender.com/",
-  demoCode: "https://github.com/sheshadri022/techops-demo-portal",
+  positioning: "Every laptop, ticket and purchase in one IT portal: asset inventory, helpdesk and procurement for Indian companies.",
+  origin: "Built from my day-to-day IT work with AI-assisted development, now a product run by SNS Cloud. The free demo is a full demo company with sample data.",
+  site: "https://assetdesk.snscloud.in/",
+  demo: "https://assetdesk.snscloud.in/trial.html",
+  pricing: "https://assetdesk.snscloud.in/pricing.html",
   shot: {
-    src: "/assets/projects/techops-dashboard.webp",
-    alt: "Dashboard of the public demo showing asset breakdown and ticket trends with sample data",
+    src: "/assets/projects/snscloud-dashboard-full.webp",
+    alt: "SNS Cloud portal dashboard: assets by category, assets by location, asset health and pending actions, with demo company data",
   },
   modules: [
     {
       title: "Asset Inventory",
-      items: [on("Asset records"), on("Device category"), on("Status: available, assigned, maintenance, retired"), on("Condition"), on("Location"), on("Warranty"), on("Purchase date and price")],
-    },
-    {
-      title: "Allocation",
-      items: [on("Assign equipment to employees"), on("Track who holds which device"), on("Current devices per employee"), later("Full allocation history per user")],
-    },
-    {
-      title: "Asset Lifecycle",
-      items: [on("Procurement details recorded"), on("Inventory"), on("Allocation"), on("Support: tickets linked to an asset"), on("Recovery back to stock"), on("Retirement")],
+      items: [on("Devices, accessories and SIM cards"), on("Owner, location and condition"), on("Warranty tracking"), on("Full history per asset"), on("Bulk import")],
     },
     {
       title: "Helpdesk",
-      items: [on("Ticket creation, by IT or by employees"), on("Priority"), on("Status"), on("Tracking: assignee, linked asset, closure")],
+      items: [on("Employee self-service portal"), on("SLA timers"), on("Attachments"), on("Tickets linked to assets")],
     },
     {
-      title: "Employees",
-      items: [on("Employee directory"), on("Assigned devices"), on("Employees see their own assets")],
+      title: "Procurement",
+      items: [on("Purchase requests"), on("Manager, IT Head and Finance approvals"), on("Vendor quote comparison"), on("GST-ready purchase orders"), on("Goods receipt and asset tagging")],
     },
     {
-      title: "Onboarding",
-      items: [on("Asset assignment"), later("New employee IT preparation"), later("Access checklist")],
+      title: "Device Agent",
+      items: [on("Windows and Mac agent"), on("Device health"), on("Remote lock"), later("Remote control sessions"), later("Mobile device management")],
     },
     {
-      title: "Offboarding",
-      items: [on("Asset recovery"), later("Access closure"), later("Device return tracking")],
+      title: "Locations",
+      items: [on("Per-office stock"), on("Per-office requests"), on("Head-office oversight")],
     },
     {
       title: "Reports",
-      items: [on("Asset dashboard"), on("Available vs assigned by category"), on("Ticket trends"), later("Location reports")],
+      items: [on("Spend and utilisation"), on("Ageing and warranty expiry"), on("Weekly summary emails")],
+    },
+    {
+      title: "Sign-in & Security",
+      items: [on("Email OTP sign-in"), on("Single sign-on"), on("DPDP Act 2023 privacy controls")],
+    },
+    {
+      title: "Your Company",
+      items: [on("Set up to your workflows"), on("Priced by company size, in rupees"), on("Hosted in India")],
     },
   ] as ProductModule[],
-  // SaaS capabilities built in the internal version (stated by Sheshadri,
-  // Oct 2026). They are not in the public demo.
-  roadmap: [
-    { title: "Multi-company support", detail: "One platform, separate data per organisation (multi-tenant)" },
-    { title: "Subscription plans", detail: "Plans for different team sizes" },
-    { title: "Role-based access", detail: "Finer roles than just admin and employee sign-in" },
-    { title: "Customer onboarding", detail: "Self-serve setup for a new organisation" },
+  plans: [
+    { title: "7-day free demo", detail: "Full demo company, no credit card" },
+    { title: "Starter to Business", detail: "Flat monthly price by company size" },
+    { title: "Every plan", detail: "Helpdesk, inventory and device agent included" },
+    { title: "Enterprise", detail: "500+ employees or a custom build" },
   ],
 };

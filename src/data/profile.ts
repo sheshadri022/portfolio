@@ -5,9 +5,9 @@ import { years } from "@/lib/career";
 
 export const person = {
   name: "SHESHADRI N",
-  title: "Workplace Technology Specialist",
+  title: "Workplace Technology Support",
   // The hero cycles through these every 3 seconds, starting with the title.
-  titles: ["Workplace Technology Specialist", "IT Asset Management Specialist", "Google Workspace Admin"],
+  titles: ["Workplace Technology Support", "AI-Assisted Developer", "IT Asset Management", "Google Workspace Admin"],
   positioning: [
     "IT Operations",
     "Google Workspace",
@@ -20,7 +20,7 @@ export const person = {
   headline:
     "I manage workplace technology, repair and optimise devices, administer Google Workspace, and build practical software solutions for real business operations.",
   intro:
-    `Workplace Technology professional with ${years}+ years of experience across IT operations, Google Workspace administration, endpoint support, IT asset management and hardware servicing. I also design and deploy websites, internal tools and SaaS applications using AI-assisted full-stack development workflows.`,
+    `Workplace Technology Support professional and AI-assisted developer with ${years}+ years of experience across IT operations, Google Workspace administration, endpoint support, IT asset management and hardware servicing, supporting about 1,200 employees across 13 locations. I built and run the SNS Cloud IT Asset & Helpdesk Portal, and I design and deploy websites and SaaS applications using AI-assisted full-stack development.`,
   location: "Bengaluru, Karnataka",
   email: "sheshadri022@gmail.com",
   phone: "+91 8190062144",
@@ -33,8 +33,8 @@ export const person = {
 
 export const stats = [
   { value: `${years}+`, label: "Years in workplace IT", note: "Miles Education, Oct 2021 to now" },
-  { value: "3", label: "Entities supported", note: "One IT function, three companies" },
-  { value: "AI", label: "Internal tools, built and shipped", note: "Asset & helpdesk portal for Miles Education" },
+  { value: "1,200", label: "Employees supported", note: "Across three group companies" },
+  { value: "13", label: "Office locations", note: "One IT function, every location" },
 ];
 
 export type Entity = {
@@ -70,8 +70,8 @@ export const entities: Entity[] = [
 
 export const about = {
   paragraphs: [
-    "I keep workplaces running: people, devices, accounts and tools. I joined Miles Education in 2021 in Network Support, moved to IT Support in 2022, and have been Associate – Asset Management since 2023, looking after Google Workspace, onboarding/offboarding, L1/L2 helpdesk, laptop servicing and the IT asset lifecycle.",
-    "I also build. Using AI tools, I created our internal IT Asset & Helpdesk Portal, set up Google Workspace for two businesses, and built a complete e-commerce website for a client. For startups, I can plan and set up IT from day one.",
+    "I keep workplaces running: people, devices, accounts and tools. I joined Miles Education in 2021 in Network Support, moved to IT Support in 2022, and since 2023 I have handled workplace technology support (designation: Associate – Asset Management) for about 1,200 employees across 13 locations: Google Workspace, onboarding and offboarding, 400–600 helpdesk tickets a month, laptop servicing and the IT asset lifecycle.",
+    "I also build. With AI-assisted development I built the SNS Cloud IT Asset & Helpdesk Portal, a product companies can try with a free 7-day demo, and I have set up Google Workspace for two businesses. For startups, I can plan and set up IT from day one.",
   ],
   devCapability: {
     title: "AI-Assisted Full-Stack Development",
@@ -113,14 +113,14 @@ export const roles = [
     title: "Associate – Asset Management",
     duration: "Oct 2023 – Present",
     current: true,
-    tags: ["IT asset lifecycle", "Google Workspace admin", "Onboarding & offboarding", "AI-assisted internal tools"],
+    tags: ["Workplace technology support", "IT asset lifecycle", "Google Workspace admin", "Onboarding & offboarding"],
     responsibilities: [
+      "Workplace technology support for about 1,200 employees across three group companies and 13 locations",
+      "400–600 L1/L2 tickets a month on Freshservice, worked against SLA targets",
+      "Weekly onboarding (3 days) and offboarding (3 days): accounts, devices, access and recovery",
       "Own the IT asset lifecycle: procurement, allocation, inventory and SaaS licence tracking",
       "Google Workspace administration: users, groups, security policies, email migration",
-      "Employee onboarding/offboarding and access management",
-      "L1/L2 support on Freshservice with an SLA focus",
       "Windows setup, troubleshooting and hands-on laptop servicing",
-      "Built an internal IT Asset & Helpdesk Portal using AI-assisted development",
     ],
   },
 ];
@@ -131,7 +131,7 @@ export const scopeTrack = [
   "Google Workspace Administration",
   "Workplace Technology Operations",
   "Automation",
-  "AI-assisted internal applications",
+  "AI-assisted applications",
 ];
 
 export type Project = {
@@ -145,61 +145,72 @@ export type Project = {
   capabilities: string[];
   stack: string[];
   shots?: { src: string; srcSm: string; alt: string }[];
-  storeNav?: string[];
+  /** Setup steps shown as a checklist card when there are no screenshots. */
+  checklist?: string[];
   live?: { label: string; href: string };
-  internalLabel?: string;
+  demo?: { label: string; href: string };
   github?: string;
   architecture?: { label: string; detail: string }[];
   privacyNote?: string;
-  /** Screens and details withheld under company policy. */
-  confidential?: boolean;
   /** Text in the browser bar above the screenshots. */
   shotsLabel?: string;
 };
 
 export const projects: Project[] = [
   {
-    id: "itam",
+    id: "snscloud",
     number: "01",
-    name: "Internal IT Asset & Helpdesk Portal",
-    category: "Internal tool, details confidential",
+    name: "SNS Cloud IT Asset & Helpdesk Portal",
+    category: "Product, live with a free demo",
     summary:
-      "An internal IT operations tool I built for my workplace, bringing IT assets, employee allocations and helpdesk requests into one place. Company policy keeps its screens, data and setup private, so this is only the outline.",
+      "My own IT asset management, helpdesk and procurement platform for Indian companies. It grew out of my day-to-day IT work and is now a product with its own website, pricing and a 7-day free demo.",
     problem:
-      "Asset records, who holds which device, and employee support requests were handled by one IT function across several entities. The team needed one place to see and act on all of it.",
+      "IT teams track laptops in spreadsheets, take support requests over chat and email, and buy hardware through long approval threads. Nobody can see who holds which device, what is broken or what is on order.",
     solution:
-      "I designed the workflow from my own day-to-day IT work and built a two-portal web app with AI-assisted development: an admin portal for the IT team and a self-service portal for employees.",
+      "One portal for the whole IT asset lifecycle, built with AI-assisted development: an admin portal for IT, a self-service portal for employees, a procurement workflow with approvals, and a device agent on Windows and Mac.",
     capabilities: [
-      "Used by the IT team in daily operations",
-      "Assets, who holds them, and support requests in one place",
-      "Admin portal for IT, self-service portal for employees",
-      "Designed from my own IT workflow, built with AI-assisted development",
+      "Asset inventory for devices, accessories and SIM cards, with owner, location, warranty and full history",
+      "Helpdesk where employees raise tickets from their own portal, with SLA timers and attachments",
+      "Procurement: request, manager approval, vendor quotes, IT Head and Finance sign-off, GST-ready PO, goods receipt and asset tagging",
+      "Windows and Mac device agent that reports device health and supports remote lock",
+      "Per-location stock and requests with head-office oversight, plus spend, ageing and warranty reports",
+      "Email OTP and single sign-on, with DPDP Act 2023 privacy controls",
     ],
-    stack: [],
-    confidential: true,
-    internalLabel: "Internal application",
-    privacyNote:
-      "The production portal is internal to my employer. Its screens, data, code and hosting are not shared here. The public demo in the Product section is a separate build that uses sample data only.",
+    stack: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL", "Tailwind CSS", "Cloudflare", "AI-assisted development"],
+    architecture: [
+      { label: "Employees", detail: "Raise tickets, see their own assets, request purchases" },
+      { label: "IT admin portal", detail: "Inventory, helpdesk, procurement, reports" },
+      { label: "Device agent", detail: "Health and remote lock on Windows and Mac" },
+      { label: "Approvers", detail: "Manager, IT Head and Finance sign-off" },
+    ],
+    shotsLabel: "assetdesk.snscloud.in",
+    shots: [
+      { src: "/assets/projects/snscloud-dashboard.webp", srcSm: "/assets/projects/snscloud-dashboard-sm.webp", alt: "SNS Cloud portal dashboard with assets by category, assets by location, asset health and pending actions, demo company data" },
+      { src: "/assets/projects/snscloud-site.webp", srcSm: "/assets/projects/snscloud-site-sm.webp", alt: "SNS Cloud product website home: Every laptop, ticket and purchase. One IT portal." },
+      { src: "/assets/projects/snscloud-demo.webp", srcSm: "/assets/projects/snscloud-demo-sm.webp", alt: "Free 7-day demo sign-up page for the SNS Cloud portal" },
+    ],
+    live: { label: "Product website", href: "https://assetdesk.snscloud.in/" },
+    demo: { label: "Start free demo", href: "https://assetdesk.snscloud.in/trial.html" },
   },
   {
-    id: "gk",
+    id: "workspace",
     number: "02",
-    name: "GK Fashions – E-Commerce Portal",
-    category: "Public e-commerce website",
+    name: "Google Workspace Setup for Two Businesses",
+    category: "Freelance IT setup",
     summary:
-      "Customer-facing e-commerce platform for GK Fashions, giving shoppers an online store for clothing and fashion products.",
+      "End-to-end Google Workspace setup for two businesses, so each team started with business email on its own domain and an admin who controls access.",
     problem:
-      "GK Fashions needed an online store where customers could browse the range and pay online.",
+      "Both businesses were starting out on personal email, with no company domain mail and no central control over accounts.",
     solution:
-      "I built and set up the storefront on WordPress, organised the catalogue by shopper and connected online payments.",
+      "I verified each domain, set up business email, created the user accounts and handed over admin access, so the owners run Workspace themselves.",
     capabilities: [
-      "Catalogue organised as All, Men, Women, Kids and NCC Uniforms",
-      "Online payments through Cashfree",
-      "Order and support contact by phone, WhatsApp and email",
+      "Domain verification",
+      "Business email on the company domain",
+      "User accounts for the team",
+      "Admin access handed over to the owner",
     ],
-    stack: ["WordPress", "Cashfree", "Hostinger"],
-    storeNav: ["All", "Men", "Women", "Kids", "NCC Uniforms"],
-    live: { label: "Live website", href: "https://gkfashionsindia.com/" },
+    stack: ["Google Workspace", "Google Admin Console", "DNS"],
+    checklist: ["Domain verified", "Business email live", "User accounts created", "Admin access handed over"],
   },
   {
     id: "portfolio",
@@ -233,9 +244,9 @@ export const journey = [
   { title: "Problem observed in IT operations", text: "Day-to-day IT work showed where asset tracking and support requests needed a proper system." },
   { title: "Workflow understood", text: "I mapped how a device moves: purchase, allocation, support, warranty, recovery." },
   { title: "Solution designed", text: "Two portals: one for the IT team, one for employees to help themselves." },
-  { title: "Built with AI-assisted development", text: "React and TypeScript frontend, Express API and PostgreSQL, built with Replit's AI tooling." },
-  { title: "Deployed with GitHub, Supabase and Render", text: "Code on GitHub, PostgreSQL on Render or Supabase, frontend and API on Render." },
-  { title: "Used for real operational work", text: "The internal version supports the IT function at Miles Education." },
+  { title: "Built with AI-assisted development", text: "React and TypeScript frontend, Express API and PostgreSQL, built with AI coding tools." },
+  { title: "Shipped and hosted", text: "Code on GitHub, first deployed on Render and Supabase, now self-hosted behind Cloudflare." },
+  { title: "Now a product", text: "Proven in day-to-day IT work, now the SNS Cloud IT Asset & Helpdesk Portal with a free demo." },
 ];
 
 export const skillGroups = [
@@ -314,7 +325,7 @@ export const certifications = [
 ];
 
 export const education = [
-  { degree: "Bachelor of Commerce (B.Com)", school: "MGR College, Hosur", board: "Periyar University", year: "2021" },
+  { degree: "Bachelor of Commerce (B.Com)", school: "MGR Arts & Science College, Hosur", board: "Periyar University", year: "2018 – 2021" },
   { degree: "Higher Secondary (+2) – Commerce", school: "R.V. Government Higher Secondary School, Hosur", board: "State Board", year: "2018" },
   { degree: "SSLC / 10th", school: "R.V. Government Higher Secondary School, Hosur", board: "State Board", year: "2016" },
 ];

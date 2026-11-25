@@ -97,7 +97,7 @@ function ProjectPanel({ project, onCase }: { project: Project; onCase: () => voi
   const opacity = useTransform(scrollYProgress, [0, 0.4], [0.2, 1]);
 
   return (
-    <article aria-labelledby={`p-${project.id}`} className="glass relative overflow-hidden rounded-[var(--radius-panel)] p-6 sm:p-10 lg:p-12">
+    <article id={`project-${project.id}`} aria-labelledby={`p-${project.id}`} className="glass scroll-mt-24 relative overflow-hidden rounded-[var(--radius-panel)] p-6 sm:p-10 lg:p-12">
       <div
         aria-hidden
         className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full"

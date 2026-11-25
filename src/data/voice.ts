@@ -48,13 +48,6 @@ export const avatarClips: Clip[] = [
       "Here's what I offer: laptop repairs and upgrades, business websites, Google Workspace setup for growing teams, and my IT asset and helpdesk platform. Pick a service and the contact form is ready for you.",
   },
   {
-    id: "product",
-    section: "product",
-    label: "The platform",
-    script:
-      "This is my IT asset and helpdesk platform: devices, who has them, and support tickets. Ticks show what works in the demo today. Clocks show what's next.",
-  },
-  {
     id: "journey",
     section: "journey",
     label: "How I build",

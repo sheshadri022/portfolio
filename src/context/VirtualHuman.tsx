@@ -3,7 +3,7 @@ import { useActiveSection } from "@/hooks/useActiveSection";
 
 export type VirtualHumanState = "idle" | "greeting" | "explaining" | "projects" | "skills" | "contact";
 
-export const sectionIds = ["home", "about", "services", "product", "projects", "journey", "experience", "education", "skills", "certifications", "contact"];
+export const sectionIds = ["home", "about", "services", "projects", "journey", "experience", "education", "skills", "certifications", "contact"];
 
 const sectionToState: Record<string, VirtualHumanState> = {
   home: "greeting",

@@ -12,8 +12,8 @@ Live: [snscloud.in](https://snscloud.in) · LinkedIn: [sheshadri-n](https://www.
 |---|---|
 | ![The 3D guide explaining the Services section](public/assets/projects/portfolio-guide.webp) | ![Services I provide](docs/screenshots/services.webp) |
 | **3D guide** explains each section as you scroll or point | **Services** with a contact form that pre-selects the right option |
-| ![IT Asset & Helpdesk product block with the public demo](docs/screenshots/product.webp) | ![Featured projects](docs/screenshots/projects.webp) |
-| **Product**: the SNS Cloud IT Asset & Helpdesk Portal with its free 7-day demo | **Projects**: SNS Cloud portal, Workspace setups and this site |
+| ![Mobile view](docs/screenshots/mobile.webp) | ![Featured projects](docs/screenshots/projects.webp) |
+| **Mobile**: the same site on a phone | **Projects**: SNS Cloud portal, Workspace setups and this site |
 | ![Skills with click-to-explain cards](public/assets/projects/portfolio-skills.webp) | ![Certifications](public/assets/projects/portfolio-certs.webp) |
 | **Skills**: click any card to have it explained | **Certifications** with verify links |
 | ![About me with the ID card](docs/screenshots/about.webp) | ![Experience](docs/screenshots/experience.webp) |
@@ -87,7 +87,7 @@ Light sky-blue theme with deep navy text, a burnt-coral accent and teal for link
 
 Services I Provide (`src/data/services.ts`): Laptop Repair & Upgrade Services, Business Website Development, SNS Cloud IT Asset & Helpdesk Portal and Google Workspace & IT Setup. Each card's button jumps to Contact with "What do you need?" already picked.
 
-Product block (`#product`): the SNS Cloud IT Asset & Helpdesk Portal, linking to the product website (assetdesk.snscloud.in), the free 7-day demo and pricing. Module items marked available match the product website; the rest are on the roadmap. Featured projects: 01 SNS Cloud portal, 02 Google Workspace setup for two businesses, 03 this portfolio.
+Featured projects: 01 SNS Cloud IT Asset & Helpdesk Portal (screenshots, free demo and product website links), 02 Google Workspace setup for two businesses, 03 this portfolio. There is no separate product block; the services card and the hero hotspot link to `#project-snscloud`.
 
 Laptop repairs carry the note "Hardware repairs are subject to inspection, parts availability and device condition." No manufacturer authorisation is claimed.
 
@@ -102,7 +102,7 @@ Hero, ID card, skills and certifications
 
 - Once the guide is started (speech bubble, Click to interact or the speaker button), it stays docked while you scroll: each section is explained once when you settle on it, and resting the mouse on a section explains that section (`src/components/GuideFollower.tsx`). It stays quiet while a skill or certificate dialog is open, and the X turns it off. Pointing at a menu item also explains that section. "Click to interact" in the hero, or the speaker button in the navbar, turns the voice on. Browsers block sound until the visitor clicks once, so before that clips play muted with captions.
 - Poses: `public/assets/avatars/` holds his avatar set (id-front, seated, developer). Real-photo poses are used in About (ID card), Experience and Developer journey; the floating 3D guide changes its ring colour by section.
-- Clips: `public/assets/avatar/*.webm|mp4` (intro, about, services, product, projects, journey, experience, education, skills, certifications, contact), lip-synced on a 3D character based on his photo with a neutral AI voice (Higgsfield: Seed Audio voice "Julian", Wan 2.7). Scripts live in `src/data/voice.ts`; change a script there and regenerate its clip.
+- Clips: `public/assets/avatar/*.webm|mp4` (intro, about, services, projects, journey, experience, education, skills, certifications, contact), lip-synced on a 3D character based on his photo with a neutral AI voice (Higgsfield: Seed Audio voice "Julian", Wan 2.7). Scripts live in `src/data/voice.ts`; change a script there and regenerate its clip.
 - Skills: each card's panel plays a step-by-step explainer timed to an AI voice-over in `public/assets/voice/*.mp3`.
 - Everything loads only when played, and the site labels the voice and animation as AI.
 

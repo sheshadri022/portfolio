@@ -43,7 +43,7 @@ export const questions: Question[] = [
       links: [
         { label: "Start free demo", href: product.demo },
         { label: "Product website", href: product.site },
-        { label: "See the product", href: "#product" },
+        { label: "See the project", href: "#project-snscloud" },
       ],
     },
   },

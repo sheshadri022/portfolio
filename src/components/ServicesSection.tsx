@@ -1,10 +1,9 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Check, Clock, ExternalLink, Info, Rocket, Sparkles } from "lucide-react";
-import { prefillContact, product, services, type Service } from "@/data/services";
+import { ArrowRight, Info } from "lucide-react";
+import { prefillContact, services, type Service } from "@/data/services";
 import SectionHeading from "./SectionHeading";
 
-// "Services I Provide" plus the IT Asset & Helpdesk product block.
-// Product items marked live are in the SNS Cloud portal today; the rest is roadmap.
+// "Services I Provide". The SNS Cloud portal itself is shown in Featured projects.
 
 const toneText = { magenta: "text-magenta", ice: "text-ice", orchid: "text-orchid", sun: "text-[#9a5b00]" } as const;
 const toneTile = {
@@ -20,7 +19,6 @@ const toneHover = {
   sun: "hover:border-[#9a5b00]/45",
 } as const;
 
-const shot = product.shot;
 
 export default function ServicesSection() {
   const reduce = useReducedMotion();
@@ -48,108 +46,6 @@ export default function ServicesSection() {
         </div>
       </section>
 
-      <section id="product" aria-labelledby="product-title" className="section pt-0">
-        <div className="container-x">
-          <div className="relative overflow-hidden rounded-[28px] border border-line-strong bg-gradient-to-br from-[#ffe7dc] via-ink-2 to-ink-2 p-6 sm:p-10">
-            <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-orchid/20 blur-3xl" />
-            <div aria-hidden className="pointer-events-none absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-magenta/15 blur-3xl" />
-
-            <div className="relative grid items-center gap-8 lg:grid-cols-[1.05fr_1fr] lg:gap-12">
-              <div>
-                <p className="flex flex-wrap items-center gap-2 text-sm">
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-orchid/40 bg-orchid/10 px-3 py-1 font-semibold text-orchid">
-                    <Sparkles size={14} aria-hidden /> Product
-                  </span>
-                  <span className="rounded-full border border-line px-3 py-1 text-faint">Live, free 7-day demo</span>
-                </p>
-                <h2 id="product-title" className="mt-4 font-display text-[clamp(2rem,4.4vw,3.25rem)] leading-[1.02]">
-                  {product.name}
-                </h2>
-                <p className="mt-4 text-lg leading-relaxed text-text/90">{product.positioning}</p>
-                <p className="mt-3 text-sm leading-relaxed text-muted">{product.origin}</p>
-
-                <div className="mt-7 flex flex-wrap gap-2.5">
-                  <a href={product.demo} target="_blank" rel="noreferrer" className="btn btn-primary">
-                    Start free demo <ExternalLink size={15} aria-hidden />
-                    <span className="sr-only"> (opens in a new tab)</span>
-                  </a>
-                  <a href={product.site} target="_blank" rel="noreferrer" className="btn btn-ghost">
-                    Product website
-                    <span className="sr-only"> (opens in a new tab)</span>
-                  </a>
-                  <a href="#contact" onClick={() => prefillContact("IT Asset & Helpdesk deployment")} className="btn btn-ghost">
-                    Discuss Deployment
-                  </a>
-                </div>
-                <p className="mt-3 text-xs text-faint">
-                  No credit card. The demo company resets every night.{" "}
-                  <a href={product.pricing} target="_blank" rel="noreferrer" className="font-medium text-ice underline underline-offset-2 hover:text-text">
-                    See pricing
-                  </a>
-                </p>
-              </div>
-
-              {shot && (
-                <figure className="overflow-hidden rounded-2xl border border-line-strong bg-ink shadow-[0_30px_80px_-30px_rgb(18_48_71/0.4)]">
-                  <div className="flex items-center gap-1.5 border-b border-line px-4 py-2.5" aria-hidden>
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-                    <span className="ml-3 truncate rounded-md bg-white/5 px-3 py-0.5 text-[11px] text-faint">assetdesk.snscloud.in · demo company</span>
-                  </div>
-                  <img src={shot.src} alt={shot.alt} loading="lazy" className="block w-full" />
-                </figure>
-              )}
-            </div>
-
-            <div className="relative mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted">
-              <span className="inline-flex items-center gap-1.5">
-                <Check size={15} className="text-ice" aria-hidden /> Available now
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <Clock size={15} className="text-faint" aria-hidden /> On the roadmap
-              </span>
-            </div>
-
-            <ul className="relative mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {product.modules.map((m) => (
-                <li key={m.title} className="rounded-2xl border border-line bg-ink/55 p-5">
-                  <h3 className="font-display text-lg text-text">{m.title}</h3>
-                  <ul className="mt-3 space-y-2 text-sm">
-                    {m.items.map((it) => (
-                      <li key={it.label} className={`flex items-start gap-2 ${it.live ? "text-text/90" : "text-muted"}`}>
-                        {it.live ? (
-                          <Check size={15} className="mt-0.5 shrink-0 text-ice" aria-hidden />
-                        ) : (
-                          <Clock size={15} className="mt-0.5 shrink-0 text-faint" aria-hidden />
-                        )}
-                        <span>
-                          {it.label}
-                          <span className="sr-only">{it.live ? " (available now)" : " (on the roadmap)"}</span>
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </ul>
-
-            <div className="relative mt-8 rounded-2xl border border-dashed border-line-strong p-5 sm:p-6">
-              <h3 className="flex items-center gap-2 font-display text-lg">
-                <Rocket size={18} className="text-orchid" aria-hidden /> Plans and demo
-              </h3>
-              <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                {product.plans.map((r) => (
-                  <li key={r.title} className="text-sm">
-                    <span className="block font-semibold text-text">{r.title}</span>
-                    <span className="mt-0.5 block text-muted">{r.detail}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   );
 }
